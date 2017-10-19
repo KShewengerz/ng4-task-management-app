@@ -1,2 +1,4 @@
-#Node Modules
+
+#Ignore Files
 node_modules/
+.idea/
