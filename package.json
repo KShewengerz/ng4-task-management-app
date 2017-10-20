@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "ng-start": "cd ./public/app && npm start",
+    "express-start": "nodemon ./bin/www",
+    "start": "concurrently \"npm run express-start\" \"npm run ng-start\""
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -15,6 +17,9 @@
     "serve-favicon": "~2.4.2"
   },
   "devDependencies": {
-    "@angular/cli": "^1.4.8"
+    "@angular/cli": "^1.4.8",
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.12.1",
+    "path": "^0.12.7"
   }
 }
