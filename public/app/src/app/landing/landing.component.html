@@ -1,47 +1,158 @@
 
-<div class="wrapper">
+<div id="wrapper">
   <div class="container">
     <div class="mdl-grid clear-padding">
-      <div class="mdl-cell mdl-cell--5-col clear-margin">
-        <div class="mdl-cell mdl-cell--12-col logo">
+      <div class="mdl-cell mdl-cell--5-col mdl-cell--12-col-tablet clear-margin">
+
+        <!-- Logo & Title  -->
+        <div id="logo"
+             class="mdl-cell mdl-cell--12-col white">
 
           <div class="mdl-typography--text-center">
-            <mdl-icon>assignment_turned_in</mdl-icon>
-          </div>
+            <mdl-icon class="white">assignment_turned_in</mdl-icon>
+          </div><!-- END .mdl-typography--text-center -->
 
-          <div class="title mdl-typography--text-center">
+          <div id="title"
+               class="mdl-typography--text-center">
             <h1>Task Board</h1>
-            <p>Manage and Organize your tasks</p>
-          </div>
+            <p class="light-gray">Manage and Organize your tasks</p>
+          </div><br/><!-- END #title -->
 
-          <br/>
-
-          <div class="features">
+          <!-- Features -->
+          <div id="features">
             <p>
               <mdl-icon class="align-middle">done</mdl-icon>
               <span>Keep your tasks on track</span>
             </p>
+
             <p>
               <mdl-icon class="align-middle">done</mdl-icon>
               <span>Set task schedules and deadlines</span>
             </p>
+
             <p>
               <mdl-icon class="align-middle">done</mdl-icon>
               <span>Add Task Reminder</span>
             </p>
+
             <p>
               <mdl-icon class="align-middle">done</mdl-icon>
               <span>Categorize your tasks</span>
             </p>
+          </div><!-- END #features -->
+        </div><!-- END #logo -->
+      </div><!-- END .mdl-cell -->
 
-          </div>
-        </div>
-      </div>
 
-      <div class="mdl-cell mdl-cell--7-col">
-        <h1>Sample</h1>
-      </div>
+      <div id="form"
+           class="mdl-cell mdl-cell--7-col mdl-cell--12-col-tablet">
 
-    </div>
-  </div>
-</div>
+        <!-- Login and Sign Up Tabs -->
+        <div id="breadcrumbs"
+             class="dark-blue">
+          <span [ngClass]="{active: isLogin}"
+                (click)="isLogin=true;isSignUp=false">Login </span>
+          &nbsp; <span>/</span> &nbsp;
+          <span [ngClass]="{active: isSignUp}"
+                (click)="isSignUp=true;isLogin=false">Sign Up</span>
+        </div><!--  END #breadcrumbs -->
+
+        <div class="container">
+
+          <!-- Login Form -->
+          <div *ngIf="isLogin"
+               class="login-form">
+
+            <form [formGroup]="loginForm">
+              <p>
+                <mdl-textfield  type="text"
+                                label="Username"
+                                [formControlName]="'username'"
+                                floating-label>
+                </mdl-textfield>
+              </p>
+
+              <p>
+                <mdl-textfield 	type="password"
+                                label="Password"
+                                [formControlName]="'password'"
+                                floating-label>
+                </mdl-textfield>
+              </p>
+
+              <br/>
+
+              <div class="mdl-typography--text-center">
+                <button class="light-red"
+                        mdl-button
+                        mdl-ripple>LOGIN</button>
+              </div><!-- END .mdl-typography--text-center -->
+
+              <div id="forgot-password">
+                <p class="gray">
+                  <span>Forgot your password?</span> <span class="light-red"><strong>Click Here</strong></span>
+                </p>
+              </div><!-- END #forgot-password -->
+            </form>
+          </div><!-- END ngIf(isLogin) -->
+
+          <!-- Sign Up Form -->
+          <div *ngIf="isSignUp"
+               class="sign-up">
+            <form [formGroup]="signupForm">
+
+              <p>
+                <mdl-textfield  type="text"
+                                label="First Name"
+                                [formControlName]="'firstName'"
+                                floating-label>
+                </mdl-textfield>
+              </p>
+
+              <p>
+                <mdl-textfield  type="text"
+                                label="Last Name"
+                                [formControlName]="'lastName'"
+                                floating-label>
+                </mdl-textfield>
+              </p>
+
+              <p>
+                <mdl-textfield  type="text"
+                                label="Email Address"
+                                [formControlName]="'emailAddress'"
+                                floating-label>
+                </mdl-textfield>
+              </p>
+
+              <p>
+                <mdl-textfield  type="text"
+                                label="Username"
+                                [formControlName]="'username'"
+                                floating-label>
+                </mdl-textfield>
+              </p>
+
+              <p>
+                <mdl-textfield 	type="password"
+                                label="Password"
+                                [formControlName]="'password'"
+                                floating-label>
+                </mdl-textfield>
+              </p><br/>
+
+              <div class="mdl-typography--text-center">
+                <button class="light-red"
+                        mdl-button
+                        mdl-ripple>REGISTER</button>
+              </div><br/><!--END .mdl-typography--text-center -->
+
+            </form>
+          </div><!-- END ngIf(isSignUp) -->
+
+        </div><!-- END .container -->
+      </div><!-- END #form -->
+
+    </div><!-- END .mdl-grid -->
+  </div><!-- END .container -->
+</div><!-- END .wrapper -->

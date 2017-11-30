@@ -19,7 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "assets/css/mdl-red-orange.min.css",
+        "assets/css/mdl-grey-red.min.css",
         "assets/css/material-icons.css",
         "assets/css/global.css"
       ],

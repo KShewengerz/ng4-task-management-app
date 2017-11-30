@@ -1,5 +1,6 @@
 
-.wrapper {
+/* Containers */
+#wrapper {
   background-image: linear-gradient(rgba(53, 64, 82, 0.75), rgba(53, 64, 82, 0.85)),
                     url('../../assets/img/landing-bg.jpg');
   background-position: center;
@@ -11,16 +12,17 @@
   position: absolute;
 }
 
-.container {
+#wrapper > .container {
   background-color: white;
   position: relative;
-  margin:0 auto;
-  top:50%;
+  margin: 0 auto;
+  top: 50%;
   transform: translateY(-50%);
   width: 800px;
   max-width: 100%;
 }
 
+/* Mdl */
 .mdl-grid > .mdl-cell:first-child {
   background-image: linear-gradient(rgba(216, 97, 93, 0.75), rgba(216, 97, 93, 0.75)),
                     url('../../assets/img/landing-form-bg.jpg');
@@ -28,25 +30,58 @@
   background-repeat: no-repeat;
   -webkit-background-size: cover;
   background-size: cover;
-  height: 500px;
+  height: 523px;
+  max-height: 100%;
 }
 
-.logo { color: white; }
+.mdl-cell--7-col { width: calc(58.3333333333% - 0px); }
 
-.logo .material-icons {
-  font-size: 70px;
+.mdl-textfield { width: 98%; }
+
+/* Logo */
+
+#logo .material-icons { font-size: 70px; }
+
+#logo > div:first-child { margin-top: 70px; }
+
+#logo #title p { font-size: 12px; }
+
+/* Features */
+#features { padding-left: 15px; }
+
+#features .material-icons { font-size: 20px; }
+
+#features span { font-size: 13px; }
+
+/* Form */
+#form { padding: 20px; }
+
+#breadcrumbs { margin-top: 15px; }
+
+#breadcrumbs span {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#breadcrumbs span.active { color: #d8615d; }
+
+#form .container { margin-top: 20px; }
+
+#forgot-password {
+  position: absolute;
+  bottom: 20px;
+  right: 35px;
+}
+
+#forgot-password p { font-size: 12px; }
+
+button.mdl-button {
+  border: 1px solid #d8605c;
+  width: 105px;
+  max-width: 100%;
+}
+
+button.mdl-button:hover {
+  background-color: #d8605c;
   color: white;
 }
-
-.logo > div:first-child { margin-top: 70px; }
-
-.logo .title p {
-  font-size: 12px;
-  color: #f7f6f6e6;
-}
-
-.features { padding-left: 15px; }
-
-.features .material-icons { font-size: 20px; }
-
-.features span { font-size: 13px; }

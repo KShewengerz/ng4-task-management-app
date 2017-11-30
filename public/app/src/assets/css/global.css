@@ -39,6 +39,17 @@ h5 { font-size: 1.4em; }
 
 p { font-size: 1.2em; }
 
+/* Color Palette */
+.white { color: white; }
+
+.gray { color: gray; }
+
+.dark-blue { color: #2d3545; }
+
+.light-red { color: #d8615d; }
+
+.light-gray { color: #f7f6f6e6; }
+
 /* Table */
 table {
   border-spacing: 0;
@@ -49,5 +60,8 @@ td {
   text-align: left;
   font-weight: normal;
 }
+
+/* Forms */
+form p { margin-bottom: 0; }
 
 
