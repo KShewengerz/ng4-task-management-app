@@ -20,7 +20,8 @@
       "prefix": "app",
       "styles": [
         "assets/css/mdl-red-orange.min.css",
-        "assets/css/material-icons.css"
+        "assets/css/material-icons.css",
+        "assets/css/global.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
