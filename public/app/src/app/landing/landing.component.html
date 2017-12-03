@@ -1,6 +1,6 @@
 
 <div id="wrapper">
-  <div class="container">
+  <div class="container mdl-cell--6-col-tablet">
     <div class="mdl-grid clear-padding">
       <div class="mdl-cell mdl-cell--5-col mdl-cell--12-col-tablet clear-margin">
 
@@ -61,7 +61,7 @@
 
           <!-- Login Form -->
           <div *ngIf="isLogin"
-               class="login-form">
+               id="login">
 
             <form [formGroup]="loginForm">
               <p>
@@ -98,7 +98,7 @@
 
           <!-- Sign Up Form -->
           <div *ngIf="isSignUp"
-               class="sign-up">
+               id="sign-up">
             <form [formGroup]="signupForm">
 
               <p>
