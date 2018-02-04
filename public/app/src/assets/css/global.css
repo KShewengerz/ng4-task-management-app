@@ -40,15 +40,17 @@ h5 { font-size: 1.4em; }
 p { font-size: 1.2em; }
 
 /* Color Palette */
-.white { color: white; }
+.text-white { color: white; }
 
-.gray { color: gray; }
+.text-gray { color: gray; }
 
-.dark-blue { color: #2d3545; }
+.text-red { color: red; }
 
-.light-red { color: #d8615d; }
+.text-dark-blue { color: #2d3545; }
 
-.light-gray { color: #f7f6f6e6; }
+.text-light-red { color: #d8615d; }
+
+.text-light-gray { color: #f7f6f6e6; }
 
 /* Table */
 table {

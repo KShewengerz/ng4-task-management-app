@@ -6,16 +6,16 @@
 
         <!-- Logo & Title  -->
         <div id="logo"
-             class="mdl-cell mdl-cell--12-col white">
+             class="mdl-cell mdl-cell--12-col text-white">
 
           <div class="mdl-typography--text-center">
-            <mdl-icon class="white">assignment_turned_in</mdl-icon>
+            <mdl-icon class="text-white">assignment_turned_in</mdl-icon>
           </div><!-- END .mdl-typography--text-center -->
 
           <div id="title"
                class="mdl-typography--text-center">
             <h1>Task Board</h1>
-            <p class="light-gray">Manage and Organize your tasks</p>
+            <p class="text-light-text-gray">Manage and Organize your tasks</p>
           </div><br/><!-- END #title -->
 
           <!-- Features -->
@@ -49,7 +49,7 @@
 
         <!-- Login and Sign Up Tabs -->
         <div id="breadcrumbs"
-             class="dark-blue">
+             class="text-dark-blue">
           <span [ngClass]="{active: isLogin}"
                 (click)="isLogin=true;isSignUp=false">Login </span>
           &nbsp; <span>/</span> &nbsp;
@@ -67,7 +67,7 @@
               <p>
                 <mdl-textfield  type="text"
                                 label="Username"
-                                [formControlName]="'username'"
+                                formControlName="username"
                                 floating-label>
                 </mdl-textfield>
               </p>
@@ -75,7 +75,7 @@
               <p>
                 <mdl-textfield 	type="password"
                                 label="Password"
-                                [formControlName]="'password'"
+                                formControlName="password"
                                 floating-label>
                 </mdl-textfield>
               </p>
@@ -83,14 +83,15 @@
               <br/>
 
               <div class="mdl-typography--text-center">
-                <button class="light-red"
+                <button class="text-light-red"
                         mdl-button
-                        mdl-ripple>LOGIN</button>
+                        mdl-ripple
+                        (click)="login(loginForm.value)">LOGIN</button>
               </div><!-- END .mdl-typography--text-center -->
 
               <div id="forgot-password">
-                <p class="gray">
-                  <span>Forgot your password?</span> <span class="light-red"><strong>Click Here</strong></span>
+                <p class="text-gray">
+                  <span>Forgot your password?</span> <span class="text-light-red"><strong>Click Here</strong></span>
                 </p>
               </div><!-- END #forgot-password -->
             </form>
@@ -104,7 +105,7 @@
               <p>
                 <mdl-textfield  type="text"
                                 label="First Name"
-                                [formControlName]="'firstName'"
+                                formControlName="firstName"
                                 floating-label>
                 </mdl-textfield>
               </p>
@@ -112,7 +113,7 @@
               <p>
                 <mdl-textfield  type="text"
                                 label="Last Name"
-                                [formControlName]="'lastName'"
+                                formControlName="lastName"
                                 floating-label>
                 </mdl-textfield>
               </p>
@@ -120,7 +121,7 @@
               <p>
                 <mdl-textfield  type="text"
                                 label="Email Address"
-                                [formControlName]="'emailAddress'"
+                                formControlName="emailAddress"
                                 floating-label>
                 </mdl-textfield>
               </p>
@@ -128,7 +129,7 @@
               <p>
                 <mdl-textfield  type="text"
                                 label="Username"
-                                [formControlName]="'username'"
+                                formControlName="username"
                                 floating-label>
                 </mdl-textfield>
               </p>
@@ -136,15 +137,16 @@
               <p>
                 <mdl-textfield 	type="password"
                                 label="Password"
-                                [formControlName]="'password'"
+                                formControlName="password"
                                 floating-label>
                 </mdl-textfield>
               </p><br/>
 
               <div class="mdl-typography--text-center">
-                <button class="light-red"
+                <button class="text-light-red"
                         mdl-button
-                        mdl-ripple>REGISTER</button>
+                        mdl-ripple
+                        (click)="register(signupForm.value)">REGISTER</button>
               </div><br/><!--END .mdl-typography--text-center -->
 
             </form>

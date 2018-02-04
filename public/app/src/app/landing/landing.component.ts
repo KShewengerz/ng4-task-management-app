@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { Credential } from './landing.model';
+import { User } from './landing.model';
 
 
 @Component({
@@ -20,12 +20,6 @@ export class LandingComponent implements OnInit {
   isLogin: boolean = true;
   isSignUp: boolean = false;
 
-  firstName    = new FormControl('', Validators.required);
-  lastName     = new FormControl('', Validators.required);
-  emailAddress = new FormControl('', Validators.required);
-  username     = new FormControl('', Validators.required);
-  password     = new FormControl('', Validators.required);
-
   constructor(private router: Router,
               private fb: FormBuilder) {}
 
@@ -35,21 +29,27 @@ export class LandingComponent implements OnInit {
 
   buildForm(): void {
     this.loginForm = this.fb.group({
-      'username':   this.username,
-      'password':   this.password
+      'username': ['', Validators.required],
+      'password': ['', Validators.required]
     });
 
     this.signupForm = this.fb.group({
-      'firstName'   : this.firstName,
-      'lastName'    : this.lastName,
-      'emailAddress': this.emailAddress,
-      'username'    : this.username,
-      'password'    : this.password
+      'firstName'   : ['', Validators.required],
+      'lastName'    : ['', Validators.required],
+      'emailAddress': ['', Validators.required],
+      'username'    : ['', Validators.required],
+      'password'    : ['', Validators.required]
     });
   }
 
-  login(user: Credential) {
+  login(user: User): void {
     console.log(user);
+    this.router.navigate(['/dashboard']);
+  }
+
+  register(user: User): void {
+    console.log(user);
+    this.router.navigate(['/dashboard']);
   }
 
 }
