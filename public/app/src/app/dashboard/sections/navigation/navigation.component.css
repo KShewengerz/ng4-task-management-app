@@ -1,0 +1,43 @@
+
+
+.mdl-navigation { padding-top: 0; }
+
+p {
+  margin-left: 15px;
+  margin-bottom: 0;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+li > a { color: #2d3545 !important; }
+
+ul#tasks a { padding: 8px 25px !important; }
+
+ul#projects a { padding: 5px 25px !important; }
+
+ul#tasks > li:last-child { margin-bottom: 12px; }
+
+li > a:hover {
+  background: #9da1a936 !important;
+  font-weight: bold !important;
+}
+
+.material-icons {
+  font-size: 15px;
+  padding-right: 3px;
+  position: relative;
+  top: -1px;
+}
+
+/* Temporary Color Selections */
+.red { color: red; }
+
+.green { color: green; }
+
+.darkblue { color: #1a237e; }
+
+.orange { color: orange; }
+
+.blue { color: blue; }
+
+.violet { color: violet; }
