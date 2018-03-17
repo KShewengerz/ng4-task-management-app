@@ -1,30 +1,37 @@
 
-<div class="mdl-cell mdl-cell--10-col mdl-cell--1-offset wrapper">
-  <div class="mdl-cell mdl-cell--12-col">
+<div id="header"
+     class="mdl-typography--text-center">
 
-    <div class="mdl-cell mdl-cell--12-col task-info">
-
-      <div class="header">
-        <h1 class="mdl-typography--text-center">Today</h1><br/>
-
-
-      </div>
-
-      <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--4-col mdl-typography--text-center">
-          <span class="text-dark-blue">Open</span>
-        </div>
-        <div class="mdl-cell mdl-cell--4-col mdl-typography--text-center">
-          <span class="text-dark-blue">Completed</span>
-        </div>
-        <div class="mdl-cell mdl-cell--4-col mdl-typography--text-center">
-          <span class="text-dark-blue">Overdue</span>
-        </div>
-      </div>
+  <div id="project-status">
+    <div class="inline-block">
+      <h1>17</h1>
+      <p>March 2018</p>
     </div>
 
-    <div class="mdl-cell mdl-cell--12-col">
-      <span>Container</span>
+    <div class="inline-block">
+      <span class="block">th</span>
+      <span class="block">Thursday</span>
     </div>
   </div>
+
+</div>
+
+<div id="container"
+     class="mdl-cell mdl-cell--8-col mdl-cell--2-offset">
+
+  <ul id="main-menu">
+    <li class="active">Open</li>
+    <li>Completed</li>
+    <li>Overdue</li>
+  </ul>
+
+  <hr/>
+
+  <ul id="task-list">
+    <li>
+      <mdl-checkbox [mdl-ripple]="true">
+        <span class="align-middle">Do Laundry</span>
+      </mdl-checkbox>
+    </li>
+  </ul>
 </div>
