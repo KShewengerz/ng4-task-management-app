@@ -1,12 +1,19 @@
 
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { HeaderComponent } from './sections/header/header.component';
+import { TaskListComponent } from './sections/task-list/task-list.component';
 
 
 @Component({
   moduleId: module.id,
   selector: 'tms-home',
   templateUrl: 'home.component.html',
-  styleUrls: ['home.component.css']
+  styleUrls: ['home.component.css'],
+  entryComponents: [
+    HeaderComponent,
+    TaskListComponent
+  ]
 })
 export class HomeComponent {
 

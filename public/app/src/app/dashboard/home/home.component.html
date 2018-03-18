@@ -1,20 +1,5 @@
 
-<div id="header"
-     class="mdl-typography--text-center">
-
-  <div id="project-status">
-    <div class="inline-block">
-      <h1>17</h1>
-      <p>March 2018</p>
-    </div>
-
-    <div class="inline-block">
-      <span class="block">th</span>
-      <span class="block">Thursday</span>
-    </div>
-  </div>
-
-</div>
+<tms-home-header></tms-home-header>
 
 <div id="container"
      class="mdl-cell mdl-cell--8-col mdl-cell--2-offset">
@@ -27,77 +12,7 @@
 
   <hr/>
 
-  <ul id="task-list">
-    <li>
-      <mdl-icon class="text-gray align-middle">drag_handle</mdl-icon>
-      <mdl-checkbox class="inline-block"
-                    [mdl-ripple]="true">
-        <span class="align-middle">Do Laundry</span>
-      </mdl-checkbox>
-
-      <div class="actions inline-block right cursor-pointer">
-        <span>March 18</span>
-        <button mdl-button
-                #actionBtn="mdlButton"
-                (click)="menu.toggle($event, actionBtn)"
-                mdl-button-type="icon"
-                mdl-ripple>
-          <mdl-icon class="text-gray">more_horiz</mdl-icon>
-        </button>
-
-        <mdl-menu #menu="mdlMenu"
-                  mdl-menu-position="bottom-left"
-                  (click)="$event.stopPropagation()">
-
-          <span class="title">Schedule</span>
-
-          <ul class="schedule-menu">
-            <li>
-              <mdl-icon>insert_invitation</mdl-icon>
-            </li>
-
-            <li>
-              <mdl-icon>update</mdl-icon>
-            </li>
-
-            <li>
-              <mdl-icon>event_note</mdl-icon>
-            </li>
-          </ul>
-
-          <span class="title">Projects</span>
-
-          <ul class="project-menu">
-            <li class="search">
-              <input type="text" placeholder="Search"/>
-            </li>
-
-            <li class="cursor-pointer">
-              <mdl-icon class="red">fiber_manual_record</mdl-icon>
-              <span>Personal</span>
-            </li>
-
-            <li class="cursor-pointer">
-              <mdl-icon class="green">fiber_manual_record</mdl-icon>
-              <span>Work</span>
-            </li>
-
-            <p class="text-gray">
-              <mdl-icon class="align-middle">add</mdl-icon>
-              <span>See More</span>
-            </p>
-
-          </ul>
-
-        </mdl-menu>
-      </div>
-    </li>
-
-    <div id="add-task"
-         class="text-red-pink cursor-pointer">
-      <mdl-icon class="align-middle">add</mdl-icon>
-      <span class="align-middle">Add Task</span>
-    </div>
+  <ul>
+    <tms-home-task-list></tms-home-task-list>
   </ul>
-
 </div>

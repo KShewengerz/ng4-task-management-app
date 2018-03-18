@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdlModule } from '@angular-mdl/core';
 
 import { HomeComponent } from './home.component';
+import { HeaderComponent } from './sections/header/header.component';
+import { TaskListComponent } from './sections/task-list/task-list.component';
 
 import { HomeRouting } from './home-routing.module';
 
@@ -18,8 +20,11 @@ import { HomeRouting } from './home-routing.module';
     MdlModule,
     HomeRouting
   ],
-  declarations: [ HomeComponent ],
-  providers: [],
-  bootstrap: [ HomeComponent ]
+  declarations: [
+    HomeComponent,
+    HeaderComponent,
+    TaskListComponent
+  ],
+  providers: []
 })
 export class HomeModule { }
