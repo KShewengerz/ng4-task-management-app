@@ -10,6 +10,9 @@ body {
   background-color: #6d82f90a;
 }
 
+/* Pointer */
+.cursor-pointer { cursor: pointer; }
+
 /* Float & Clear */
 .clear { clear:both; }
 
@@ -59,6 +62,8 @@ p { font-size: 1.2em; }
 
 .text-light-gray { color: #f7f6f6e6; }
 
+.text-red-pink { color: #ff5252; }
+
 /* Table */
 table {
   border-spacing: 0;
@@ -94,8 +99,22 @@ form p { margin-bottom: 0; }
   .mdl-layout__drawer-button > .material-icons { color: white; }
 }
 
+.mdl-checkbox { width: auto; }
+
+.mdl-checkbox__label { top: -1px; }
+
 .mdl-checkbox__box-outline {
   border-radius: 18px;
   width: 18px;
   height: 18px;
 }
+
+.mdl-menu__container span.title {
+  margin-left: 10px;
+  font-size: 10px !important;
+  color: gray;
+}
+
+.mdl-menu__outline { width: 170px !important; }
+
+.mdl-menu__container, .mdl-menu { width: 170px !important; }
