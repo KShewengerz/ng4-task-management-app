@@ -1,13 +1,14 @@
 
-<li class="task">
+<li *ngFor="let task of tasks"
+    class="task">
   <mdl-icon class="text-gray align-middle">drag_handle</mdl-icon>
   <mdl-checkbox class="inline-block"
                 [mdl-ripple]="true">
-    <span class="align-middle">Do Laundry</span>
+    <span class="align-middle">{{ task.name }}</span>
   </mdl-checkbox>
 
   <div class="actions inline-block right cursor-pointer">
-    <span>March 18</span>
+    <span>{{ task.scheduledDate }}</span>
     <button mdl-button
             #actionBtn="mdlButton"
             (click)="menu.toggle($event, actionBtn)"

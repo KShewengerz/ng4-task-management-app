@@ -2,7 +2,11 @@
 /* Task List */
 .task .mdl-checkbox span { font-size: 14px; }
 
-.task { position: relative; }
+.task {
+  position: relative;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
 
 .task > .material-icons { display: none; }
 
@@ -74,9 +78,7 @@
 
 /* Add Task */
 #add-task {
-  border-top: 1px solid #0000002e;
-  padding-top: 7px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 #add-task .material-icons { font-size: 20px; }
