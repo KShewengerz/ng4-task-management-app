@@ -64,7 +64,7 @@
 
 .project-menu .material-icons, .project-menu span { font-size: 10px; }
 
-.project-menu { padding-left: 10px; }
+.project-menu li, .project-menu p { padding-left: 10px; }
 
 .project-menu p > .material-icons { font-size: 12px; }
 
