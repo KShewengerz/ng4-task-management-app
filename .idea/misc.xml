@@ -8,12 +8,6 @@
     <exe-path>$USER_HOME$/.nvm/versions/node/v6.10.0/bin/bower</exe-path>
     <config-path />
   </component>
-  <component name="JsFlowSettings">
-    <service-enabled>true</service-enabled>
-    <exe-path />
-    <annotation-enable>false</annotation-enable>
-    <other-services-enabled>true</other-services-enabled>
-  </component>
   <component name="PreferredVcsStorage">
     <preferredVcsName>ApexVCS</preferredVcsName>
   </component>
