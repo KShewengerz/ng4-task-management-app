@@ -5,6 +5,7 @@
     "noImplicitAny": false,
     "moduleResolution": "node",
     "sourceMap": true,
+    "inlineSources": true,
     "experimentalDecorators": true,
     "outDir": "dist",
     "baseUrl": ".",
@@ -18,5 +19,8 @@
         "src/types/*"
       ]
     }
-  }
+  },
+  "exclude": [
+    "node_modules/*"
+  ]
 }

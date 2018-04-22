@@ -4,7 +4,8 @@
  * Module dependencies.
  */
 
-var app = require('../server');
+var AppClass = require('../dist/server');
+var app = new AppClass.Server().app;
 var debug = require('debug')('task-management-system:server');
 var http = require('http');
 

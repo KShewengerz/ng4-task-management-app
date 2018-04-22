@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "build": "concurrently \"npm install\" \"cd public/app && npm install\"",
-    "ng-start": "cd ./public/app && npm start",
-    "express-start": "nodemon ./bin/www --exec babel-node",
+    "ng-start": "cd ./public/app && tsc && npm start",
+    "express-start": "tsc && nodemon ./bin/www --exec babel-node",
     "start": "concurrently \"npm run express-start\"  \"npm run ng-start\""
   },
   "dependencies": {
