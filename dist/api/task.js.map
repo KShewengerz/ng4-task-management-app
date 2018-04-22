@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "task.js",
+  "sourceRoot": "",
+  "sources": [
+    "../../api/task.ts"
+  ],
+  "names": [],
+  "mappings": "AAAA,YAAY,CAAC;;AAKb,kBAAyB,GAAY,EAAE,GAAa,EAAE,IAAkB;IACpE,GAAG,CAAC,IAAI,CAAC,eAAe,CAAC,CAAC;AAC9B,CAAC;AAFD,4BAEC;AAED,iBAAwB,GAAY,EAAE,GAAa,EAAE,IAAkB;IACnE,GAAG,CAAC,IAAI,CAAC,UAAU,CAAC,CAAC;AACzB,CAAC;AAFD,0BAEC;AAED,oBAA2B,GAAY,EAAE,GAAa,EAAE,IAAkB;IACtE,GAAG,CAAC,IAAI,CAAC,aAAa,CAAC,CAAC;AAC5B,CAAC;AAFD,gCAEC;AAED,oBAA2B,GAAY,EAAE,GAAa,EAAE,IAAkB;IACtE,GAAG,CAAC,IAAI,CAAC,aAAa,CAAC,CAAC;AAC5B,CAAC;AAFD,gCAEC",
+  "sourcesContent": [
+    "\"use strict\";\n\nimport {Router, Request, Response, NextFunction} from \"express\";\n\n\nexport function getTasks(req: Request, res: Response, next: NextFunction) {\n    res.json(\"Get Tasks all\");\n}\n\nexport function addTask(req: Request, res: Response, next: NextFunction) {\n    res.json(\"Add Task\");\n}\n\nexport function deleteTask(req: Request, res: Response, next: NextFunction) {\n    res.json(\"Delete Task\");\n}\n\nexport function updateTask(req: Request, res: Response, next: NextFunction) {\n    res.json(\"Update Task\");\n}"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "home.component.js",
+  "sourceRoot": "",
+  "sources": [
+    "../../../../../../../public/app/src/app/dashboard/home/home.component.ts"
+  ],
+  "names": [],
+  "mappings": ";;;;;;;;AACA,wCAAkD;AAElD,yEAAqE;AACrE,kFAA6E;AAG7E,8DAAuD;AAavD,IAAa,aAAa,GAA1B;IAIE;QAFA,aAAQ,GAAW,EAAE,CAAC;IAEP,CAAC;IAEhB,QAAQ;QACN,IAAI,CAAC,QAAQ,GAAG,iBAAK,CAAC;IACxB,CAAC;CAEF,CAAA;AAVY,aAAa;IAVzB,gBAAS,CAAC;QACT,QAAQ,EAAE,MAAM,CAAC,EAAE;QACnB,QAAQ,EAAE,UAAU;QACpB,WAAW,EAAE,qBAAqB;QAClC,SAAS,EAAE,CAAC,oBAAoB,CAAC;QACjC,eAAe,EAAE;YACf,kCAAe;YACf,uCAAiB;SAClB;KACF,CAAC;GACW,aAAa,CAUzB;AAVY,sCAAa",
+  "sourcesContent": [
+    "\r\nimport { Component, OnInit } from '@angular/core';\r\n\r\nimport { HeaderComponent } from './sections/header/header.component';\r\nimport { TaskListComponent } from './sections/task-list/task-list.component';\r\n\r\nimport { Task } from './sections/task-list/task.model';\r\nimport { tasks } from './sections/task-list/task-data';\r\n\r\n\r\n@Component({\r\n  moduleId: module.id,\r\n  selector: 'tms-home',\r\n  templateUrl: 'home.component.html',\r\n  styleUrls: ['home.component.css'],\r\n  entryComponents: [\r\n    HeaderComponent,\r\n    TaskListComponent\r\n  ]\r\n})\r\nexport class HomeComponent implements OnInit {\r\n\r\n  taskList: Task[] = [];\r\n\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {\r\n    this.taskList = tasks;\r\n  }\r\n\r\n}\r\n"
+  ]
+}

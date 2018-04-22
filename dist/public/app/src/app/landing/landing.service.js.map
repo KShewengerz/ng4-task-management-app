@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "landing.service.js",
+  "sourceRoot": "",
+  "sources": [
+    "../../../../../../public/app/src/app/landing/landing.service.ts"
+  ],
+  "names": [],
+  "mappings": ";;;;;;;;AACA,wCAA2C;AAI3C,IAAa,cAAc,GAA3B;IAEE,gBAAe,CAAC;CAEjB,CAAA;AAJY,cAAc;IAD1B,iBAAU,EAAE;GACA,cAAc,CAI1B;AAJY,wCAAc",
+  "sourcesContent": [
+    "\r\nimport { Injectable } from '@angular/core';\r\n\r\n\r\n@Injectable()\r\nexport class LandingService {\r\n\r\n  constructor() {}\r\n\r\n}\r\n\r\n"
+  ]
+}

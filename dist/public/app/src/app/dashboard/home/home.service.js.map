@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "home.service.js",
+  "sourceRoot": "",
+  "sources": [
+    "../../../../../../../public/app/src/app/dashboard/home/home.service.ts"
+  ],
+  "names": [],
+  "mappings": ";;;;;;;;AACA,wCAA2C;AAI3C,IAAa,WAAW,GAAxB;IAEE,gBAAe,CAAC;CAEjB,CAAA;AAJY,WAAW;IADvB,iBAAU,EAAE;GACA,WAAW,CAIvB;AAJY,kCAAW",
+  "sourcesContent": [
+    "\r\nimport { Injectable } from '@angular/core';\r\n\r\n\r\n@Injectable()\r\nexport class HomeService {\r\n\r\n  constructor() {}\r\n\r\n}\r\n\r\n"
+  ]
+}

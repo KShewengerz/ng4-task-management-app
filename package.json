@@ -20,7 +20,9 @@
     "ejs": "~2.5.6",
     "express": "~4.15.2",
     "morgan": "~1.8.1",
+    "mysql": "^2.15.0",
     "serve-favicon": "~2.4.2",
+    "ts-node": "^6.0.0",
     "typescript": "^2.8.1"
   },
   "devDependencies": {
@@ -31,10 +33,12 @@
     "@types/serve-favicon": "^2.2.30",
     "babel-preset-env": "^1.6.1",
     "concurrently": "^3.5.0",
+    "knex": "^0.14.6",
     "nodemon": "^1.12.1",
     "path": "^0.12.7",
     "serve-favicon": "^2.4.5",
     "tslint": "^5.9.1",
-    "typescript": "^2.8.1"
+    "typescript": "^2.8.1",
+    "typescript-register": "^1.1.0"
   }
 }

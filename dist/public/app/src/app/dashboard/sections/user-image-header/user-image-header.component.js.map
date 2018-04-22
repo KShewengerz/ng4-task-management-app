@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "user-image-header.component.js",
+  "sourceRoot": "",
+  "sources": [
+    "../../../../../../../../public/app/src/app/dashboard/sections/user-image-header/user-image-header.component.ts"
+  ],
+  "names": [],
+  "mappings": ";;;;;;;;AACA,wCAA0C;AAS1C,IAAa,wBAAwB,GAArC;IAEE,gBAAe,CAAC;CAEjB,CAAA;AAJY,wBAAwB;IANpC,gBAAS,CAAC;QACT,QAAQ,EAAE,MAAM,CAAC,EAAE;QACnB,QAAQ,EAAE,uBAAuB;QACjC,WAAW,EAAE,kCAAkC;QAC/C,SAAS,EAAE,CAAC,iCAAiC,CAAC;KAC/C,CAAC;GACW,wBAAwB,CAIpC;AAJY,4DAAwB",
+  "sourcesContent": [
+    "\r\nimport { Component } from '@angular/core';\r\n\r\n\r\n@Component({\r\n  moduleId: module.id,\r\n  selector: 'tms-user-image-header',\r\n  templateUrl: 'user-image-header.component.html',\r\n  styleUrls: ['user-image-header.component.css']\r\n})\r\nexport class UserImageHeaderComponent {\r\n\r\n  constructor() {}\r\n\r\n}\r\n"
+  ]
+}

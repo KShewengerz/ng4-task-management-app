@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "dashboard-routing.module.js",
+  "sourceRoot": "",
+  "sources": [
+    "../../../../../../public/app/src/app/dashboard/dashboard-routing.module.ts"
+  ],
+  "names": [],
+  "mappings": ";;AACA,4CAAuD;AAEvD,+DAA2D;AAG3D,MAAM,MAAM,GAAW;IACrB,EAAE,IAAI,EAAE,EAAE;QACR,SAAS,EAAE,wCAAkB;QAC7B,QAAQ,EAAE;YACR,EAAE,IAAI,EAAE,EAAE,EAAE,UAAU,EAAE,MAAM,EAAE,SAAS,EAAE,MAAM,EAAE;YACnD,EAAE,IAAI,EAAE,MAAM,EAAE,YAAY,EAAE,+BAA+B,EAAE;SAChE;KACF;CACF,CAAC;AAEW,QAAA,gBAAgB,GAAG,qBAAY,CAAC,QAAQ,CAAC,MAAM,CAAC,CAAC",
+  "sourcesContent": [
+    "\r\nimport { RouterModule, Routes } from '@angular/router';\r\n\r\nimport { DashboardComponent } from './dashboard.component';\r\n\r\n\r\nconst routes: Routes = [\r\n  { path: '',\r\n    component: DashboardComponent,\r\n    children: [\r\n      { path: '', redirectTo: 'home', pathMatch: 'full' },\r\n      { path: 'home', loadChildren: './home/home.module#HomeModule' }\r\n    ]\r\n  }\r\n];\r\n\r\nexport const DashboardRouting = RouterModule.forChild(routes);\r\n"
+  ]
+}

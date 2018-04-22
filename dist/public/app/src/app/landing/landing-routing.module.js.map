@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "landing-routing.module.js",
+  "sourceRoot": "",
+  "sources": [
+    "../../../../../../public/app/src/app/landing/landing-routing.module.ts"
+  ],
+  "names": [],
+  "mappings": ";;AACA,4CAAuD;AAEvD,2DAAuD;AAGvD,MAAM,MAAM,GAAW;IACrB,EAAE,IAAI,EAAE,EAAE,EAAE,SAAS,EAAE,oCAAgB,EAAC;CACzC,CAAC;AAEW,QAAA,cAAc,GAAG,qBAAY,CAAC,QAAQ,CAAC,MAAM,CAAC,CAAC",
+  "sourcesContent": [
+    "\r\nimport { RouterModule, Routes } from '@angular/router';\r\n\r\nimport { LandingComponent } from './landing.component';\r\n\r\n\r\nconst routes: Routes = [\r\n  { path: '', component: LandingComponent}\r\n];\r\n\r\nexport const LandingRouting = RouterModule.forChild(routes);\r\n"
+  ]
+}
