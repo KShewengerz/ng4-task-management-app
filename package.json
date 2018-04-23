@@ -8,8 +8,8 @@
     "ng-start": "cd ./public/app && tsc && npm start",
     "express-start": "tsc && nodemon ./bin/www --exec babel-node",
     "start": "concurrently \"npm run express-start\"  \"npm run ng-start\"",
-    "knex:latest": "babel-node --extensions '.ts,.tsx' node_modules/.bin/knex migrate:latest",
-    "knex:rollback": "babel-node --extensions '.ts,.tsx' node_modules/.bin/knex migrate:rollback"
+    "knex:latest": "babel-node --extensions '.ts' node_modules/.bin/knex migrate:latest",
+    "knex:rollback": "babel-node --extensions '.ts' node_modules/.bin/knex migrate:rollback"
   },
   "dependencies": {
     "@babel/cli": "^7.0.0-beta.45",

@@ -1,4 +1,4 @@
-export = {
+module.exports = {
   
   development: {
     client: "mysql",
@@ -9,17 +9,17 @@ export = {
       password: "mysql"
     },
     migrations: {
-      extensions: [ "js", "ts" ]
+      extensions: [ "ts" ]
     },
     debug: true
   },
-  
+
   staging: {
-    client: "mysql",
+    client: "postgresql",
     connection: {
-      database: "task_management",
-      user: "root",
-      password: "mysql"
+      database: "my_db",
+      user: "username",
+      password: "password"
     },
     pool: {
       min: 2,
@@ -29,13 +29,13 @@ export = {
       tableName: "knex_migrations"
     }
   },
-  
+
   production: {
-    client: "mysql",
+    client: "postgresql",
     connection: {
-      database: "task_management",
-      user: "root",
-      password: "mysql"
+      database: "my_db",
+      user: "username",
+      password: "password"
     },
     pool: {
       min: 2,
