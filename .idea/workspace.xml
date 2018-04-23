@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e8711fd-0393-4a27-b74a-fa31cc16856f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/knexfile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/knexfile.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/project.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/project.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/task.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/task.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/user.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/migrations/20180422213633_create_user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/20180422213633_create_user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,8 +24,8 @@
       <file leaf-file-name="20180422213633_create_user.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/migrations/20180422213633_create_user.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="56" lean-forward="true" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
+            <state relative-caret-position="285">
+              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
             </state>
           </provider>
         </entry>
@@ -1993,14 +1996,14 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="139346000" />
+    <option name="totallyTimeSpent" value="139352000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="72" y="23" width="1608" height="1027" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TypeScript" order="11" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24813433" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24813433" />
       <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5006188" side_tool="true" weight="0.4795383" />
@@ -2008,7 +2011,7 @@
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Run" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49938118" visible="true" weight="0.4795383" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49938118" visible="true" weight="0.4795383" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Version Control" order="9" />
@@ -2339,8 +2342,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/migrations/20180422213633_create_user.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="56" lean-forward="true" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
+        <state relative-caret-position="285">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
         </state>
       </provider>
     </entry>
