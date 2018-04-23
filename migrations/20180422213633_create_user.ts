@@ -10,7 +10,7 @@ export async function up(knex: Knex, Promise: Promise<any>) {
         table.string("username", 32).notNullable();
         table.string("password", 40).notNullable();
         table.enum("gender", ["m", "f"]).notNullable();
-        table.specificType("profile_image", "longblob").notNullable();
+      table.specificType("profile_image", "longblob");
     });
 }
 
