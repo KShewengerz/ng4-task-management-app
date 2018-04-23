@@ -10,19 +10,17 @@ const index_1 = require("./routes/index");
 const user_1 = require("./routes/user");
 const task_1 = require("./routes/task");
 const project_1 = require("./routes/project");
-
+require("@babel/register");
 class Server {
     static bootstrap() {
         return new Server;
     }
-
     constructor() {
         this.app = express();
         this.middlewares();
         this.routes();
         this.catchErrors();
     }
-
     middlewares() {
         // this.app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
         this.app.use(logger("dev"));
@@ -31,7 +29,6 @@ class Server {
         this.app.use(cookieParser());
         this.app.use(express.static(path.join(__dirname, "public")));
     }
-
     catchErrors() {
         // catch 404 and forward to error handler
         this.app.use((req, res, next) => {
@@ -49,7 +46,6 @@ class Server {
             res.send("Server Error", statusCode);
         });
     }
-
     routes() {
         this.app.use("/", index_1.indexRoutes);
         this.app.use("/user", user_1.userRoutes);
@@ -57,6 +53,5 @@ class Server {
         this.app.use("/project", project_1.projectRoutes);
     }
 }
-
 exports.Server = Server;
 //# sourceMappingURL=server.js.map

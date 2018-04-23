@@ -8,6 +8,6 @@
   "names": [],
   "mappings": "AAAA,YAAY,CAAC;;AAEb,qCAA+B;AAE/B,sCAAsC;AAEtC,MAAM,MAAM,GAAW,gBAAM,EAAE,CAAC;AAEhC,MAAM,CAAC,IAAI,CAAC,GAAG,EAAE,GAAG,CAAC,UAAU,CAAC,CAAC;AACjC,MAAM,CAAC,GAAG,CAAC,GAAG,EAAE,GAAG,CAAC,aAAa,CAAC,CAAC;AACnC,MAAM,CAAC,GAAG,CAAC,GAAG,EAAE,GAAG,CAAC,WAAW,CAAC,CAAC;AACjC,MAAM,CAAC,MAAM,CAAC,MAAM,EAAE,GAAG,CAAC,aAAa,CAAC,CAAC;AAE5B,QAAA,aAAa,GAAW,MAAM,CAAC",
   "sourcesContent": [
-    "\"use strict\";\n\nimport {Router} from \"express\";\n\nimport * as api from \"../api/project\";\n\nconst router: Router = Router();\n\nrouter.post(\"/\", api.addProject);\nrouter.put(\"/\", api.deleteProject);\nrouter.get(\"/\", api.getProjects);\nrouter.delete(\"/:id\", api.deleteProject);\n\nexport const projectRoutes: Router = router;\n"
+    "\"use strict\";\r\n\r\nimport {Router} from \"express\";\r\n\r\nimport * as api from \"../api/project\";\r\n\r\nconst router: Router = Router();\r\n\r\nrouter.post(\"/\", api.addProject);\r\nrouter.put(\"/\", api.deleteProject);\r\nrouter.get(\"/\", api.getProjects);\r\nrouter.delete(\"/:id\", api.deleteProject);\r\n\r\nexport const projectRoutes: Router = router;\r\n"
   ]
 }

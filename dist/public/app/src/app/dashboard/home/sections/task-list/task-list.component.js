@@ -12,7 +12,6 @@ let TaskListComponent = class TaskListComponent {
     constructor() {
         this.tasks = [];
     }
-
     ngOnInit() {
         console.log(this.tasks);
     }

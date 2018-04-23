@@ -7,6 +7,8 @@ import * as logger from "morgan";
 import * as path from "path";
 import * as favicon from "serve-favicon";
 
+import knex = require("./config/db");
+
 // Api Routes
 import {indexRoutes} from "./routes/index";
 import {userRoutes} from "./routes/user";

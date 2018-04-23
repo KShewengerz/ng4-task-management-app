@@ -16,11 +16,9 @@ let LandingComponent = class LandingComponent {
         this.isLogin = true;
         this.isSignUp = false;
     }
-
     ngOnInit() {
         this.buildForm();
     }
-
     buildForm() {
         this.loginForm = this.fb.group({
             'username': ['', forms_1.Validators.required],
@@ -34,12 +32,10 @@ let LandingComponent = class LandingComponent {
             'password': ['', forms_1.Validators.required]
         });
     }
-
     login(user) {
         console.log(user);
         this.router.navigate(['/dashboard']);
     }
-
     register(user) {
         console.log(user);
         this.router.navigate(['/dashboard']);

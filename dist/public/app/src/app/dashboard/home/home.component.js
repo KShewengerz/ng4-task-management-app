@@ -15,7 +15,6 @@ let HomeComponent = class HomeComponent {
     constructor() {
         this.taskList = [];
     }
-
     ngOnInit() {
         this.taskList = task_data_1.tasks;
     }

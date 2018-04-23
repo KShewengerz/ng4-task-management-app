@@ -8,6 +8,9 @@ export = {
             user: "root",
             password: "mysql"
         },
+        migrations: {
+            extensions: ["js", "ts"]
+        },
         debug: true
     },
 

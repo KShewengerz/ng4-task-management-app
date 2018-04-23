@@ -56,11 +56,11 @@
     ],
     "use-strict": false,
     "variable-name": [
-      true,
+      false,
       "allow-leading-underscore"
     ],
     "whitespace": [
-      true,
+      false,
       "check-branch",
       "check-decl",
       "check-operator",
