@@ -1,20 +1,42 @@
 "use strict";
 
-import {Router, Request, Response, NextFunction} from "express";
+import { Router, Request, Response, NextFunction } from "express";
+
+import * as dbConnection from "../config/db";
+
+const db = dbConnection.default;
+const userTable = "user";
 
 
-export function getUser(req: Request, res: Response, next: NextFunction) {
-  res.json("Get User Info");
+export async function getUser(req: Request, res: Response, next: NextFunction) {
+  const fetchUser = await db(userTable).select();
+  
+  res.json(fetchUser);
 }
 
-export function addUser(req: Request, res: Response, next: NextFunction) {
-  res.json("Add User Info");
+export async function addUser(req: Request, res: Response, next: NextFunction) {
+  const insertUser = await db(userTable).insert(req.body);
+  
+  res.json(insertUser);
+  
 }
 
-export function deleteUser(req: Request, res: Response, next: NextFunction) {
-  res.json("Delete User Info");
+export async function deleteUser(req: Request, res: Response, next: NextFunction) {
+  const id = req.params.id;
+  
+  const deleteUser = await db(userTable)
+  .where({ id })
+  .del();
+  
+  res.json(deleteUser);
 }
 
-export function updateUser(req: Request, res: Response, next: NextFunction) {
-  res.json("Update User Info");
+export async function updateUser(req: Request, res: Response, next: NextFunction) {
+  const body = req.body;
+  
+  const updateUser = await db(userTable)
+  .where({ id: body.id })
+  .update(body);
+  
+  res.json(updateUser);
 }

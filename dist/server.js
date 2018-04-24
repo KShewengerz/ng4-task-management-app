@@ -10,7 +10,6 @@ const index_1 = require("./routes/index");
 const user_1 = require("./routes/user");
 const task_1 = require("./routes/task");
 const project_1 = require("./routes/project");
-require("@babel/register");
 class Server {
     static bootstrap() {
         return new Server;
