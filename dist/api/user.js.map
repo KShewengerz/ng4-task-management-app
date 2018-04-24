@@ -6,8 +6,8 @@
     "../../api/user.ts"
   ],
   "names": [],
-  "mappings": "AAAA,YAAY,CAAC;;AAKb,iBAAwB,GAAY,EAAE,GAAa,EAAE,IAAkB;IACnE,GAAG,CAAC,IAAI,CAAC,eAAe,CAAC,CAAC;AAC9B,CAAC;AAFD,0BAEC;AAED,iBAAwB,GAAY,EAAE,GAAa,EAAE,IAAkB;IACnE,GAAG,CAAC,IAAI,CAAC,eAAe,CAAC,CAAC;AAC9B,CAAC;AAFD,0BAEC;AAED,oBAA2B,GAAY,EAAE,GAAa,EAAE,IAAkB;IACtE,GAAG,CAAC,IAAI,CAAC,kBAAkB,CAAC,CAAC;AACjC,CAAC;AAFD,gCAEC;AAED,oBAA2B,GAAY,EAAE,GAAa,EAAE,IAAkB;IACtE,GAAG,CAAC,IAAI,CAAC,kBAAkB,CAAC,CAAC;AACjC,CAAC;AAFD,gCAEC",
+  "mappings": "AAAA,YAAY,CAAC;;AAKb,iBAAwB,GAAY,EAAE,GAAa,EAAE,IAAkB;IACrE,GAAG,CAAC,IAAI,CAAC,eAAe,CAAC,CAAC;AAC5B,CAAC;AAFD,0BAEC;AAED,iBAAwB,GAAY,EAAE,GAAa,EAAE,IAAkB;IACrE,GAAG,CAAC,IAAI,CAAC,eAAe,CAAC,CAAC;AAC5B,CAAC;AAFD,0BAEC;AAED,oBAA2B,GAAY,EAAE,GAAa,EAAE,IAAkB;IACxE,GAAG,CAAC,IAAI,CAAC,kBAAkB,CAAC,CAAC;AAC/B,CAAC;AAFD,gCAEC;AAED,oBAA2B,GAAY,EAAE,GAAa,EAAE,IAAkB;IACxE,GAAG,CAAC,IAAI,CAAC,kBAAkB,CAAC,CAAC;AAC/B,CAAC;AAFD,gCAEC",
   "sourcesContent": [
-    "\"use strict\";\r\n\r\nimport {Router, Request, Response, NextFunction} from \"express\";\r\n\r\n\r\nexport function getUser(req: Request, res: Response, next: NextFunction) {\r\n    res.json(\"Get User Info\");\r\n}\r\n\r\nexport function addUser(req: Request, res: Response, next: NextFunction) {\r\n    res.json(\"Add User Info\");\r\n}\r\n\r\nexport function deleteUser(req: Request, res: Response, next: NextFunction) {\r\n    res.json(\"Delete User Info\");\r\n}\r\n\r\nexport function updateUser(req: Request, res: Response, next: NextFunction) {\r\n    res.json(\"Update User Info\");\r\n}"
+    "\"use strict\";\r\n\r\nimport {Router, Request, Response, NextFunction} from \"express\";\r\n\r\n\r\nexport function getUser(req: Request, res: Response, next: NextFunction) {\r\n  res.json(\"Get User Info\");\r\n}\r\n\r\nexport function addUser(req: Request, res: Response, next: NextFunction) {\r\n  res.json(\"Add User Info\");\r\n}\r\n\r\nexport function deleteUser(req: Request, res: Response, next: NextFunction) {\r\n  res.json(\"Delete User Info\");\r\n}\r\n\r\nexport function updateUser(req: Request, res: Response, next: NextFunction) {\r\n  res.json(\"Update User Info\");\r\n}"
   ]
 }

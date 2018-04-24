@@ -6,8 +6,8 @@
     "../../api/task.ts"
   ],
   "names": [],
-  "mappings": "AAAA,YAAY,CAAC;;AAKb,kBAAyB,GAAY,EAAE,GAAa,EAAE,IAAkB;IACpE,GAAG,CAAC,IAAI,CAAC,eAAe,CAAC,CAAC;AAC9B,CAAC;AAFD,4BAEC;AAED,iBAAwB,GAAY,EAAE,GAAa,EAAE,IAAkB;IACnE,GAAG,CAAC,IAAI,CAAC,UAAU,CAAC,CAAC;AACzB,CAAC;AAFD,0BAEC;AAED,oBAA2B,GAAY,EAAE,GAAa,EAAE,IAAkB;IACtE,GAAG,CAAC,IAAI,CAAC,aAAa,CAAC,CAAC;AAC5B,CAAC;AAFD,gCAEC;AAED,oBAA2B,GAAY,EAAE,GAAa,EAAE,IAAkB;IACtE,GAAG,CAAC,IAAI,CAAC,aAAa,CAAC,CAAC;AAC5B,CAAC;AAFD,gCAEC",
+  "mappings": "AAAA,YAAY,CAAC;;AAKb,kBAAyB,GAAY,EAAE,GAAa,EAAE,IAAkB;IACtE,GAAG,CAAC,IAAI,CAAC,eAAe,CAAC,CAAC;AAC5B,CAAC;AAFD,4BAEC;AAED,iBAAwB,GAAY,EAAE,GAAa,EAAE,IAAkB;IACrE,GAAG,CAAC,IAAI,CAAC,UAAU,CAAC,CAAC;AACvB,CAAC;AAFD,0BAEC;AAED,oBAA2B,GAAY,EAAE,GAAa,EAAE,IAAkB;IACxE,GAAG,CAAC,IAAI,CAAC,aAAa,CAAC,CAAC;AAC1B,CAAC;AAFD,gCAEC;AAED,oBAA2B,GAAY,EAAE,GAAa,EAAE,IAAkB;IACxE,GAAG,CAAC,IAAI,CAAC,aAAa,CAAC,CAAC;AAC1B,CAAC;AAFD,gCAEC",
   "sourcesContent": [
-    "\"use strict\";\r\n\r\nimport {Router, Request, Response, NextFunction} from \"express\";\r\n\r\n\r\nexport function getTasks(req: Request, res: Response, next: NextFunction) {\r\n    res.json(\"Get Tasks all\");\r\n}\r\n\r\nexport function addTask(req: Request, res: Response, next: NextFunction) {\r\n    res.json(\"Add Task\");\r\n}\r\n\r\nexport function deleteTask(req: Request, res: Response, next: NextFunction) {\r\n    res.json(\"Delete Task\");\r\n}\r\n\r\nexport function updateTask(req: Request, res: Response, next: NextFunction) {\r\n    res.json(\"Update Task\");\r\n}"
+    "\"use strict\";\r\n\r\nimport {Router, Request, Response, NextFunction} from \"express\";\r\n\r\n\r\nexport function getTasks(req: Request, res: Response, next: NextFunction) {\r\n  res.json(\"Get Tasks all\");\r\n}\r\n\r\nexport function addTask(req: Request, res: Response, next: NextFunction) {\r\n  res.json(\"Add Task\");\r\n}\r\n\r\nexport function deleteTask(req: Request, res: Response, next: NextFunction) {\r\n  res.json(\"Delete Task\");\r\n}\r\n\r\nexport function updateTask(req: Request, res: Response, next: NextFunction) {\r\n  res.json(\"Update Task\");\r\n}"
   ]
 }
