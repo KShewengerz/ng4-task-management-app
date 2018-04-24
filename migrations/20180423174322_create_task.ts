@@ -1,19 +1,21 @@
 import * as Knex from "knex";
 
+import { taskTable, taskFields, projectTable, projectFields, taskStatusTable, taskStatusFields } from "../constants/db-table-fields/index";
+
 
 export async function up(knex: Knex, Promise: Promise<any>) {
-  return await knex.schema.createTable("task", table => {
-    table.uuid("id").primary();
-    table.uuid("project_id").unique().notNullable();
-    table.uuid("status_id").unique().notNullable();
-    table.string("description", 255).notNullable();
-    table.dateTime("schedule_date").notNullable();
+  return await knex.schema.createTable(taskTable, table => {
+    table.uuid(taskFields.Id).primary();
+    table.uuid(taskFields.ProjectId).unique().notNullable();
+    table.uuid(taskFields.StatusId).unique().notNullable();
+    table.string(taskFields.Description, 255).notNullable();
+    table.date(taskFields.ScheduleDate).notNullable();
     
-    table.foreign("project_id").references("project.id");
-    table.foreign("status_id").references("task_status.id");
+    table.foreign(taskFields.ProjectId).references(`${projectTable}.${projectFields.Id}`);
+    table.foreign(taskFields.StatusId).references(`${taskStatusTable}.${taskStatusFields.Id}`);
   });
 }
 
 export async function down(knex: Knex, Promise: Promise<any>) {
-  return await knex.schema.dropTable("task");
+  return await knex.schema.dropTable(taskTable);
 }

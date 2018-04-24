@@ -1,24 +1,26 @@
 import * as Knex from "knex";
 
+import { userTaskTable, userTaskFields, userTable, userFields, taskTable, taskFields } from "../constants/db-table-fields/index";
+
 
 export async function up(knex: Knex, Promise: Promise<any>) {
-  return await knex.schema.createTable("user_task", table => {
-    table.uuid("id").primary();
-    table.uuid("user_id").unique().notNullable();
-    table.uuid("task_id").unique().notNullable();
+  return await knex.schema.createTable(userTaskTable, table => {
+    table.uuid(userTaskFields.Id).primary();
+    table.uuid(userTaskFields.UserId).unique().notNullable();
+    table.uuid(userTaskFields.TaskId).unique().notNullable();
     
-    table.foreign("user_id")
-    .references("user.id")
+    table.foreign(userTaskFields.UserId)
+    .references(`${userTable}.${userFields.Id}`)
     .onUpdate("CASCADE")
     .onDelete("CASCADE");
     
-    table.foreign("task_id")
-    .references("task.id")
+    table.foreign(userTaskFields.TaskId)
+    .references(`${taskTable}.${taskFields.Id}`)
     .onUpdate("CASCADE")
     .onDelete("CASCADE");
   });
 }
 
 export async function down(knex: Knex, Promise: Promise<any>) {
-  return await knex.schema.dropTable("user_task");
+  return await knex.schema.dropTable(userTaskTable);
 }
