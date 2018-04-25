@@ -1,7 +1,7 @@
 import * as Knex from "knex";
 
-import { Project } from "../interfaces/project";
-import { projectTable, projectFields } from "../constants/db-table-fields/index";
+import { Project } from "../shared/interfaces/project";
+import { projectTable, projectFields } from "../shared/constants/db-table-fields/index";
 
 
 export async function up(knex: Knex, Promise: Promise<any>) {

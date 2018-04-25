@@ -1,7 +1,7 @@
 import * as Knex from "knex";
 
-import { TaskStatus } from "../interfaces/task-status";
-import { taskStatusTable, taskStatusFields } from "../constants/db-table-fields/task-status";
+import { TaskStatus } from "../shared/interfaces/task-status";
+import { taskStatusTable, taskStatusFields } from "../shared/constants/db-table-fields/task-status";
 
 
 export async function up(knex: Knex) {

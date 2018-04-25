@@ -1,6 +1,6 @@
 import * as Knex from "knex";
 
-import { userTaskTable, userTaskFields, userTable, userFields, taskTable, taskFields } from "../constants/db-table-fields/index";
+import { userTaskTable, userTaskFields, userTable, userFields, taskTable, taskFields } from "../shared/constants/db-table-fields/index";
 
 
 export async function up(knex: Knex, Promise: Promise<any>) {
