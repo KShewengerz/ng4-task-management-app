@@ -5,15 +5,13 @@ import * as snakeCase from "snakecase-keys";
 import * as camelCase from "camelcase-keys";
 
 import * as dbConnection from "../../config/db";
-
-import { userTable, userFields } from "../../shared/constants/db-table-fields/user";
-import { User } from "../../shared/interfaces/user";
-import { Error } from "../../shared/enums/error";
-import { ErrorHandler } from "../error-handler";
-import { HttpVerb } from "../../shared/enums/http-verb";
 import * as userValidation from "./user-validation";
 
+import { ErrorHandler } from "../error-handler";
+import { Table, User, Error, HttpVerb } from "../../shared/index";
+
 const db = dbConnection.default;
+const userTable = Table.User;
 
 
 export async function getUser(req: Request, res: Response, next: NextFunction): Promise<void> {

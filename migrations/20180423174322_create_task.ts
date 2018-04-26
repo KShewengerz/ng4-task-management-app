@@ -1,21 +1,21 @@
 import * as Knex from "knex";
 
-import { taskTable, taskFields, projectTable, projectFields, taskStatusTable, taskStatusFields } from "../shared/constants/db-table-fields/index";
+import { Table, TaskFields, ProjectFields, TaskStatusFields } from "../shared/index";
 
 
-export async function up(knex: Knex, Promise: Promise<any>) {
-  return await knex.schema.createTable(taskTable, table => {
-    table.uuid(taskFields.Id).primary();
-    table.uuid(taskFields.ProjectId).unique().notNullable();
-    table.uuid(taskFields.StatusId).unique().notNullable();
-    table.string(taskFields.Description, 255).notNullable();
-    table.date(taskFields.ScheduleDate).notNullable();
+export async function up(knex: Knex) {
+  return await knex.schema.createTable(Table.Task, table => {
+    table.uuid(TaskFields.Id).primary();
+    table.uuid(TaskFields.ProjectId).unique().notNullable();
+    table.uuid(TaskFields.StatusId).unique().notNullable();
+    table.string(TaskFields.Description, 255).notNullable();
+    table.date(TaskFields.ScheduleDate).notNullable();
     
-    table.foreign(taskFields.ProjectId).references(`${projectTable}.${projectFields.Id}`);
-    table.foreign(taskFields.StatusId).references(`${taskStatusTable}.${taskStatusFields.Id}`);
+    table.foreign(TaskFields.ProjectId).references(`${Table.Project}.${ProjectFields.Id}`);
+    table.foreign(TaskFields.StatusId).references(`${Table.TaskStatus}.${TaskStatusFields.Id}`);
   });
 }
 
-export async function down(knex: Knex, Promise: Promise<any>) {
-  return await knex.schema.dropTable(taskTable);
+export async function down(knex: Knex) {
+  return await knex.schema.dropTable(Table.Task);
 }

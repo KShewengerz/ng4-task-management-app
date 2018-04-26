@@ -1,15 +1,14 @@
 import * as Knex from "knex";
 
-import { Project } from "../shared/interfaces/project";
-import { projectTable, projectFields } from "../shared/constants/db-table-fields/index";
+import { Project, Table, ProjectFields } from "../shared/index";
 
 
-export async function up(knex: Knex, Promise: Promise<any>) {
-  return await knex.schema.createTable(projectTable, table => {
-    table.uuid(projectFields.Id).primary();
-    table.integer(projectFields.Ordinal).unique().notNullable();
-    table.string(projectFields.Name, 45).notNullable();
-    table.string(projectFields.Color, 45).notNullable();
+export async function up(knex: Knex) {
+  return await knex.schema.createTable(Table.Project, table => {
+    table.uuid(ProjectFields.Id).primary();
+    table.integer(ProjectFields.Ordinal).unique().notNullable();
+    table.string(ProjectFields.Name, 45).notNullable();
+    table.string(ProjectFields.Color, 45).notNullable();
   })
   .then(async () => {
     const projects: Project[] = [
@@ -33,10 +32,10 @@ export async function up(knex: Knex, Promise: Promise<any>) {
       }
     ];
   
-    return await knex(projectTable).insert(projects);
+    return await knex(Table.Project).insert(projects);
   });
 }
 
-export async function down(knex: Knex, Promise: Promise<any>) {
-  return await knex.schema.dropTable(projectTable);
+export async function down(knex: Knex) {
+  return await knex.schema.dropTable(Table.Project);
 }
