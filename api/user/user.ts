@@ -2,6 +2,7 @@
 
 import { Request, Response, NextFunction } from "express";
 import * as snakeCase from "snakecase-keys";
+import * as camelCase from "camelcase-keys";
 
 import * as dbConnection from "../../config/db";
 
@@ -18,8 +19,9 @@ const db = dbConnection.default;
 export async function getUser(req: Request, res: Response, next: NextFunction): Promise<void> {
   const id = req.params.id;
   const fetchUser = await db(userTable).where({id});
+  const result = camelCase(fetchUser);
   
-  res.json(fetchUser);
+  res.json(<User>result);
 }
 
 export async function addUser(req: Request, res: Response, next: NextFunction): Promise<void> {

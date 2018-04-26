@@ -17,6 +17,7 @@
     "@types/morgan": "^1.7.35",
     "@types/node": "^7.0.60",
     "body-parser": "~1.17.1",
+    "camelcase-keys": "^4.2.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "ejs": "~2.5.6",
