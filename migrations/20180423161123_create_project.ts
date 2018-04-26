@@ -1,14 +1,17 @@
 import * as Knex from "knex";
 
-import { Project, Table, ProjectFields } from "../shared/index";
+import { Project, Table, ProjectFields, UserFields } from "../shared/index";
 
 
 export async function up(knex: Knex) {
   return await knex.schema.createTable(Table.Project, table => {
     table.uuid(ProjectFields.Id).primary();
+    table.uuid(ProjectFields.UserId).unique();
     table.integer(ProjectFields.Ordinal).unique().notNullable();
     table.string(ProjectFields.Name, 45).notNullable();
     table.string(ProjectFields.Color, 45).notNullable();
+  
+    table.foreign(ProjectFields.UserId).references(`${Table.User}.${UserFields.Id}`);
   })
   .then(async () => {
     const projects: Project[] = [

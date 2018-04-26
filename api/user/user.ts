@@ -13,14 +13,16 @@ import { Table, User, Error, HttpVerb } from "../../shared/index";
 const db = dbConnection.default;
 const userTable = Table.User;
 
-export async function getUser(req: Request, res: Response): Promise<void> {
-  const id = req.params.id;
-  const fetchUser = await db(userTable).where({id});
-  const result = camelCase(fetchUser);
-  
-  res.json(<User>result);
-}
 
+/**
+ * @api {post} /
+ * @description Add new user
+ *
+ * @param {Request} request
+ * @param {Response} response
+ *
+ * @returns {Promise<void>}
+ */
 export async function addUser(req: Request, res: Response): Promise<void> {
   const body = snakeCase(req.body);
   
@@ -36,21 +38,23 @@ export async function addUser(req: Request, res: Response): Promise<void> {
   }
 }
 
-export async function deleteUser(req: Request, res: Response): Promise<void> {
-  const id = req.params.id;
-  
-  const deleteUser = await db(userTable)
-  .where({id})
-  .del()
-  .catch(err => err);
-  
-  res.sendStatus(204);
-}
-
+/**
+ * @api {put} /:userId
+ * @description Update's user information by userId
+ *
+ * @apiParam {Uuid} userId
+ *
+ * @param {Request} request
+ * @param {Response} response
+ *
+ * @returns {Promise<void>}
+ */
 export async function updateUser(req: Request, res: Response): Promise<void> {
-  const id = req.params.id;
+  const id = req.params.userId;
   const body = snakeCase(req.body);
   body.id = id;
+  
+  //TODO: Validation for updating a non-existing user
   
   await validateRequestBody(body, HttpVerb.PUT, res);
   
@@ -64,11 +68,63 @@ export async function updateUser(req: Request, res: Response): Promise<void> {
   }
 }
 
+/**
+ * @api {get} /:id
+ * @description Get user by userId
+ *
+ * @apiParam {Uuid} userId
+ *
+ * @param {Request} request
+ * @param {Response} response
+ *
+ * @returns {Promise<void>}
+ */
+export async function getUser(req: Request, res: Response): Promise<void> {
+  const id = req.params.userId;
+  const fetchUser = await db(userTable).where({id});
+  const result = camelCase(fetchUser);
+  
+  res.json(<User>result);
+}
+
+/**
+ * @api {delete} /:userId
+ * @description Delete user by userId
+ *
+ * @apiParam {Uuid} userId
+ *
+ * @param {Request} request
+ * @param {Response} response
+ *
+ * @returns {Promise<void>}
+ */
+export async function deleteUser(req: Request, res: Response): Promise<void> {
+  const id = req.params.userId;
+  
+  //TODO: Validation for deleting a non-existing user
+  
+  const deleteUser = await db(userTable)
+  .where({id})
+  .del()
+  .catch(err => err);
+  
+  res.sendStatus(204);
+}
+
+/**
+ * @description User request body field validation
+ *
+ * @param {User} data
+ * @param {String} httpVerb
+ * @param {Response} response
+ *
+ * @returns {Promise<void>}
+ */
 async function validateRequestBody(data: User, httpVerb: string, res: Response): Promise<void> {
   const errorHandler = new ErrorHandler();
-  const httpAction = fetchValidationByHttpAction(data, httpVerb);
+  const validation = fetchValidationByHttpVerb(data, httpVerb);
   
-  await Promise.all(httpAction).then(async data => {
+  await Promise.all(validation).then(async data => {
     const filterFields = await errorHandler.filterExistingFields(data);
     const errorMessages = await errorHandler.getErrorMessages(Error.Duplicate);
     
@@ -77,8 +133,16 @@ async function validateRequestBody(data: User, httpVerb: string, res: Response):
   .catch(err => err);
 }
 
-function fetchValidationByHttpAction(data: User, httpAction: string): any[] {
-  if (httpAction === HttpVerb.POST) return userValidation.getPostValidation(data);
+/**
+ * @description Fetch Validation by Http Verb
+ *
+ * @param {User} data
+ * @param {string} httpVerb
+ *
+ * @returns {any[]}
+ */
+function fetchValidationByHttpVerb(data: User, httpVerb: string): any[] {
+  if (httpVerb === HttpVerb.POST) return userValidation.getPostValidation(data);
   else return userValidation.getPutValidation(data);
 }
 

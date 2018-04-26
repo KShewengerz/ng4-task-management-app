@@ -5,7 +5,6 @@ import { Table, UserTaskFields, UserFields, TaskFields } from "../shared/index";
 
 export async function up(knex: Knex) {
   return await knex.schema.createTable(Table.UserTask, table => {
-    table.uuid(UserTaskFields.Id).primary();
     table.uuid(UserTaskFields.UserId).unique().notNullable();
     table.uuid(UserTaskFields.TaskId).unique().notNullable();
     
