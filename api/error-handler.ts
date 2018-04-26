@@ -2,9 +2,6 @@ export class ErrorHandler {
   
   fieldNames: string[] = [];
   
-  constructor() {
-  }
-  
   filterExistingFields(data: any[]): any {
     this.fieldNames = data
     .map(field => field[0])

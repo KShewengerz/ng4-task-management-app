@@ -2,12 +2,12 @@
 
 import {Router} from "express";
 
-import * as api from "../api/user";
+import * as api from "../api/user/user";
 
 const router: Router = Router();
 
 router.post("/", api.addUser);
-router.put("/", api.updateUser);
+router.put("/:id", api.updateUser);
 router.get("/:id", api.getUser);
 router.delete("/:id", api.deleteUser);
 

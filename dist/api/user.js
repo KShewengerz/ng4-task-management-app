@@ -11,7 +11,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dbConnection = require("../config/db");
 const user_1 = require("../shared/constants/db-table-fields/user");
 const error_1 = require("../shared/enums/error");
-const error_message_1 = require("../shared/constants/error-message");
+const error_handler_1 = require("./error-handler");
+const http_verb_1 = require("../shared/enums/http-verb");
+const snakeCase = require("snakecase-keys");
 const db = dbConnection.default;
 function getUser(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -23,13 +25,14 @@ function getUser(req, res, next) {
 exports.getUser = getUser;
 function addUser(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield userValidation(req.body);
-        if (res.statusCode !== 404) {
+        const body = snakeCase(req.body);
+        yield userValidation(body, http_verb_1.HttpVerb.POST, res);
+        if (res.statusCode !== 409) {
             const insertUser = yield db(user_1.userTable)
-                .insert(req.body)
+                .insert(body)
                 .then(rows => rows[0])
                 .catch(err => err);
-            res.json(insertUser);
+            res.status(201);
         }
     });
 }
@@ -41,47 +44,81 @@ function deleteUser(req, res, next) {
             .where({ id })
             .del()
             .catch(err => err);
-        res.json(deleteUser);
+        res.status(204);
     });
 }
 exports.deleteUser = deleteUser;
 function updateUser(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const id = req.params.id;
-        const body = req.body;
-        //TODO: Block update if id, username and emailAddress already exist with other users
-        const updateUser = yield db(user_1.userTable)
-            .where({ id })
-            .update(body)
-            .catch(err => err);
-        res.json(updateUser);
+        const body = snakeCase(req.body);
+        body.id = id;
+        yield userValidation(body, http_verb_1.HttpVerb.PUT, res, id);
+        if (res.statusCode !== 409) {
+            const updateUser = yield db(user_1.userTable)
+                .where({id})
+                .update(body)
+                .catch(err => err);
+            res.json(updateUser);
+        }
     });
 }
 exports.updateUser = updateUser;
-function userValidation(data, res) {
+
+function userValidation(data, httpVerb, res, userId) {
     return __awaiter(this, void 0, void 0, function* () {
-        const errorHandler = new error_message_1.ErrorHandler();
-        const { id, emailAddress, username } = data;
-        const isIdExists = db(user_1.userTable)
-            .count({ id: user_1.userFields.Id })
-            .where({ id });
-        const isUsernameExists = db(user_1.userTable)
-            .count({ username: user_1.userFields.Username })
-            .where({ [user_1.userFields.Username]: username });
-        const isEmailAddressExists = db(user_1.userTable)
-            .count({ email_address: user_1.userFields.EmailAddress })
-            .where({ [user_1.userFields.EmailAddress]: emailAddress });
-        const result = yield Promise.all([
-            isIdExists,
-            isUsernameExists,
-            isEmailAddressExists
-        ]).then((data) => __awaiter(this, void 0, void 0, function* () {
+        const errorHandler = new error_handler_1.ErrorHandler();
+        const httpAction = fetchValidationByHttpAction(data, httpVerb);
+        yield Promise.all(httpAction).then((data) => __awaiter(this, void 0, void 0, function* () {
             const filterFields = yield errorHandler.filterExistingFields(data);
             const errorMessages = yield errorHandler.getErrorMessages(error_1.Error.Duplicate);
             if (errorMessages.length > 0)
-                res.status(404).send({ errorMessages });
+                res.status(409).send({errorMessages});
         }))
             .catch(err => err);
     });
+}
+
+function fetchValidationByHttpAction(data, httpAction) {
+    if (httpAction === http_verb_1.HttpVerb.POST)
+        return fetchPostValidation(data);
+    else
+        fetchPutValidation(data);
+}
+
+function fetchPostValidation(data) {
+    const {id, username, email_address} = snakeCase(data);
+    const isIdExists = db(user_1.userTable)
+        .where({id})
+        .count({id: user_1.userFields.Id});
+    const isUsernameExists = db(user_1.userTable)
+        .where({username})
+        .count({username: user_1.userFields.Username});
+    const isEmailAddressExists = db(user_1.userTable)
+        .where({email_address})
+        .count({email_address: user_1.userFields.EmailAddress});
+    const validations = [
+        isIdExists,
+        isUsernameExists,
+        isEmailAddressExists
+    ];
+    return validations;
+}
+
+function fetchPutValidation(data) {
+    const {id, username, email_address} = snakeCase(data);
+    const isUsernameExists = db(user_1.userTable)
+        .where({username})
+        .andWhereNot({id, username})
+        .count({username: user_1.userFields.Username});
+    const isEmailAddressExists = db(user_1.userTable)
+        .where({email_address})
+        .andWhereNot({id, email_address})
+        .count({email_address: user_1.userFields.EmailAddress});
+    const validations = [
+        isUsernameExists,
+        isEmailAddressExists
+    ];
+    return validations;
 }
 //# sourceMappingURL=user.js.map
