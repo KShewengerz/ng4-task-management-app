@@ -13,8 +13,7 @@ import { Table, User, Error, HttpVerb } from "../../shared/index";
 const db = dbConnection.default;
 const userTable = Table.User;
 
-
-export async function getUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function getUser(req: Request, res: Response): Promise<void> {
   const id = req.params.id;
   const fetchUser = await db(userTable).where({id});
   const result = camelCase(fetchUser);
@@ -22,7 +21,7 @@ export async function getUser(req: Request, res: Response, next: NextFunction): 
   res.json(<User>result);
 }
 
-export async function addUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function addUser(req: Request, res: Response): Promise<void> {
   const body = snakeCase(req.body);
   
   await validateRequestBody(body, HttpVerb.POST, res);
@@ -37,7 +36,7 @@ export async function addUser(req: Request, res: Response, next: NextFunction): 
   }
 }
 
-export async function deleteUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function deleteUser(req: Request, res: Response): Promise<void> {
   const id = req.params.id;
   
   const deleteUser = await db(userTable)
@@ -48,12 +47,12 @@ export async function deleteUser(req: Request, res: Response, next: NextFunction
   res.sendStatus(204);
 }
 
-export async function updateUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function updateUser(req: Request, res: Response): Promise<void> {
   const id = req.params.id;
   const body = snakeCase(req.body);
   body.id = id;
   
-  await validateRequestBody(body, HttpVerb.PUT, res, id);
+  await validateRequestBody(body, HttpVerb.PUT, res);
   
   if (res.statusCode !== 409) {
     const updateUser = await db(userTable)
@@ -65,7 +64,7 @@ export async function updateUser(req: Request, res: Response, next: NextFunction
   }
 }
 
-async function validateRequestBody(data: User, httpVerb: string, res: Response, userId?: string): Promise<void> {
+async function validateRequestBody(data: User, httpVerb: string, res: Response): Promise<void> {
   const errorHandler = new ErrorHandler();
   const httpAction = fetchValidationByHttpAction(data, httpVerb);
   
