@@ -9,8 +9,15 @@ const db = dbConnection.default;
 const userTable = Table.User;
 
 
-export function getPostValidation(data: User): any[] {
-  const {id, username, email_address} = snakeCase(data);
+/**
+ * @description Post Validation - checking if id, username and email already exists.
+ *
+ * @param {User} user
+ *
+ * @returns {any[]}
+ */
+export function getPostValidation(user: User): any[] {
+  const {id, username, email_address} = snakeCase(user);
   
   const isIdExists = db(userTable)
   .where({id})
@@ -33,8 +40,17 @@ export function getPostValidation(data: User): any[] {
   return validations;
 }
 
-export function getPutValidation(data: User): any[] {
-  const {id, username, email_address} = snakeCase(data);
+
+/**
+ * @description Put Validation - checking if username and email address already exists
+ * with other users on user records.
+ *
+ * @param {User} user
+ *
+ * @returns {any[]}
+ */
+export function getPutValidation(user: User): any[] {
+  const {id, username, email_address} = snakeCase(user);
   
   const isUsernameExists = db(userTable)
   .whereNot({id})
@@ -54,6 +70,14 @@ export function getPutValidation(data: User): any[] {
   return validations;
 }
 
+
+/**
+ * @description Checking if user record already exists.
+ *
+ * @param {string} id
+ *
+ * @returns {Promise<number>}
+ */
 export async function checkIfUserRecordExists(id: string): Promise<number> {
   const isRecordExists = await db(userTable)
   .where({id})

@@ -16,7 +16,7 @@ const userTable = Table.User;
 
 /**
  * @api {post} /
- * @description Add new user
+ * @description Add new user.
  *
  * @param {Request} request
  * @param {Response} response
@@ -38,9 +38,10 @@ export async function addUser(req: Request, res: Response): Promise<void> {
   }
 }
 
+
 /**
  * @api {put} /:userId
- * @description Update's user information by userId
+ * @description Update's user information by userId.
  *
  * @apiParam {Uuid} userId
  *
@@ -77,9 +78,10 @@ export async function updateUser(req: Request, res: Response): Promise<void> {
   
 }
 
+
 /**
  * @api {get} /:id
- * @description Get user by userId
+ * @description Get user by userId.
  *
  * @apiParam {Uuid} userId
  *
@@ -96,9 +98,10 @@ export async function getUser(req: Request, res: Response): Promise<void> {
   res.json(<User>result);
 }
 
+
 /**
  * @api {delete} /:userId
- * @description Delete user by userId
+ * @description Delete user by userId.
  *
  * @apiParam {Uuid} userId
  *
@@ -127,8 +130,9 @@ export async function deleteUser(req: Request, res: Response): Promise<void> {
   }
 }
 
+
 /**
- * @description User request body field validation
+ * @description User request body field validation.
  *
  * @param {User} data
  * @param {String} httpVerb
@@ -149,8 +153,9 @@ async function validateRequestBody(data: User, httpVerb: string, res: Response):
   .catch(err => err);
 }
 
+
 /**
- * @description Fetch Validation by Http Verb
+ * @description Fetch Validation by Http Verb.
  *
  * @param {User} data
  * @param {string} httpVerb
