@@ -26,29 +26,39 @@ const userProjectTable = TableName.UserProject;
  * @returns {Promise<void>}
  */
 export async function addProjectByUserId(req: Request, res: Response): Promise<void> {
-  const userId = req.params.id;
-  const body = req.body;
+  const userId = req.params.userId;
+  const body = snakeCase(req.body);
   const projectId = body.id;
+  
+  const insertUserProjectData = {
+    [UserProjectField.UserId]: userId,
+    [UserProjectField.ProjectId]: projectId
+  };
+  
+  body.ordinal = 4; //TODO: Add Query on getting the maximum number the user has
+  //TODO: Validation on checking if user exists
+  //TODO: Validation on inserting duplicate id
   
   const insertProjectInfo = db(projectTable)
   .insert(body)
   .catch(err => err);
   
   const insertUserProject = db(userProjectTable)
-  .insert({userId, projectId})
+  .insert(insertUserProjectData)
   .catch(err => err);
   
   await Promise.all([
     insertProjectInfo,
     insertUserProject
-  ]);
+  ])
+  .catch(err => err);
   
   res.sendStatus(201);
 }
 
 /**
- * @api {put} /project/:projectId/user/:userId
- * @description Update Project by projectId and userId
+ * @api {put} /:id
+ * @description Update Project by projectId
  *
  * @apiParam {Uuid} projectId
  * @apiParam {Uuid} userId
@@ -58,8 +68,19 @@ export async function addProjectByUserId(req: Request, res: Response): Promise<v
  *
  * @returns {Promise<void>}
  */
-export function updateProject(req: Request, res: Response) {
-  res.json("Update Project");
+export async function updateProject(req: Request, res: Response): Promise<void> {
+  const id = req.params.id;
+  const body = snakeCase(req.body);
+  
+  //TODO: Validation on checking if project does not exists
+  //TODO: Validation on checking if name and color already exists based user projects.
+  
+  const updateProject = await db(TableName.Project)
+  .where({id})
+  .update(body)
+  .catch(err => err);
+  
+  res.sendStatus(200);
 }
 
 /**
@@ -73,22 +94,72 @@ export function updateProject(req: Request, res: Response) {
  *
  * @returns {Promise<void>}
  */
-export function getProjectsByUserId(req: Request, res: Response) {
-  res.json("Get Projects");
+export async function getProjectsByUserId(req: Request, res: Response): Promise<void> {
+  const userId = req.params.userId;
+  const projectTableId = `${TableName.Project}.${ProjectField.Id}`;
+  const userProjectTableProjectId = `${TableName.UserProject}.${UserProjectField.ProjectId}`;
+  const userProjectTableUserId = `${TableName.UserProject}.${UserProjectField.UserId}`;
+  
+  //TODO: Validation on checking if userId and projectId exists
+  
+  const fetchProjects = await db(TableName.Project)
+  .select(ProjectField.Id, ProjectField.Name, ProjectField.Color, ProjectField.Ordinal)
+  .leftJoin(TableName.UserProject, projectTableId, userProjectTableProjectId)
+  .whereNull(userProjectTableUserId)
+  .orWhere(userProjectTableUserId, userId)
+  .catch(err => err);
+  
+  const result = camelCase(fetchProjects);
+  
+  res.json(<Project>result);
 }
 
+
 /**
- * @api {get} /project/:projectId/user/:userId
- * @description Delete Project by projectId and user id
+ * @api {get} /:id
+ * @description Get project by projectId
  *
- * @apiParam {Uuid} projectId
- * @apiParam {Uuid} userId
+ * @apiParam {Uuid} id
  *
  * @param {Request} request
  * @param {Response} response
  *
  * @returns {Promise<void>}
  */
-export function deleteProject(req: Request, res: Response) {
-  res.json("Delete Project");
+export async function getProjectById(req: Request, res: Response): Promise<void> {
+  const id = req.params.id;
+  
+  //TODO: Check if project exists
+  
+  const fetchProject = await db(TableName.Project)
+  .where({id})
+  .catch(err => err);
+  
+  const result = camelCase(fetchProject);
+  
+  res.json(<Project>result);
+}
+
+/**
+ * @api {get} /:id
+ * @description Delete Project by projectId
+ *
+ * @apiParam {Uuid} id
+ *
+ * @param {Request} request
+ * @param {Response} response
+ *
+ * @returns {Promise<void>}
+ */
+export async function deleteProject(req: Request, res: Response): Promise<void> {
+  const id = req.params.id;
+  
+  //TODO: Check if project exists
+  
+  const deleteProject = await db(TableName.Project)
+  .where({id})
+  .del()
+  .catch(err => err);
+  
+  res.sendStatus(204);
 }

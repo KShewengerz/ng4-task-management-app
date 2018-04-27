@@ -1,5 +1,6 @@
 export enum ProjectField {
   Id = "id",
   Name = "name",
-  Color = "color"
+  Color = "color",
+  Ordinal = "ordinal"
 }

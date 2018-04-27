@@ -15,14 +15,22 @@ const router: Router = Router();
  */
 router.post("/user/:userId", api.addProjectByUserId);
 
+
 /**
- * @api {put} /project/:projectId/user/:userId
- * @description Update Project by id and user id
+ * @api {put} /:id
+ * @description Update Project by projectId
  *
- * @apiParam {Uuid} projectId
- * @apiParam {Uuid} userId
+ * @apiParam {Uuid} id
  */
-router.put("/project/:projectId/user/:userId", api.deleteProject);
+router.put("/:id", api.updateProject);
+
+
+/**
+ * @api {get} /:id
+ * @description Get project by projectId
+ */
+router.get("/:id", api.getProjectById);
+
 
 /**
  * @api {get} /user/:userId
@@ -30,14 +38,14 @@ router.put("/project/:projectId/user/:userId", api.deleteProject);
  */
 router.get("/user/:userId", api.getProjectsByUserId);
 
+
 /**
- * @api {get} /project/:projectId/user/:userId
- * @description Delete Project by id and user id
+ * @api {get} /:id
+ * @description Delete Project by projectId
  *
- * @apiParam {Uuid} projectId
- * @apiParam {Uuid} userId
+ * @apiParam {Uuid} id
  */
-router.delete("/project/:projectId/user/:userId", api.deleteProject);
+router.delete("/:id", api.deleteProject);
 
 
 /**
