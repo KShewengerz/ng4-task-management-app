@@ -7,7 +7,7 @@ import * as camelCase from "camelcase-keys";
 import * as dbConnection from "../../config/db";
 import * as userValidation from "./user-validation";
 
-import { ErrorHandler } from "../error-handler";
+import { ErrorHandler } from "../error-handler/error-handler";
 import { Table, User, Error, HttpVerb } from "../../shared/index";
 
 const db = dbConnection.default;
@@ -50,22 +50,31 @@ export async function addUser(req: Request, res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function updateUser(req: Request, res: Response): Promise<void> {
+  const errorHandler = new ErrorHandler();
   const id = req.params.userId;
   const body = snakeCase(req.body);
+  
   body.id = id;
   
-  //TODO: Validation for updating a non-existing user
+  const isUserExists = await userValidation.checkIfUserRecordExists(id);
   
-  await validateRequestBody(body, HttpVerb.PUT, res);
-  
-  if (res.statusCode !== 409) {
-    const updateUser = await db(userTable)
-    .where({id})
-    .update(body)
-    .catch(err => err);
+  if (isUserExists) {
+    await validateRequestBody(body, HttpVerb.PUT, res);
     
-    res.sendStatus(200);
+    if (res.statusCode !== 409) {
+      const updateUser = await db(userTable)
+      .where({id})
+      .update(body)
+      .catch(err => err);
+      
+      res.sendStatus(200);
+    }
   }
+  else {
+    const recordNotFound = errorHandler.errorMessage().notFound;
+    res.status(404).send(recordNotFound);
+  }
+  
 }
 
 /**
@@ -99,16 +108,23 @@ export async function getUser(req: Request, res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function deleteUser(req: Request, res: Response): Promise<void> {
+  const errorHandler = new ErrorHandler();
   const id = req.params.userId;
   
-  //TODO: Validation for deleting a non-existing user
+  const isUserExists = await userValidation.checkIfUserRecordExists(id);
   
-  const deleteUser = await db(userTable)
-  .where({id})
-  .del()
-  .catch(err => err);
-  
-  res.sendStatus(204);
+  if (isUserExists) {
+    const deleteUser = await db(userTable)
+    .where({id})
+    .del()
+    .catch(err => err);
+    
+    res.sendStatus(204);
+  }
+  else {
+    const userNotFound = errorHandler.errorMessage().notFound;
+    res.status(404).send(userNotFound);
+  }
 }
 
 /**

@@ -6,7 +6,7 @@ import * as camelCase from "camelcase-keys";
 
 import * as dbConnection from "../../config/db";
 
-import { ErrorHandler } from "../error-handler";
+import { ErrorHandler } from "../error-handler/error-handler";
 import { Table, Project, ProjectFields, Error, HttpVerb } from "../../shared/index";
 
 const db = dbConnection.default;

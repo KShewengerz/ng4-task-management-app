@@ -53,3 +53,15 @@ export function getPutValidation(data: User): any[] {
   
   return validations;
 }
+
+export async function checkIfUserRecordExists(id: string): Promise<number> {
+  const isRecordExists = await db(userTable)
+  .where({id})
+  .count({id: UserFields.Id})
+  .then(response => {
+    const isExists = response[0][UserFields.Id];
+    return isExists;
+  });
+  
+  return isRecordExists;
+}

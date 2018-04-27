@@ -1,3 +1,5 @@
+import { Error } from "./error";
+
 export class ErrorHandler {
   
   fieldNames: string[] = [];
@@ -17,9 +19,10 @@ export class ErrorHandler {
     return errors;
   }
   
-  errorMessage(fieldName: string): any {
+  errorMessage(fieldName?: string): Error {
     return {
-      duplicate: `${fieldName} already exists`
+      duplicate: `${fieldName} already exists`,
+      notFound: "Record not found"
     };
   }
 }
