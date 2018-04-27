@@ -33,8 +33,8 @@ export async function addUser(req: Request, res: Response): Promise<void> {
     .insert(body)
     .then(rows => rows[0])
     .catch(err => err);
-    
-    res.sendStatus(201).send();
+  
+    res.sendStatus(201);
   }
 }
 
