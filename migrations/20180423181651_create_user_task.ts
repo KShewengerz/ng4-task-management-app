@@ -1,25 +1,25 @@
 import * as Knex from "knex";
 
-import { Table, UserTaskFields, UserFields, TaskFields } from "../shared/index";
+import { TableName, UserTaskField, UserField, TaskField } from "../shared/index";
 
 
 export async function up(knex: Knex) {
-  return await knex.schema.createTable(Table.UserTask, table => {
-    table.uuid(UserTaskFields.UserId).unique().notNullable();
-    table.uuid(UserTaskFields.TaskId).unique().notNullable();
+  return await knex.schema.createTable(TableName.UserTask, table => {
+    table.uuid(UserTaskField.UserId).unique().notNullable();
+    table.uuid(UserTaskField.TaskId).unique().notNullable();
     
-    table.foreign(UserTaskFields.UserId)
-    .references(`${Table.User}.${UserFields.Id}`)
+    table.foreign(UserTaskField.UserId)
+    .references(`${TableName.User}.${UserField.Id}`)
     .onUpdate("CASCADE")
     .onDelete("CASCADE");
     
-    table.foreign(UserTaskFields.TaskId)
-    .references(`${Table.Task}.${TaskFields.Id}`)
+    table.foreign(UserTaskField.TaskId)
+    .references(`${TableName.Task}.${TaskField.Id}`)
     .onUpdate("CASCADE")
     .onDelete("CASCADE");
   });
 }
 
 export async function down(knex: Knex) {
-  return await knex.schema.dropTable(Table.UserTask);
+  return await knex.schema.dropTable(TableName.UserTask);
 }

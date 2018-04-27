@@ -1,4 +1,4 @@
-export enum ProjectFields {
+export enum ProjectField {
   Id = "id",
   UserId = "user_id",
   Ordinal = "ordinal",

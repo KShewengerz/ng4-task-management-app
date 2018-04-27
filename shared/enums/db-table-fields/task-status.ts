@@ -1,4 +1,4 @@
-export enum TaskStatusFields {
+export enum TaskStatusField {
   Id = "id",
   Name = "name"
 }

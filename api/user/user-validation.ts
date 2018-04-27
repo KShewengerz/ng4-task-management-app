@@ -3,10 +3,10 @@
 import * as snakeCase from "snakecase-keys";
 import * as dbConnection from "../../config/db";
 
-import { Table, UserFields, User } from "../../shared/index";
+import { TableName, UserField, User } from "../../shared/index";
 
 const db = dbConnection.default;
-const userTable = Table.User;
+const userTable = TableName.User;
 
 
 /**
@@ -21,15 +21,15 @@ export function getPostValidation(user: User): any[] {
   
   const isIdExists = db(userTable)
   .where({id})
-  .count({id: UserFields.Id});
+  .count({id: UserField.Id});
   
   const isUsernameExists = db(userTable)
   .where({username})
-  .count({username: UserFields.Username});
+  .count({username: UserField.Username});
   
   const isEmailAddressExists = db(userTable)
   .where({email_address})
-  .count({email_address: UserFields.EmailAddress});
+  .count({email_address: UserField.EmailAddress});
   
   const validations = [
     isIdExists,
@@ -55,12 +55,12 @@ export function getPutValidation(user: User): any[] {
   const isUsernameExists = db(userTable)
   .whereNot({id})
   .andWhere({username})
-  .count({username: UserFields.Username});
+  .count({username: UserField.Username});
   
   const isEmailAddressExists = db(userTable)
   .whereNot({id})
   .andWhere({email_address})
-  .count({email_address: UserFields.EmailAddress});
+  .count({email_address: UserField.EmailAddress});
   
   const validations = [
     isUsernameExists,
@@ -81,9 +81,9 @@ export function getPutValidation(user: User): any[] {
 export async function checkIfUserRecordExists(id: string): Promise<number> {
   const isRecordExists = await db(userTable)
   .where({id})
-  .count({id: UserFields.Id})
+  .count({id: UserField.Id})
   .then(response => {
-    const isExists = response[0][UserFields.Id];
+    const isExists = response[0][UserField.Id];
     return isExists;
   });
   

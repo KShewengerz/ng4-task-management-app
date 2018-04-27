@@ -8,10 +8,10 @@ import * as dbConnection from "../../config/db";
 import * as userValidation from "./user-validation";
 
 import { ErrorHandler } from "../error-handler/error-handler";
-import { Table, User, Error, HttpVerb } from "../../shared/index";
+import { TableName, User, Error, HttpVerb } from "../../shared/index";
 
 const db = dbConnection.default;
-const userTable = Table.User;
+const userTable = TableName.User;
 
 
 /**

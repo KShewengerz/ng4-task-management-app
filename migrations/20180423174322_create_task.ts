@@ -1,21 +1,21 @@
 import * as Knex from "knex";
 
-import { Table, TaskFields, ProjectFields, TaskStatusFields } from "../shared/index";
+import { TableName, TaskField, ProjectField, TaskStatusField } from "../shared/index";
 
 
 export async function up(knex: Knex) {
-  return await knex.schema.createTable(Table.Task, table => {
-    table.uuid(TaskFields.Id).primary();
-    table.uuid(TaskFields.ProjectId).unique().notNullable();
-    table.uuid(TaskFields.StatusId).unique().notNullable();
-    table.string(TaskFields.Description, 255).notNullable();
-    table.date(TaskFields.ScheduleDate).notNullable();
+  return await knex.schema.createTable(TableName.Task, table => {
+    table.uuid(TaskField.Id).primary();
+    table.uuid(TaskField.ProjectId).unique().notNullable();
+    table.uuid(TaskField.StatusId).unique().notNullable();
+    table.string(TaskField.Description, 255).notNullable();
+    table.date(TaskField.ScheduleDate).notNullable();
     
-    table.foreign(TaskFields.ProjectId).references(`${Table.Project}.${ProjectFields.Id}`);
-    table.foreign(TaskFields.StatusId).references(`${Table.TaskStatus}.${TaskStatusFields.Id}`);
+    table.foreign(TaskField.ProjectId).references(`${TableName.Project}.${ProjectField.Id}`);
+    table.foreign(TaskField.StatusId).references(`${TableName.TaskStatus}.${TaskStatusField.Id}`);
   });
 }
 
 export async function down(knex: Knex) {
-  return await knex.schema.dropTable(Table.Task);
+  return await knex.schema.dropTable(TableName.Task);
 }

@@ -8,7 +8,7 @@ export class ErrorHandler {
    * @description Filter all existing fields by table record.
    * if 1 - record exists. 0 no record exists.
    *
-   * @param {any[]} fields = Table fields used for counting existing record.
+   * @param {any[]} fields = TableName fields used for counting existing record.
    *
    * @returns {void}
    */

@@ -1,21 +1,21 @@
 import * as Knex from "knex";
 
-import { Table, UserFields } from "../shared/index";
+import { TableName, UserField } from "../shared/index";
 
 
 export async function up(knex: Knex) {
-  return await knex.schema.createTable(Table.User, table => {
-    table.uuid(UserFields.Id).primary();
-    table.string(UserFields.FirstName, 128).notNullable();
-    table.string(UserFields.LastName, 128).notNullable();
-    table.string(UserFields.EmailAddress, 255).notNullable();
-    table.string(UserFields.Username, 32).notNullable();
-    table.string(UserFields.Password, 40).notNullable();
-    table.enum(UserFields.Gender, ["m", "f"]).notNullable();
-    table.specificType(UserFields.ProfileImage, "longblob");
+  return await knex.schema.createTable(TableName.User, table => {
+    table.uuid(UserField.Id).primary();
+    table.string(UserField.FirstName, 128).notNullable();
+    table.string(UserField.LastName, 128).notNullable();
+    table.string(UserField.EmailAddress, 255).notNullable();
+    table.string(UserField.Username, 32).notNullable();
+    table.string(UserField.Password, 40).notNullable();
+    table.enum(UserField.Gender, ["m", "f"]).notNullable();
+    table.specificType(UserField.ProfileImage, "longblob");
   });
 }
 
 export async function down(knex: Knex) {
-  return await knex.schema.dropTable(Table.User);
+  return await knex.schema.dropTable(TableName.User);
 }

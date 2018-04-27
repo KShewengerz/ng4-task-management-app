@@ -1,12 +1,12 @@
 import * as Knex from "knex";
 
-import { Table, TaskStatusFields, TaskStatus } from "../shared/index";
+import { TableName, TaskStatusField, TaskStatus } from "../shared/index";
 
 
 export async function up(knex: Knex) {
-  return await knex.schema.createTable(Table.TaskStatus, table => {
-    table.uuid(TaskStatusFields.Id).primary();
-    table.string(TaskStatusFields.Name, 20).notNullable();
+  return await knex.schema.createTable(TableName.TaskStatus, table => {
+    table.uuid(TaskStatusField.Id).primary();
+    table.string(TaskStatusField.Name, 20).notNullable();
   })
   .then(async () => {
     const statuses: TaskStatus[] = [
@@ -15,10 +15,10 @@ export async function up(knex: Knex) {
       { id: "a3cb5520-c18d-44ec-a7f4-2be199288741", name: "Overdue" }
     ];
   
-    return await knex(Table.TaskStatus).insert(statuses);
+    return await knex(TableName.TaskStatus).insert(statuses);
   });
 }
 
 export async function down(knex: Knex) {
-  return await knex.schema.dropTable(Table.TaskStatus);
+  return await knex.schema.dropTable(TableName.TaskStatus);
 }

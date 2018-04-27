@@ -7,10 +7,11 @@ import * as camelCase from "camelcase-keys";
 import * as dbConnection from "../../config/db";
 
 import { ErrorHandler } from "../error-handler/error-handler";
-import { Table, Project, ProjectFields, Error, HttpVerb } from "../../shared/index";
+import { TableName, Project, ProjectField, UserProjectField, Error, HttpVerb } from "../../shared/index";
 
 const db = dbConnection.default;
-const projectTable = Table.Project;
+const projectTable = TableName.Project;
+const userProjectTable = TableName.UserProject;
 
 
 /**

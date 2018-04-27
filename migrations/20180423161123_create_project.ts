@@ -1,17 +1,17 @@
 import * as Knex from "knex";
 
-import { Project, Table, ProjectFields, UserFields } from "../shared/index";
+import { Project, TableName, ProjectField, UserField } from "../shared/index";
 
 
 export async function up(knex: Knex) {
-  return await knex.schema.createTable(Table.Project, table => {
-    table.uuid(ProjectFields.Id).primary();
-    table.uuid(ProjectFields.UserId).unique();
-    table.integer(ProjectFields.Ordinal).unique().notNullable();
-    table.string(ProjectFields.Name, 45).notNullable();
-    table.string(ProjectFields.Color, 45).notNullable();
-  
-    table.foreign(ProjectFields.UserId).references(`${Table.User}.${UserFields.Id}`);
+  return await knex.schema.createTable(TableName.Project, table => {
+    table.uuid(ProjectField.Id).primary();
+    table.uuid(ProjectField.UserId).unique();
+    table.integer(ProjectField.Ordinal).unique().notNullable();
+    table.string(ProjectField.Name, 45).notNullable();
+    table.string(ProjectField.Color, 45).notNullable();
+    
+    table.foreign(ProjectField.UserId).references(`${TableName.User}.${UserField.Id}`);
   })
   .then(async () => {
     const projects: Project[] = [
@@ -35,10 +35,10 @@ export async function up(knex: Knex) {
       }
     ];
   
-    return await knex(Table.Project).insert(projects);
+    return await knex(TableName.Project).insert(projects);
   });
 }
 
 export async function down(knex: Knex) {
-  return await knex.schema.dropTable(Table.Project);
+  return await knex.schema.dropTable(TableName.Project);
 }

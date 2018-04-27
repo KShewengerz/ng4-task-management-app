@@ -1,4 +1,4 @@
-export enum UserFields {
+export enum UserField {
   Id = "id",
   FirstName = "first_name",
   LastName = "last_name",
