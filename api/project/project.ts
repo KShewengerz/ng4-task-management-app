@@ -15,16 +15,35 @@ const userProjectTable = TableName.UserProject;
 
 
 /**
- * @api {post} /
- * @description Add new project
+ * @api {post} /user/:userId
+ * @description Add new project by userId
+ *
+ * @apiParam {String} userId
  *
  * @param {Request} request
  * @param {Response} response
  *
  * @returns {Promise<void>}
  */
-export function addProject(req: Request, res: Response) {
-  res.json("Add Project");
+export async function addProjectByUserId(req: Request, res: Response): Promise<void> {
+  const userId = req.params.id;
+  const body = req.body;
+  const projectId = body.id;
+  
+  const insertProjectInfo = db(projectTable)
+  .insert(body)
+  .catch(err => err);
+  
+  const insertUserProject = db(userProjectTable)
+  .insert({userId, projectId})
+  .catch(err => err);
+  
+  await Promise.all([
+    insertProjectInfo,
+    insertUserProject
+  ]);
+  
+  res.sendStatus(201);
 }
 
 /**

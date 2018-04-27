@@ -8,12 +8,12 @@ const router: Router = Router();
 
 
 /**
- * @api {post} /
- * @description Add new project
+ * @api {post} /user/:userId
+ * @description Add new project by userId.
  *
  * @apiParam {Uuid} userId
  */
-router.post("/", api.addProject);
+router.post("/user/:userId", api.addProjectByUserId);
 
 /**
  * @api {put} /project/:projectId/user/:userId

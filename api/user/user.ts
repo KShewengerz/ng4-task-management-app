@@ -31,7 +31,6 @@ export async function addUser(req: Request, res: Response): Promise<void> {
   if (res.statusCode !== 409) {
     const insertUser = await db(userTable)
     .insert(body)
-    .then(rows => rows[0])
     .catch(err => err);
   
     res.sendStatus(201);

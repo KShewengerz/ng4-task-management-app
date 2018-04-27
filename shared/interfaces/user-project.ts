@@ -1,4 +1,5 @@
 export interface UserProject {
-  userId: string;
+  userId?: string;
   projectId: string;
+  ordinal: number;
 }

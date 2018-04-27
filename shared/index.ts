@@ -15,3 +15,4 @@ export * from "./interfaces/task";
 export * from "./interfaces/task-status";
 export * from "./interfaces/user";
 export * from "./interfaces/user-task";
+export * from "./interfaces/user-project";
