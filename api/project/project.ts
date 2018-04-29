@@ -5,6 +5,7 @@ import * as snakeCase from "snakecase-keys";
 import * as camelCase from "camelcase-keys";
 
 import * as dbConnection from "../../config/db";
+import * as projectValidation from "./project-validation";
 
 import { ErrorHandler } from "../error-handler/error-handler";
 import { TableName, Project, ProjectField, UserProjectField, Error, HttpVerb } from "../../shared/index";
@@ -35,18 +36,19 @@ export async function addProjectByUserId(req: Request, res: Response): Promise<v
     [UserProjectField.ProjectId]: projectId
   };
   
-  body.ordinal = 4; //TODO: Add Query on getting the maximum number the user has
+  body.ordinal = await projectValidation.getNextUserProjectOrdinal(userId);
+  
   //TODO: Validation on checking if user exists
   //TODO: Validation on inserting duplicate id
   
   const insertProjectInfo = db(projectTable)
   .insert(body)
   .catch(err => err);
-  
+
   const insertUserProject = db(userProjectTable)
   .insert(insertUserProjectData)
   .catch(err => err);
-  
+
   await Promise.all([
     insertProjectInfo,
     insertUserProject
@@ -75,7 +77,7 @@ export async function updateProject(req: Request, res: Response): Promise<void> 
   //TODO: Validation on checking if project does not exists
   //TODO: Validation on checking if name and color already exists based user projects.
   
-  const updateProject = await db(TableName.Project)
+  const updateProject = await db(projectTable)
   .where({id})
   .update(body)
   .catch(err => err);
@@ -96,15 +98,15 @@ export async function updateProject(req: Request, res: Response): Promise<void> 
  */
 export async function getProjectsByUserId(req: Request, res: Response): Promise<void> {
   const userId = req.params.userId;
-  const projectTableId = `${TableName.Project}.${ProjectField.Id}`;
-  const userProjectTableProjectId = `${TableName.UserProject}.${UserProjectField.ProjectId}`;
-  const userProjectTableUserId = `${TableName.UserProject}.${UserProjectField.UserId}`;
+  const projectTableId = `${projectTable}.${ProjectField.Id}`;
+  const userProjectTableProjectId = `${userProjectTable}.${UserProjectField.ProjectId}`;
+  const userProjectTableUserId = `${userProjectTable}.${UserProjectField.UserId}`;
   
   //TODO: Validation on checking if userId and projectId exists
   
-  const fetchProjects = await db(TableName.Project)
+  const fetchProjects = await db(projectTable)
   .select(ProjectField.Id, ProjectField.Name, ProjectField.Color, ProjectField.Ordinal)
-  .leftJoin(TableName.UserProject, projectTableId, userProjectTableProjectId)
+  .leftJoin(userProjectTable, projectTableId, userProjectTableProjectId)
   .whereNull(userProjectTableUserId)
   .orWhere(userProjectTableUserId, userId)
   .catch(err => err);
@@ -131,7 +133,7 @@ export async function getProjectById(req: Request, res: Response): Promise<void>
   
   //TODO: Check if project exists
   
-  const fetchProject = await db(TableName.Project)
+  const fetchProject = await db(projectTable)
   .where({id})
   .catch(err => err);
   
@@ -156,7 +158,7 @@ export async function deleteProject(req: Request, res: Response): Promise<void> 
   
   //TODO: Check if project exists
   
-  const deleteProject = await db(TableName.Project)
+  const deleteProject = await db(projectTable)
   .where({id})
   .del()
   .catch(err => err);
