@@ -2,7 +2,7 @@
 
 import {Router} from "express";
 
-import * as api from "../api/user/user";
+import { api } from "../api/user/index";
 
 const router: Router = Router();
 

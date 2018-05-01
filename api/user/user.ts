@@ -2,17 +2,11 @@
 
 import { Request, Response } from "express";
 import * as snakeCase from "snakecase-keys";
-import * as camelCase from "camelcase-keys";
 
-import * as dbConnection from "../../config/db";
-import * as userValidation from "./user-validation";
+import { userQuery, userValidation, userErrorHandler } from "./index";
 
 import { ErrorHandler } from "../error-handler/index";
-import { TableName, HttpVerb } from "../../shared/enums/index";
-import { User } from "../../shared/interfaces/index";
-
-const db = dbConnection.default;
-const userTable = TableName.User;
+import { HttpVerb } from "../../shared/enums/index";
 
 
 /**
@@ -27,15 +21,11 @@ const userTable = TableName.User;
 export async function addUser(req: Request, res: Response): Promise<void> {
   const body = snakeCase(req.body);
   
-  await validateRequestBody(body, HttpVerb.POST, res);
+  const condition = await userValidation.getPostValidation(body);
   
-  if (res.statusCode !== 409) {
-    const insertUser = await db(userTable)
-    .insert(body)
-    .catch(err => err);
+  await userErrorHandler.postAndPutErrorHandler(condition, res, true);
   
-    res.sendStatus(201);
-  }
+  if (res.statusCode !== 400) await userQuery.addNewUser(body, res);
 }
 
 
@@ -51,31 +41,16 @@ export async function addUser(req: Request, res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function updateUser(req: Request, res: Response): Promise<void> {
-  const errorHandler = new ErrorHandler();
   const id = req.params.userId;
   const body = snakeCase(req.body);
   
   body.id = id;
   
-  const isUserExists = await userValidation.checkIfUserExists(id);
+  const condition = await userValidation.getPutValidation(body);
   
-  if (isUserExists) {
-    await validateRequestBody(body, HttpVerb.PUT, res);
-    
-    if (res.statusCode !== 409) {
-      const updateUser = await db(userTable)
-      .where({id})
-      .update(body)
-      .catch(err => err);
-      
-      res.sendStatus(200);
-    }
-  }
-  else {
-    // const recordNotFound = errorHandler.errorMessage().notFound;
-    // res.status(404).send(recordNotFound);
-  }
+  await userErrorHandler.postAndPutErrorHandler(condition, res);
   
+  if (res.statusCode !== 400) await userQuery.updateUser(id, body, res);
 }
 
 
@@ -92,10 +67,12 @@ export async function updateUser(req: Request, res: Response): Promise<void> {
  */
 export async function getUser(req: Request, res: Response): Promise<void> {
   const id = req.params.userId;
-  const fetchUser = await db(userTable).where({id});
-  const result = camelCase(fetchUser);
   
-  res.json(<User>result);
+  const condition = await userValidation.checkIfUserExists(id);
+  
+  await userErrorHandler.getAndDeleteErrorHandler(condition, res);
+  
+  if (res.statusCode !== 404) await userQuery.getUser(id, res);
 }
 
 
@@ -114,56 +91,9 @@ export async function deleteUser(req: Request, res: Response): Promise<void> {
   const errorHandler = new ErrorHandler();
   const id = req.params.userId;
   
-  const isUserExists = await userValidation.checkIfUserExists(id);
+  const condition = await userValidation.checkIfUserExists(id);
   
-  if (isUserExists) {
-    const deleteUser = await db(userTable)
-    .where({id})
-    .del()
-    .catch(err => err);
-    
-    res.sendStatus(204);
-  }
-  else {
-    // const userNotFound = errorHandler.errorMessage().notFound;
-    // res.status(404).send(userNotFound);
-  }
-}
-
-
-/**
- * @description User request body field validation.
- *
- * @param {User} data
- * @param {String} httpVerb
- * @param {Response} response
- *
- * @returns {Promise<void>}
- */
-async function validateRequestBody(data: User, httpVerb: string, res: Response): Promise<void> {
-  const errorHandler = new ErrorHandler();
-  const validation = fetchValidationByHttpVerb(data, httpVerb);
+  await userErrorHandler.getAndDeleteErrorHandler(condition, res);
   
-  await Promise.all(validation).then(async data => {
-    const filterFields = await errorHandler.filterExistingFields(data);
-    //const errorMessages = await errorHandler.getErrorMessages(ErrorType.Duplicate);
-  
-    //if (errorMessages.length > 0) res.status(409).send({errorMessages});
-  })
-  .catch(err => err);
+  if (res.statusCode !== 404) await userQuery.deleteUser(id, res);
 }
-
-
-/**
- * @description Fetch Validation by Http Verb.
- *
- * @param {User} data
- * @param {string} httpVerb
- *
- * @returns {any[]}
- */
-function fetchValidationByHttpVerb(data: User, httpVerb: string): any[] {
-  if (httpVerb === HttpVerb.POST) return userValidation.getPostValidation(data);
-  else return userValidation.getPutValidation(data);
-}
-

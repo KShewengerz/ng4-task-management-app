@@ -7,7 +7,7 @@ import { TableName, UserField } from "../../shared/enums/index";
 import { User } from "../../shared/interfaces/index";
 
 const db = dbConnection.default;
-const userTable = TableName.User;
+const { User: userTable } = TableName;
 
 
 /**
@@ -17,28 +17,29 @@ const userTable = TableName.User;
  *
  * @returns {any[]}
  */
-export function getPostValidation(user: User): any[] {
-  const {id, username, email_address} = snakeCase(user);
+export async function getPostValidation(user: User): Promise<any> {
+  const { id, username, email_address } = snakeCase(user);
   
-  const isIdExists = db(userTable)
-  .where({id})
-  .count({id: UserField.Id});
+  const isIdExists = await db(userTable)
+  .count({ id: UserField.Id })
+  .where({ id })
+  .then(response => response[0].id)
+  .catch(err => err);
   
-  const isUsernameExists = db(userTable)
-  .where({username})
-  .count({username: UserField.Username});
+  const isUsernameExists = await db(userTable)
+  .count({ username: UserField.Username })
+  .where({ username })
+  .then(response => response[0].username)
+  .catch(err => err);
   
-  const isEmailAddressExists = db(userTable)
-  .where({email_address})
-  .count({email_address: UserField.EmailAddress});
   
-  const validations = [
-    isIdExists,
-    isUsernameExists,
-    isEmailAddressExists
-  ];
+  const isEmailAddressExists = await db(userTable)
+  .count({ email_address: UserField.EmailAddress })
+  .where({ email_address })
+  .then(response => response[0].email_address)
+  .catch(err => err);
   
-  return validations;
+  return { isIdExists, isUsernameExists, isEmailAddressExists };
 }
 
 
@@ -50,25 +51,26 @@ export function getPostValidation(user: User): any[] {
  *
  * @returns {any[]}
  */
-export function getPutValidation(user: User): any[] {
-  const {id, username, email_address} = snakeCase(user);
+export async function getPutValidation(user: User): Promise<any> {
+  const { id, username, email_address } = snakeCase(user);
   
-  const isUsernameExists = db(userTable)
-  .whereNot({id})
-  .andWhere({username})
-  .count({username: UserField.Username});
+  const isUsernameExists = await db(userTable)
+  .count({ username: UserField.Username })
+  .whereNot({ id })
+  .andWhere({ username })
+  .then(response => response[0].username)
+  .catch(err => err);
   
-  const isEmailAddressExists = db(userTable)
-  .whereNot({id})
-  .andWhere({email_address})
-  .count({email_address: UserField.EmailAddress});
   
-  const validations = [
-    isUsernameExists,
-    isEmailAddressExists
-  ];
+  const isEmailAddressExists = await db(userTable)
+  .count({ email_address: UserField.EmailAddress })
+  .whereNot({ id })
+  .andWhere({ email_address })
+  .then(response => response[0].email_address)
+  .catch(err => err);
   
-  return validations;
+  
+  return { isUsernameExists, isEmailAddressExists };
 }
 
 
@@ -79,14 +81,12 @@ export function getPutValidation(user: User): any[] {
  *
  * @returns {Promise<number>}
  */
-export async function checkIfUserExists(id: string): Promise<number> {
+export async function checkIfUserExists(id: string): Promise<any> {
   const isRecordExists = await db(userTable)
-  .where({id})
-  .count({id: UserField.Id})
-  .then(response => {
-    const isExists = response[0][UserField.Id];
-    return isExists;
-  });
+  .count({ id: UserField.Id })
+  .where({ id })
+  .then(response => response[0].id)
+  .catch(err => err);
   
-  return isRecordExists;
+  return { isRecordExists };
 }

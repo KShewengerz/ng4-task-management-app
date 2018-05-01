@@ -17,8 +17,9 @@ export async function postErrorHandler(condition: any, res: Response): Promise<v
   if (condition.isProjectExists) errorHandler.computedFieldNames.push({id: ErrorType.Duplicate});
   if (condition.isProjectNameExists) errorHandler.computedFieldNames.push({name: ErrorType.Duplicate});
   if (condition.isProjectColorExists) errorHandler.computedFieldNames.push({color: ErrorType.Duplicate});
+  else return;
   
-  await errorResponseMessageHandler(errorHandler, res, 400);
+  await errorHandler.errorResponseMessageHandler(errorHandler, res, 400);
 }
 
 
@@ -35,14 +36,15 @@ export async function putErrorHandler(condition: any, res: Response): Promise<vo
   
   if (!condition.isProjectExists) {
     errorHandler.computedFieldNames.push({id: ErrorType.NotFound});
-    await errorResponseMessageHandler(errorHandler, res, 404);
+    await errorHandler.errorResponseMessageHandler(errorHandler, res, 404);
   }
-  else {
+  else if (condition.isProjectNameExists || condition.isProjectColorExists) {
     if (condition.isProjectNameExists) errorHandler.computedFieldNames.push({name: ErrorType.Duplicate});
     if (condition.isProjectColorExists) errorHandler.computedFieldNames.push({color: ErrorType.Duplicate});
   }
+  else return;
   
-  await errorResponseMessageHandler(errorHandler, res, 400);
+  await errorHandler.errorResponseMessageHandler(errorHandler, res, 400);
 }
 
 
@@ -53,26 +55,11 @@ export async function putErrorHandler(condition: any, res: Response): Promise<vo
  *
  * @returns {Promise<any>}
  */
-export async function getAndDeleteErrorHandler(res: Response): Promise<any> {
+export async function getAndDeleteErrorHandler(condition: any, res: Response): Promise<any> {
   const errorHandler = new ErrorHandler();
   
-  errorHandler.computedFieldNames.push({project: ErrorType.NotFound});
-  await errorResponseMessageHandler(errorHandler, res);
-}
-
-
-/**
- * @description Handles API error message response.
- *
- * @param {ErrorHandler} errorHandler
- * @param {Response} res
- * @param {number} statusCode
- *
- * @returns {Promise<void>}
- */
-export async function errorResponseMessageHandler(errorHandler: ErrorHandler, res: Response, statusCode?: number): Promise<void> {
-  const errorMessages = await errorHandler.getErrorMessages();
-  const code = statusCode ? statusCode : 400;
+  if (condition.isRecordExists) errorHandler.computedFieldNames.push({ project: ErrorType.NotFound });
+  else return;
   
-  res.status(code).send({errorMessages});
+  await errorHandler.errorResponseMessageHandler(errorHandler, res, 404);
 }

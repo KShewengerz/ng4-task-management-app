@@ -1,14 +1,12 @@
 "use strict";
 
-import { Response } from "express";
-
 import * as dbConnection from "../../config/db";
 
 import { Project } from "../../shared/interfaces/index";
 import { TableName, ProjectField, UserProjectField, HttpVerb } from "../../shared/enums/index";
 
 const db = dbConnection.default;
-const {Project: projectTable, UserProject: userProjectTable} = TableName;
+const { Project: projectTable, UserProject: userProjectTable } = TableName;
 
 //Temporary: TODO Create API Authentication
 const userId = "72fd18d3-8403-4376-a486-05bdecc88b2a";
@@ -26,7 +24,7 @@ export async function getNextUserProjectOrdinal(userId: string): Promise<number>
   const userProjectTableUserId = `${userProjectTable}.${UserProjectField.UserId}`;
   
   const fetchNextOrdinal = await db(userProjectTable)
-  .max({max: ProjectField.Ordinal})
+  .max({ max: ProjectField.Ordinal })
   .innerJoin(projectTable, projectTableId, userProjectTableProjectId)
   .where(userProjectTableUserId, userId)
   .then(response => {
@@ -50,19 +48,19 @@ export async function getNextUserProjectOrdinal(userId: string): Promise<number>
  *
  * @returns {Promise<number>}
  */
-export async function checkIfValueExistsWithinUserProject({field, value}, action?: HttpVerb): Promise<number> {
+export async function checkIfValueExistsWithinUserProject({ field, value }, action?: HttpVerb): Promise<any> {
   const userProjectTableProjectId = `${userProjectTable}.${UserProjectField.ProjectId}`;
   const projectTableId = `${projectTable}.${ProjectField.Id}`;
   const userIdField = UserProjectField.UserId;
   
   const isRecordExists = await db(projectTable)
-  .count({id: ProjectField.Id})
+  .count({ id: ProjectField.Id })
   .leftJoin(userProjectTable, projectTableId, userProjectTableProjectId)
   .whereRaw(`${field} = '${value}' AND (${userIdField} = '${userId}' or ${userIdField} is null)`)
   .then(response => response[0].id)
   .catch(err => err);
   
-  return isRecordExists;
+  return { isRecordExists };
 }
 
 
@@ -76,13 +74,13 @@ export async function checkIfValueExistsWithinUserProject({field, value}, action
  * @returns {Promise<any>}
  */
 export async function validateDuplicateBodyFields(body: Project, projectId?: string, httpVerb?: HttpVerb): Promise<any> {
-  const IdCondition = {field: ProjectField.Id, value: body.id || projectId};
-  const NameCondition = {field: ProjectField.Name, value: body.name};
-  const ColorCondition = {field: ProjectField.Color, value: body.color};
+  const IdCondition = { field: ProjectField.Id, value: body.id || projectId };
+  const NameCondition = { field: ProjectField.Name, value: body.name };
+  const ColorCondition = { field: ProjectField.Color, value: body.color };
   
   const isProjectExists = await checkIfValueExistsWithinUserProject(IdCondition, httpVerb);
   const isProjectNameExists = await checkIfValueExistsWithinUserProject(NameCondition, httpVerb);
   const isProjectColorExists = await checkIfValueExistsWithinUserProject(ColorCondition, httpVerb);
   
-  return {isProjectExists, isProjectNameExists, isProjectColorExists};
+  return { isProjectExists, isProjectNameExists, isProjectColorExists };
 }
