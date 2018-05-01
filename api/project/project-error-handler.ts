@@ -38,10 +38,8 @@ export async function putErrorHandler(condition: any, res: Response): Promise<vo
     errorHandler.computedFieldNames.push({id: ErrorType.NotFound});
     await errorHandler.errorResponseMessageHandler(errorHandler, res, 404);
   }
-  else if (condition.isProjectNameExists || condition.isProjectColorExists) {
-    if (condition.isProjectNameExists) errorHandler.computedFieldNames.push({name: ErrorType.Duplicate});
-    if (condition.isProjectColorExists) errorHandler.computedFieldNames.push({color: ErrorType.Duplicate});
-  }
+  if (condition.isProjectNameExists) errorHandler.computedFieldNames.push({ name: ErrorType.Duplicate });
+  if (condition.isProjectColorExists) errorHandler.computedFieldNames.push({ color: ErrorType.Duplicate });
   else return;
   
   await errorHandler.errorResponseMessageHandler(errorHandler, res, 400);
@@ -58,7 +56,7 @@ export async function putErrorHandler(condition: any, res: Response): Promise<vo
 export async function getAndDeleteErrorHandler(condition: any, res: Response): Promise<any> {
   const errorHandler = new ErrorHandler();
   
-  if (condition.isRecordExists) errorHandler.computedFieldNames.push({ project: ErrorType.NotFound });
+  if (!condition.isRecordExists) errorHandler.computedFieldNames.push({ project: ErrorType.NotFound });
   else return;
   
   await errorHandler.errorResponseMessageHandler(errorHandler, res, 404);
