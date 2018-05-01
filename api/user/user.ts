@@ -1,14 +1,15 @@
 "use strict";
 
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import * as snakeCase from "snakecase-keys";
 import * as camelCase from "camelcase-keys";
 
 import * as dbConnection from "../../config/db";
 import * as userValidation from "./user-validation";
 
-import { ErrorHandler } from "../error-handler/error-handler";
-import { TableName, User, Error, HttpVerb } from "../../shared/index";
+import { ErrorHandler } from "../error-handler/index";
+import { TableName, HttpVerb } from "../../shared/enums/index";
+import { User } from "../../shared/interfaces/index";
 
 const db = dbConnection.default;
 const userTable = TableName.User;
@@ -56,7 +57,7 @@ export async function updateUser(req: Request, res: Response): Promise<void> {
   
   body.id = id;
   
-  const isUserExists = await userValidation.checkIfUserRecordExists(id);
+  const isUserExists = await userValidation.checkIfUserExists(id);
   
   if (isUserExists) {
     await validateRequestBody(body, HttpVerb.PUT, res);
@@ -71,8 +72,8 @@ export async function updateUser(req: Request, res: Response): Promise<void> {
     }
   }
   else {
-    const recordNotFound = errorHandler.errorMessage().notFound;
-    res.status(404).send(recordNotFound);
+    // const recordNotFound = errorHandler.errorMessage().notFound;
+    // res.status(404).send(recordNotFound);
   }
   
 }
@@ -113,7 +114,7 @@ export async function deleteUser(req: Request, res: Response): Promise<void> {
   const errorHandler = new ErrorHandler();
   const id = req.params.userId;
   
-  const isUserExists = await userValidation.checkIfUserRecordExists(id);
+  const isUserExists = await userValidation.checkIfUserExists(id);
   
   if (isUserExists) {
     const deleteUser = await db(userTable)
@@ -124,8 +125,8 @@ export async function deleteUser(req: Request, res: Response): Promise<void> {
     res.sendStatus(204);
   }
   else {
-    const userNotFound = errorHandler.errorMessage().notFound;
-    res.status(404).send(userNotFound);
+    // const userNotFound = errorHandler.errorMessage().notFound;
+    // res.status(404).send(userNotFound);
   }
 }
 
@@ -145,9 +146,9 @@ async function validateRequestBody(data: User, httpVerb: string, res: Response):
   
   await Promise.all(validation).then(async data => {
     const filterFields = await errorHandler.filterExistingFields(data);
-    const errorMessages = await errorHandler.getErrorMessages(Error.Duplicate);
-    
-    if (errorMessages.length > 0) res.status(409).send({errorMessages});
+    //const errorMessages = await errorHandler.getErrorMessages(ErrorType.Duplicate);
+  
+    //if (errorMessages.length > 0) res.status(409).send({errorMessages});
   })
   .catch(err => err);
 }

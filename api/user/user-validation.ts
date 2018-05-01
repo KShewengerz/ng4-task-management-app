@@ -3,7 +3,8 @@
 import * as snakeCase from "snakecase-keys";
 import * as dbConnection from "../../config/db";
 
-import { TableName, UserField, User } from "../../shared/index";
+import { TableName, UserField } from "../../shared/enums/index";
+import { User } from "../../shared/interfaces/index";
 
 const db = dbConnection.default;
 const userTable = TableName.User;
@@ -78,7 +79,7 @@ export function getPutValidation(user: User): any[] {
  *
  * @returns {Promise<number>}
  */
-export async function checkIfUserRecordExists(id: string): Promise<number> {
+export async function checkIfUserExists(id: string): Promise<number> {
   const isRecordExists = await db(userTable)
   .where({id})
   .count({id: UserField.Id})

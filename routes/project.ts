@@ -2,7 +2,7 @@
 
 import {Router} from "express";
 
-import * as api from "../api/project/project";
+import { api } from "../api/project/index";
 
 const router: Router = Router();
 
@@ -13,11 +13,11 @@ const router: Router = Router();
  *
  * @apiParam {Uuid} userId
  */
-router.post("/user/:userId", api.addProjectByUserId);
+router.post("/", api.addProjectByUserId);
 
 
 /**
- * @api {put} /:id
+ * @api {put} /project/:projectId/user/:userId
  * @description Update Project by projectId
  *
  * @apiParam {Uuid} id
@@ -36,7 +36,7 @@ router.get("/:id", api.getProjectById);
  * @api {get} /user/:userId
  * @description Get projects by userId
  */
-router.get("/user/:userId", api.getProjectsByUserId);
+router.get("/", api.getProjects);
 
 
 /**

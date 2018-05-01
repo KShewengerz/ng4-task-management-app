@@ -1,23 +1,19 @@
 "use strict";
 
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import * as snakeCase from "snakecase-keys";
-import * as camelCase from "camelcase-keys";
 
-import * as dbConnection from "../../config/db";
-import * as projectValidation from "./project-validation";
+import { ProjectField, HttpVerb } from "../../shared/enums/index";
+import { Project } from "../../shared/interfaces/index";
+import { projectQuery, projectValidation, projectErrorHandler } from "./index";
 
-import { ErrorHandler } from "../error-handler/error-handler";
-import { TableName, Project, ProjectField, UserProjectField, Error, HttpVerb } from "../../shared/index";
-
-const db = dbConnection.default;
-const projectTable = TableName.Project;
-const userProjectTable = TableName.UserProject;
+//Temporary: TODO Create API Authentication
+const userId = "72fd18d3-8403-4376-a486-05bdecc88b2a";
 
 
 /**
- * @api {post} /user/:userId
- * @description Add new project by userId
+ * @api {post} /
+ * @description Add new project.
  *
  * @apiParam {String} userId
  *
@@ -27,43 +23,23 @@ const userProjectTable = TableName.UserProject;
  * @returns {Promise<void>}
  */
 export async function addProjectByUserId(req: Request, res: Response): Promise<void> {
-  const userId = req.params.userId;
-  const body = snakeCase(req.body);
+  const body: Project = snakeCase(req.body);
   const projectId = body.id;
   
-  const insertUserProjectData = {
-    [UserProjectField.UserId]: userId,
-    [UserProjectField.ProjectId]: projectId
-  };
+  const {isProjectExists, isProjectNameExists, isProjectColorExists} = await projectValidation.validateDuplicateBodyFields(body);
   
-  body.ordinal = await projectValidation.getNextUserProjectOrdinal(userId);
-  
-  //TODO: Validation on checking if user exists
-  //TODO: Validation on inserting duplicate id
-  
-  const insertProjectInfo = db(projectTable)
-  .insert(body)
-  .catch(err => err);
-
-  const insertUserProject = db(userProjectTable)
-  .insert(insertUserProjectData)
-  .catch(err => err);
-
-  await Promise.all([
-    insertProjectInfo,
-    insertUserProject
-  ])
-  .catch(err => err);
-  
-  res.sendStatus(201);
+  if (!isProjectExists && !isProjectNameExists && !isProjectColorExists) await projectQuery.addProjectQuery(projectId, body, res);
+  else {
+    const conditions = {isProjectExists, isProjectNameExists, isProjectColorExists};
+    await projectErrorHandler.postErrorHandler(conditions, res);
+  }
 }
 
 /**
  * @api {put} /:id
- * @description Update Project by projectId
+ * @description Update Project by projectId.
  *
  * @apiParam {Uuid} projectId
- * @apiParam {Uuid} userId
  *
  * @param {Request} request
  * @param {Response} response
@@ -72,54 +48,37 @@ export async function addProjectByUserId(req: Request, res: Response): Promise<v
  */
 export async function updateProject(req: Request, res: Response): Promise<void> {
   const id = req.params.id;
-  const body = snakeCase(req.body);
+  const PUT = HttpVerb.PUT;
+  const body: Project = snakeCase(req.body);
   
-  //TODO: Validation on checking if project does not exists
-  //TODO: Validation on checking if name and color already exists based user projects.
+  //TODO: Enhance Validation when already exist name and color in the same projectId.
+  const {isProjectExists, isProjectNameExists, isProjectColorExists} = await projectValidation.validateDuplicateBodyFields(body, id, PUT);
   
-  const updateProject = await db(projectTable)
-  .where({id})
-  .update(body)
-  .catch(err => err);
-  
-  res.sendStatus(200);
+  if (isProjectExists && !isProjectNameExists && !isProjectColorExists) await projectQuery.updateProject(id, body, res);
+  else {
+    const condition = {isProjectExists, isProjectNameExists, isProjectColorExists};
+    await projectErrorHandler.putErrorHandler(condition, res);
+  }
 }
 
 /**
- * @api {get} /user/:userId
- * @description Get projects by userId
- *
- * @apiParam {Uuid} userId
+ * @api {get} /
+ * @description Get user projects.
  *
  * @param {Request} request
  * @param {Response} response
  *
  * @returns {Promise<void>}
  */
-export async function getProjectsByUserId(req: Request, res: Response): Promise<void> {
-  const userId = req.params.userId;
-  const projectTableId = `${projectTable}.${ProjectField.Id}`;
-  const userProjectTableProjectId = `${userProjectTable}.${UserProjectField.ProjectId}`;
-  const userProjectTableUserId = `${userProjectTable}.${UserProjectField.UserId}`;
-  
-  //TODO: Validation on checking if userId and projectId exists
-  
-  const fetchProjects = await db(projectTable)
-  .select(ProjectField.Id, ProjectField.Name, ProjectField.Color, ProjectField.Ordinal)
-  .leftJoin(userProjectTable, projectTableId, userProjectTableProjectId)
-  .whereNull(userProjectTableUserId)
-  .orWhere(userProjectTableUserId, userId)
-  .catch(err => err);
-  
-  const result = camelCase(fetchProjects);
-  
-  res.json(<Project>result);
+export async function getProjects(req: Request, res: Response): Promise<void> {
+  const projects = await projectQuery.getProjects();
+  res.json(<Project[]>projects);
 }
 
 
 /**
  * @api {get} /:id
- * @description Get project by projectId
+ * @description Get project by projectId.
  *
  * @apiParam {Uuid} id
  *
@@ -130,21 +89,20 @@ export async function getProjectsByUserId(req: Request, res: Response): Promise<
  */
 export async function getProjectById(req: Request, res: Response): Promise<void> {
   const id = req.params.id;
+  const projectCondition = {field: ProjectField.Id, value: id};
   
-  //TODO: Check if project exists
+  const isProjectExists = await projectValidation.checkIfValueExistsWithinUserProject(projectCondition);
   
-  const fetchProject = await db(projectTable)
-  .where({id})
-  .catch(err => err);
-  
-  const result = camelCase(fetchProject);
-  
-  res.json(<Project>result);
+  if (isProjectExists) {
+    const project = await projectQuery.getProjectById(id);
+    res.json(<Project>project);
+  }
+  else await projectErrorHandler.getAndDeleteErrorHandler(res);
 }
 
 /**
  * @api {get} /:id
- * @description Delete Project by projectId
+ * @description Delete Project by projectId.
  *
  * @apiParam {Uuid} id
  *
@@ -155,13 +113,10 @@ export async function getProjectById(req: Request, res: Response): Promise<void>
  */
 export async function deleteProject(req: Request, res: Response): Promise<void> {
   const id = req.params.id;
+  const projectCondition = {field: ProjectField.Id, value: id};
   
-  //TODO: Check if project exists
+  const isProjectExists = await projectValidation.checkIfValueExistsWithinUserProject(projectCondition);
   
-  const deleteProject = await db(projectTable)
-  .where({id})
-  .del()
-  .catch(err => err);
-  
-  res.sendStatus(204);
+  if (isProjectExists) await projectQuery.deleteProject(id, res);
+  else await projectErrorHandler.getAndDeleteErrorHandler(res);
 }

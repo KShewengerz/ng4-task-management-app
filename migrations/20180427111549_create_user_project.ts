@@ -1,6 +1,6 @@
 import * as Knex from "knex";
 
-import { TableName, UserProjectField, UserField, ProjectField } from "../shared/index";
+import { TableName, UserProjectField, UserField, ProjectField } from "../shared/enums/index";
 
 
 export async function up(knex: Knex) {

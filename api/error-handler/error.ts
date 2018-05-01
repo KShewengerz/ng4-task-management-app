@@ -1,4 +1,14 @@
 export interface Error {
-  duplicate: string;
-  notFound: string;
+  duplicate: ErrorResponse;
+  notFound: ErrorResponse;
+}
+
+export interface ErrorResponse {
+  code: number;
+  message: string;
+}
+
+export enum ErrorType {
+  Duplicate = "duplicate",
+  NotFound = "notFound"
 }
