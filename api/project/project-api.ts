@@ -85,7 +85,7 @@ export async function getProjects(req: Request, res: Response): Promise<void> {
  */
 export async function getProjectById(req: Request, res: Response): Promise<void> {
   const id = req.params.id;
-  const projectCondition = {field: ProjectField.Id, value: id};
+  const projectCondition = { field: ProjectField.Id, value: id };
   
   const condition = await projectValidation.checkIfValueExistsWithinUserProject(projectCondition);
   
@@ -110,7 +110,7 @@ export async function getProjectById(req: Request, res: Response): Promise<void>
  */
 export async function deleteProject(req: Request, res: Response): Promise<void> {
   const id = req.params.id;
-  const projectCondition = {field: ProjectField.Id, value: id};
+  const projectCondition = { field: ProjectField.Id, value: id };
   
   const condition = await projectValidation.checkIfValueExistsWithinUserProject(projectCondition);
   

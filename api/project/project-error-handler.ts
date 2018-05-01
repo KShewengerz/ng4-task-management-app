@@ -14,6 +14,8 @@ import { ErrorType, ErrorHandler } from "../error-handler/index";
 export async function postErrorHandler(condition: any, res: Response): Promise<void> {
   const errorHandler = new ErrorHandler();
   
+  console.log(condition);
+  
   if (condition.isProjectExists) errorHandler.computedFieldNames.push({id: ErrorType.Duplicate});
   if (condition.isProjectNameExists) errorHandler.computedFieldNames.push({name: ErrorType.Duplicate});
   if (condition.isProjectColorExists) errorHandler.computedFieldNames.push({color: ErrorType.Duplicate});
@@ -56,7 +58,7 @@ export async function putErrorHandler(condition: any, res: Response): Promise<vo
 export async function getAndDeleteErrorHandler(condition: any, res: Response): Promise<any> {
   const errorHandler = new ErrorHandler();
   
-  if (!condition.isRecordExists) errorHandler.computedFieldNames.push({ project: ErrorType.NotFound });
+  if (!condition) errorHandler.computedFieldNames.push({ project: ErrorType.NotFound });
   else return;
   
   await errorHandler.errorResponseMessageHandler(errorHandler, res, 404);
