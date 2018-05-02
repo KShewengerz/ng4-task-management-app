@@ -5,8 +5,8 @@ import { TableName, UserProjectField, UserField, ProjectField } from "../shared/
 
 export async function up(knex: Knex) {
   return await knex.schema.createTable(TableName.UserProject, table => {
-    table.uuid(UserProjectField.UserId).unique();
-    table.uuid(UserProjectField.ProjectId).unique().notNullable();
+    table.uuid(UserProjectField.UserId).notNullable();
+    table.uuid(UserProjectField.ProjectId).notNullable();
     
     table.foreign(UserProjectField.UserId)
     .references(`${TableName.User}.${UserField.Id}`)
