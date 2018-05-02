@@ -6,7 +6,7 @@ A system that handles your tasks.
 `Angular 4` `Angular CLI` `NodeJs` `KnexJS` `MySQL` `Typescript` `ES6` 
 
 
-#### How to install
+#### How to run
 ```
 $ npm run build          - Installs all node modules from backend & frontend
 $ npm run knex:latest    - Runs all migration scripts
