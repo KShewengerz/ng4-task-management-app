@@ -20,14 +20,10 @@ const userId = "72fd18d3-8403-4376-a486-05bdecc88b2a";
  * @returns {Promise<number>}
  */
 export async function getNextUserProjectOrdinal(userId: string): Promise<number> {
-  const projectTableId = `${projectTable}.${ProjectField.Id}`;
-  const userProjectTableProjectId = `${userProjectTable}.${UserProjectField.ProjectId}`;
-  const userProjectTableUserId = `${userProjectTable}.${UserProjectField.UserId}`;
-  
   const fetchNextOrdinal = await db(userProjectTable)
   .max({ max: ProjectField.Ordinal })
-  .innerJoin(projectTable, projectTableId, userProjectTableProjectId)
-  .where(userProjectTableUserId, userId)
+  .innerJoin(projectTable, ProjectField.Id, UserProjectField.ProjectId)
+  .where(UserProjectField.UserId, userId)
   .then(response => {
     const max = response[0].max;
     
@@ -41,92 +37,79 @@ export async function getNextUserProjectOrdinal(userId: string): Promise<number>
 
 
 /**
- * @description Validates Body Fields if its duplicate in value within user project.
+ * @description Validates POST Body Fields if its value is duplicate within its own project.
  *
- * @param {string} userId
- * @param {string} projectId
  * @param {Project} body
  *
  * @returns {Promise<any>}
  */
-export async function validateDuplicateBodyFields(body: Project, projectId?: string, httpVerb?: HttpVerb): Promise<any> {
-  const IdCondition = { field: ProjectField.Id, value: body.id || projectId };
-  const NameCondition = { field: ProjectField.Name, value: body.name };
-  const ColorCondition = { field: ProjectField.Color, value: body.color };
-  
-  const isProjectExists = await checkIfValueExistsWithinUserProject(IdCondition, httpVerb);
-  const isProjectNameExists = await checkIfValueExistsWithinUserProject(NameCondition, httpVerb);
-  const isProjectColorExists = await checkIfValueExistsWithinUserProject(ColorCondition, httpVerb);
+export async function postBodyValidation(body: Project): Promise<any> {
+  const isProjectExists = await generalBodyValidationMethod(ProjectField.Id, body.id);
+  const isProjectNameExists = await generalBodyValidationMethod(ProjectField.Name, body.name);
+  const isProjectColorExists = await generalBodyValidationMethod(ProjectField.Color, body.color);
   
   return { isProjectExists, isProjectNameExists, isProjectColorExists };
 }
 
 
 /**
- * @description Check if the supplied value exists within user project table.
+ * @description Validates PUT Body Fields if its value is duplicate within its own project.
+ *
+ * @param {Project} body
+ * @param {string} projectId
+ *
+ * @returns {Promise<any>}
+ */
+export async function putBodyValidation(body: Project, projectId: string): Promise<any> {
+  const isProjectExists = await generalBodyValidationMethod(ProjectField.Id, projectId);
+  const isProjectNameExists = await putBodyValidationMethod(ProjectField.Name, body.name, projectId);
+  const isProjectColorExists = await putBodyValidationMethod(ProjectField.Color, body.color, projectId);
+  
+  return { isProjectExists, isProjectNameExists, isProjectColorExists };
+}
+
+
+/**
+ * @description A method to validate all supplied fields if its value is duplicate within its own project.
  *
  * @param {String} userId
  * @param {String} field
  * @param {any} value
  *
- * @returns {Promise<number>}
+ * @returns {Promise<any>}
  */
-export async function checkIfValueExistsWithinUserProject({ field, value }, action?: HttpVerb): Promise<any> {
-  let isRecordExists;
+export async function generalBodyValidationMethod(field: string, value: any): Promise<any> {
+  const query = `${field} = '${value}' AND (${UserProjectField.UserId} = '${userId}' or ${UserProjectField.UserId} is null)`;
   
-  const userProjectTableProjectId = `${userProjectTable}.${UserProjectField.ProjectId}`;
-  const projectTableId = `${projectTable}.${ProjectField.Id}`;
-  const userIdField = UserProjectField.UserId;
-  const condition = { field, value, userProjectTableProjectId, projectTableId, userIdField };
-  
-  if (action === HttpVerb.PUT) isRecordExists = await putBodyValidation(condition);
-  else isRecordExists = await generalBodyValidation(condition);
-  
+  const isRecordExists = await db(projectTable)
+  .count({ id: ProjectField.Id })
+  .leftJoin(userProjectTable, ProjectField.Id, UserProjectField.ProjectId)
+  .whereRaw(query)
+  .then(response => response[0].id)
+  .catch(err => err);
+
   return isRecordExists;
 }
 
 
 /**
- * @description General request body validation.
+ * @description A method to validate PUT request with its supplied fields if its value is duplicate within its own project excluding project
+ * with same id and name
  *
- * @param {String} field
- * @param {Any} value
- * @param {String} userProjectTableProjectId
- * @param {String} projectTableId
- * @param {String} userIdField
+ * @param {string} field
+ * @param value
  *
  * @returns {Promise<any>}
  */
-async function generalBodyValidation({ field, value, userProjectTableProjectId, projectTableId, userIdField }): Promise<any> {
-  const validation = await db(projectTable)
+async function putBodyValidationMethod(field: string, value: any, projectId: string) {
+  const query = db(userProjectTable).whereRaw(`(${field} = '${value}' AND NOT ${ProjectField.Id} = '${projectId}')
+  AND ${UserProjectField.UserId} = '${userId}'`);
+  
+  const isRecordExists = await db(projectTable)
   .count({ id: ProjectField.Id })
-  .leftJoin(userProjectTable, projectTableId, userProjectTableProjectId)
-  .whereRaw(`${field} = '${value}' AND (${userIdField} = '${userId}' or ${userIdField} is null)`)
+  .whereExists(query)
   .then(response => response[0].id)
   .catch(err => err);
   
-  return validation;
-}
-
-
-/**
- * @description Put request body validation.
- *
- * @param {String} field
- * @param {Any} value
- * @param {String} userProjectTableProjectId
- * @param {String} projectTableId
- * @param {String} userIdField
- *
- * @returns {Promise<any>}
- */
-async function putBodyValidation({ field, value, userProjectTableProjectId, projectTableId, userIdField }): Promise<any> {
-  const validation = await db(projectTable)
-  .count({ id: ProjectField.Id })
-  .leftJoin(userProjectTable, projectTableId, userProjectTableProjectId)
-  .whereRaw(`${field} = '${value}' AND (${userIdField} = '${userId}' or ${userIdField} is null)`)
-  .then(response => response[0].id)
-  .catch(err => err);
-  
-  return validation;
+  return isRecordExists;
 }

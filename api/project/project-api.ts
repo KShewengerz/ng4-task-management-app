@@ -26,7 +26,7 @@ export async function addProjectByUserId(req: Request, res: Response): Promise<v
   const body: Project = snakeCase(req.body);
   const projectId = body.id;
   
-  const condition = await projectValidation.validateDuplicateBodyFields(body);
+  const condition = await projectValidation.postBodyValidation(body);
   
   await projectErrorHandler.postErrorHandler(condition, res);
   
@@ -46,11 +46,9 @@ export async function addProjectByUserId(req: Request, res: Response): Promise<v
  */
 export async function updateProject(req: Request, res: Response): Promise<void> {
   const id = req.params.id;
-  const PUT = HttpVerb.PUT;
   const body: Project = snakeCase(req.body);
   
-  //TODO: Enhance Validation when already exist name and color in the same projectId.
-  const condition = await projectValidation.validateDuplicateBodyFields(body, id, PUT);
+  const condition = await projectValidation.putBodyValidation(body, id);
   
   await projectErrorHandler.putErrorHandler(condition, res);
   
@@ -87,7 +85,7 @@ export async function getProjectById(req: Request, res: Response): Promise<void>
   const id = req.params.id;
   const projectCondition = { field: ProjectField.Id, value: id };
   
-  const condition = await projectValidation.checkIfValueExistsWithinUserProject(projectCondition);
+  const condition = await projectValidation.generalBodyValidationMethod(ProjectField.Id, id);
   
   await projectErrorHandler.getAndDeleteErrorHandler(condition, res);
   
@@ -110,9 +108,8 @@ export async function getProjectById(req: Request, res: Response): Promise<void>
  */
 export async function deleteProject(req: Request, res: Response): Promise<void> {
   const id = req.params.id;
-  const projectCondition = { field: ProjectField.Id, value: id };
   
-  const condition = await projectValidation.checkIfValueExistsWithinUserProject(projectCondition);
+  const condition = await projectValidation.generalBodyValidationMethod(ProjectField.Id, id);
   
   await projectErrorHandler.getAndDeleteErrorHandler(condition, res);
   

@@ -56,6 +56,8 @@ export class ErrorHandler {
   async errorResponseMessageHandler(errorHandler: ErrorHandler, res: Response, statusCode?: number): Promise<void> {
     const errorMessages = await errorHandler.getErrorMessages();
     const code = statusCode ? statusCode : 400;
+  
+    console.log(errorMessages);
     
     res.status(code).send({ errorMessages });
   }

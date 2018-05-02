@@ -17,10 +17,10 @@ export async function postAndPutErrorHandler(condition: any, res: Response, isPo
   if (condition.isIdExists && isPost) errorHandler.computedFieldNames.push({ id: ErrorType.Duplicate });
   if (condition.isEmailAddressExists) errorHandler.computedFieldNames.push({ email: ErrorType.Duplicate });
   if (condition.isUsernameExists) errorHandler.computedFieldNames.push({ username: ErrorType.Duplicate });
-  else return;
   
+  const errors = errorHandler.computedFieldNames.length;
   
-  await errorHandler.errorResponseMessageHandler(errorHandler, res, 400);
+  if (errors) await errorHandler.errorResponseMessageHandler(errorHandler, res, 400);
 }
 
 

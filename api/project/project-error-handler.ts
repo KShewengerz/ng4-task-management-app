@@ -14,14 +14,13 @@ import { ErrorType, ErrorHandler } from "../error-handler/index";
 export async function postErrorHandler(condition: any, res: Response): Promise<void> {
   const errorHandler = new ErrorHandler();
   
-  console.log(condition);
-  
   if (condition.isProjectExists) errorHandler.computedFieldNames.push({id: ErrorType.Duplicate});
   if (condition.isProjectNameExists) errorHandler.computedFieldNames.push({name: ErrorType.Duplicate});
   if (condition.isProjectColorExists) errorHandler.computedFieldNames.push({color: ErrorType.Duplicate});
-  else return;
   
-  await errorHandler.errorResponseMessageHandler(errorHandler, res, 400);
+  const errors = errorHandler.computedFieldNames.length;
+  
+  if (errors) await errorHandler.errorResponseMessageHandler(errorHandler, res, 400);
 }
 
 
@@ -42,9 +41,10 @@ export async function putErrorHandler(condition: any, res: Response): Promise<vo
   }
   if (condition.isProjectNameExists) errorHandler.computedFieldNames.push({ name: ErrorType.Duplicate });
   if (condition.isProjectColorExists) errorHandler.computedFieldNames.push({ color: ErrorType.Duplicate });
-  else return;
   
-  await errorHandler.errorResponseMessageHandler(errorHandler, res, 400);
+  const errors = errorHandler.computedFieldNames.length;
+  
+  if (errors) await errorHandler.errorResponseMessageHandler(errorHandler, res, 400);
 }
 
 
