@@ -47,12 +47,13 @@ export async function getPostValidation(user: User): Promise<any> {
  * @description Put Validation - checking if username and email address already exists
  * with other users on user records.
  *
+ * @param {String} id
  * @param {User} user
  *
  * @returns {any[]}
  */
-export async function getPutValidation(user: User): Promise<any> {
-  const { id, username, email_address } = snakeCase(user);
+export async function getPutValidation(user: User, id: string): Promise<any> {
+  const { username, email_address } = snakeCase(user);
   
   const isUsernameExists = await db(userTable)
   .count({ username: UserField.Username })

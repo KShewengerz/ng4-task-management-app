@@ -43,10 +43,10 @@ export async function getNextUserProjectOrdinal(userId: string): Promise<number>
  *
  * @returns {Promise<any>}
  */
-export async function postBodyValidation(body: Project): Promise<any> {
-  const isProjectExists = await generalBodyValidationMethod(ProjectField.Id, body.id);
-  const isProjectNameExists = await generalBodyValidationMethod(ProjectField.Name, body.name);
-  const isProjectColorExists = await generalBodyValidationMethod(ProjectField.Color, body.color);
+export async function getPostBodyValidation(body: Project): Promise<any> {
+  const isProjectExists = await getBodyValidation(ProjectField.Id, body.id);
+  const isProjectNameExists = await getBodyValidation(ProjectField.Name, body.name);
+  const isProjectColorExists = await getBodyValidation(ProjectField.Color, body.color);
   
   return { isProjectExists, isProjectNameExists, isProjectColorExists };
 }
@@ -60,8 +60,8 @@ export async function postBodyValidation(body: Project): Promise<any> {
  *
  * @returns {Promise<any>}
  */
-export async function putBodyValidation(body: Project, projectId: string): Promise<any> {
-  const isProjectExists = await generalBodyValidationMethod(ProjectField.Id, projectId);
+export async function getPutBodyValidation(body: Project, projectId: string): Promise<any> {
+  const isProjectExists = await getBodyValidation(ProjectField.Id, projectId);
   const isProjectNameExists = await putBodyValidationMethod(ProjectField.Name, body.name, projectId);
   const isProjectColorExists = await putBodyValidationMethod(ProjectField.Color, body.color, projectId);
   
@@ -78,7 +78,7 @@ export async function putBodyValidation(body: Project, projectId: string): Promi
  *
  * @returns {Promise<any>}
  */
-export async function generalBodyValidationMethod(field: string, value: any): Promise<any> {
+export async function getBodyValidation(field: string, value: any): Promise<any> {
   const query = `${field} = '${value}' AND (${UserProjectField.UserId} = '${userId}' or ${UserProjectField.UserId} is null)`;
   
   const isRecordExists = await db(projectTable)

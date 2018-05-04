@@ -23,12 +23,12 @@ const userId = "fed78975-307f-44fa-8700-b5b52273d813 ";
  *
  * @returns {Promise<void>}
  */
-export async function addProjectQuery(projectId: string, body: Project, res: Response): Promise<void> {
+export async function addProjectQuery(body: Project, res: Response): Promise<void> {
   body.ordinal = await projectValidation.getNextUserProjectOrdinal(userId);
   
   const insertUserProjectData = {
     [UserProjectField.UserId]: userId,
-    [UserProjectField.ProjectId]: projectId
+    [UserProjectField.ProjectId]: body.id
   };
   
   const insertProjectInfo = db(projectTable)

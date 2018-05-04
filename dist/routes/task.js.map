@@ -1,13 +1,1 @@
-{
-  "version": 3,
-  "file": "task.js",
-  "sourceRoot": "",
-  "sources": [
-    "../../routes/task.ts"
-  ],
-  "names": [],
-  "mappings": "AAAA,YAAY,CAAC;;AAEb,qCAA+B;AAE/B,mCAAmC;AAEnC,MAAM,MAAM,GAAW,gBAAM,EAAE,CAAC;AAEhC,MAAM,CAAC,IAAI,CAAC,GAAG,EAAE,GAAG,CAAC,OAAO,CAAC,CAAC;AAC9B,MAAM,CAAC,GAAG,CAAC,GAAG,EAAE,GAAG,CAAC,UAAU,CAAC,CAAC;AAChC,MAAM,CAAC,GAAG,CAAC,GAAG,EAAE,GAAG,CAAC,QAAQ,CAAC,CAAC;AAC9B,MAAM,CAAC,MAAM,CAAC,MAAM,EAAE,GAAG,CAAC,UAAU,CAAC,CAAC;AAEzB,QAAA,UAAU,GAAW,MAAM,CAAC",
-  "sourcesContent": [
-    "\"use strict\";\r\n\r\nimport {Router} from \"express\";\r\n\r\nimport * as api from \"../api/task\";\r\n\r\nconst router: Router = Router();\r\n\r\nrouter.post(\"/\", api.addTask);\r\nrouter.put(\"/\", api.updateTask);\r\nrouter.get(\"/\", api.getTasks);\r\nrouter.delete(\"/:id\", api.deleteTask);\r\n\r\nexport const taskRoutes: Router = router;\r\n"
-  ]
-}
+{"version":3,"file":"task.js","sourceRoot":"","sources":["../../routes/task.ts"],"names":[],"mappings":"AAAA,YAAY,CAAC;;AAEb,qCAA+B;AAE/B,6CAAwC;AAExC,MAAM,MAAM,GAAW,gBAAM,EAAE,CAAC;AAEhC,MAAM,CAAC,IAAI,CAAC,GAAG,EAAE,WAAG,CAAC,OAAO,CAAC,CAAC;AAC9B,MAAM,CAAC,GAAG,CAAC,GAAG,EAAE,WAAG,CAAC,UAAU,CAAC,CAAC;AAChC,MAAM,CAAC,GAAG,CAAC,GAAG,EAAE,WAAG,CAAC,QAAQ,CAAC,CAAC;AAC9B,MAAM,CAAC,MAAM,CAAC,MAAM,EAAE,WAAG,CAAC,UAAU,CAAC,CAAC;AAEzB,QAAA,UAAU,GAAW,MAAM,CAAC","sourcesContent":["\"use strict\";\r\n\r\nimport {Router} from \"express\";\r\n\r\nimport { api } from \"../api/task/index\";\r\n\r\nconst router: Router = Router();\r\n\r\nrouter.post(\"/\", api.addTask);\r\nrouter.put(\"/\", api.updateTask);\r\nrouter.get(\"/\", api.getTasks);\r\nrouter.delete(\"/:id\", api.deleteTask);\r\n\r\nexport const taskRoutes: Router = router;\r\n"]}

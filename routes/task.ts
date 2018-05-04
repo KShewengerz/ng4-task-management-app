@@ -2,7 +2,7 @@
 
 import {Router} from "express";
 
-import * as api from "../api/task";
+import { api } from "../api/task/index";
 
 const router: Router = Router();
 

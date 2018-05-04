@@ -2,11 +2,11 @@
 
 import { Request, Response } from "express";
 import * as snakeCase from "snakecase-keys";
+import * as uuid from "uuid/v4";
 
 import { userQuery, userValidation, userErrorHandler } from "./index";
 
 import { ErrorHandler } from "../error-handler/index";
-import { HttpVerb } from "../../shared/enums/index";
 
 
 /**
@@ -20,12 +20,13 @@ import { HttpVerb } from "../../shared/enums/index";
  */
 export async function addUser(req: Request, res: Response): Promise<void> {
   const body = snakeCase(req.body);
+  body.id = uuid();
   
   const condition = await userValidation.getPostValidation(body);
   
   await userErrorHandler.postAndPutErrorHandler(condition, res, true);
   
-  if (res.statusCode !== 400) await userQuery.addNewUser(body, res);
+  if (res.statusCode !== 400) await userQuery.addNewUserQuery(body, res);
 }
 
 
@@ -44,13 +45,11 @@ export async function updateUser(req: Request, res: Response): Promise<void> {
   const id = req.params.userId;
   const body = snakeCase(req.body);
   
-  body.id = id;
-  
-  const condition = await userValidation.getPutValidation(body);
+  const condition = await userValidation.getPutValidation(body, id);
   
   await userErrorHandler.postAndPutErrorHandler(condition, res);
   
-  if (res.statusCode !== 400) await userQuery.updateUser(id, body, res);
+  if (res.statusCode !== 400) await userQuery.updateUserQuery(id, body, res);
 }
 
 
@@ -72,7 +71,7 @@ export async function getUser(req: Request, res: Response): Promise<void> {
   
   await userErrorHandler.getAndDeleteErrorHandler(condition, res);
   
-  if (res.statusCode !== 404) await userQuery.getUser(id, res);
+  if (res.statusCode !== 404) await userQuery.getUserQuery(id, res);
 }
 
 
@@ -95,5 +94,5 @@ export async function deleteUser(req: Request, res: Response): Promise<void> {
   
   await userErrorHandler.getAndDeleteErrorHandler(condition, res);
   
-  if (res.statusCode !== 404) await userQuery.deleteUser(id, res);
+  if (res.statusCode !== 404) await userQuery.deleteUserQuery(id, res);
 }

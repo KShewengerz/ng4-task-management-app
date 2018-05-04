@@ -18,7 +18,7 @@ const { User: userTable } = TableName;
  *
  * @returns {Promise<void>}
  */
-export async function addNewUser(body: User, res: Response): Promise<void> {
+export async function addNewUserQuery(body: User, res: Response): Promise<void> {
   await db(userTable)
   .insert(body)
   .catch(err => err);
@@ -35,7 +35,7 @@ export async function addNewUser(body: User, res: Response): Promise<void> {
  *
  * @returns {Promise<void>}
  */
-export async function updateUser(id: string, body: User, res: Response): Promise<void> {
+export async function updateUserQuery(id: string, body: User, res: Response): Promise<void> {
   await db(userTable)
   .where({ id })
   .update(body)
@@ -53,7 +53,7 @@ export async function updateUser(id: string, body: User, res: Response): Promise
  *
  * @returns {Promise<void>}
  */
-export async function getUser(id: string, res: Response): Promise<void> {
+export async function getUserQuery(id: string, res: Response): Promise<void> {
   const fetchUser = await db(userTable).where({ id });
   const result = camelCase(fetchUser);
   
@@ -69,7 +69,7 @@ export async function getUser(id: string, res: Response): Promise<void> {
  *
  * @returns {Promise<void>}
  */
-export async function deleteUser(id: string, res: Response): Promise<void> {
+export async function deleteUserQuery(id: string, res: Response): Promise<void> {
   await db(userTable)
   .where({ id })
   .del()
