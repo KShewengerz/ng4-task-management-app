@@ -1,24 +1,88 @@
 "use strict";
 
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
+import * as snakeCase from "snakecase-keys";
+import * as uuid from "uuid/v4";
 
-import { TaskField } from "../../shared/enums/index";
 import { Task } from "../../shared/interfaces/index";
 import { taskQuery, taskValidation, taskErrorHandler } from "./index";
 
 
-export function getTasks(req: Request, res: Response, next: NextFunction) {
-  res.json("Get Tasks all");
+/**
+ * @api {post} /
+ * @description Adds new task.
+ *
+ * @param {Request} request
+ * @param {Response} response
+ *
+ * @returns {Promise<void>}
+ */
+export async function addTask(req: Request, res: Response): Promise<void> {
+  const body: Task = snakeCase(req.body);
+  body.id = uuid();
+  
+  const condition = await taskValidation.getDescriptionValidation(body.description);
+  
+  await taskErrorHandler.postandPutErrorHandler(condition, res);
+  
+  if (res.statusCode !== 400) taskQuery.addTaskQuery(body, res);
 }
 
-export function addTask(req: Request, res: Response, next: NextFunction) {
-  res.json("Add Task");
+
+/**
+ * @api {put} /:id
+ * @description Updates task information.
+ *
+ * @param {Request} request
+ * @param {Response} response
+ *
+ * @returns {Promise<void>}
+ */
+export async function updateTask(req: Request, res: Response): Promise<void> {
+  const id = req.params.id;
+  const body: Task = snakeCase(req.body);
+  
+  const condition = await taskValidation.getDescriptionValidation(body.description);
+  
+  await taskErrorHandler.postandPutErrorHandler(condition, res);
+  
+  if (res.statusCode !== 400) await taskQuery.updateTaskQuery(id, body, res);
 }
 
-export function deleteTask(req: Request, res: Response, next: NextFunction) {
-  res.json("Delete Task");
+
+/**
+ * @api {get} /
+ * @description Gets all user tasks.
+ *
+ * @param {Request} request
+ * @param {Response} response
+ *
+ * @returns {Promise<void>}
+ */
+export async function getTasks(req: Request, res: Response): Promise<void> {
+  const tasks = await taskQuery.getUserTasks();
+  res.json(<Task[]>tasks);
 }
 
-export function updateTask(req: Request, res: Response, next: NextFunction) {
-  res.json("Update Task");
+
+/**
+ * @api {delete} /:id
+ * @description Adds new task.
+ *
+ * @apiParam {Uuid} id
+ *
+ * @param {Request} request
+ * @param {Response} response
+ *
+ * @returns {Promise<void>}
+ */
+export async function deleteTask(req: Request, res: Response): Promise<void> {
+  const id = req.params.id;
+  
+  const condition = await taskValidation.checkIfTaskExists(id);
+  
+  await taskErrorHandler.deleteErrorHandler(condition, res);
+  
+  if (res.statusCode !== 404) await taskQuery.deleteTaskQuery(id, res);
 }
+
