@@ -3,7 +3,7 @@ import * as camelCase from "camelcase-keys";
 
 import * as dbConnection from "../../config/db";
 
-import { TableName, UserTaskField, TaskField, ProjectField } from "../../shared/enums";
+import { TableName, UserTaskField, TaskField } from "../../shared/enums";
 import { Task } from "../../shared/interfaces/index";
 
 const db = dbConnection.default;
@@ -74,7 +74,8 @@ export async function getUserTasks(): Promise<Task[]> {
   const userTaskTableTaskId = `${userTaskTable}.${UserTaskField.TaskId}`;
   
   const fetchTasks = await db(taskTable)
-  .leftJoin(userTaskTable, taskTableId, userTaskTableTaskId)
+  .select(`${taskTable}.*`)
+  .innerJoin(userTaskTable, taskTableId, userTaskTableTaskId)
   .where({ [UserTaskField.UserId]: userId })
   .catch(err => err);
   

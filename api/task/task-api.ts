@@ -18,9 +18,11 @@ import { taskQuery, taskValidation, taskErrorHandler } from "./index";
  * @returns {Promise<void>}
  */
 export async function addTask(req: Request, res: Response): Promise<void> {
-  const body: Task = snakeCase(req.body);
+  const body = snakeCase(req.body);
   body.id = uuid();
-  
+  body.status_id = "11e1c71d-475b-4f2f-a14e-20c76e45aef6";  //By default Open Task.
+  body.schedule_date = new Date();                          //By default current date.
+
   const condition = await taskValidation.getDescriptionValidation(body.description);
   
   await taskErrorHandler.postandPutErrorHandler(condition, res);
