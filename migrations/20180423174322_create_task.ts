@@ -6,8 +6,8 @@ import { TableName, TaskField, ProjectField, TaskStatusField } from "../shared/e
 export async function up(knex: Knex) {
   return await knex.schema.createTable(TableName.Task, table => {
     table.uuid(TaskField.Id).primary();
-    table.uuid(TaskField.ProjectId).unique().notNullable();
-    table.uuid(TaskField.StatusId).unique().notNullable();
+    table.uuid(TaskField.ProjectId).notNullable();
+    table.uuid(TaskField.StatusId).notNullable();
     table.string(TaskField.Description, 255).notNullable();
     table.date(TaskField.ScheduleDate).notNullable();
     
