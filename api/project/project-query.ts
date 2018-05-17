@@ -11,7 +11,7 @@ const db = dbConnection.default;
 const {Project: projectTable, UserProject: userProjectTable} = TableName;
 
 //Temporary: TODO Create API Authentication
-const userId = "fed78975-307f-44fa-8700-b5b52273d813 ";
+const userId = "6b5deafc-fa59-4899-b427-970f13210630";
 
 
 /**

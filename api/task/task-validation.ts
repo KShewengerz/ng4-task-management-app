@@ -8,7 +8,7 @@ const db = dbConnection.default;
 const { Task: taskTable, UserTask: userTaskTable } = TableName;
 
 //Temporary: TODO Create API Authentication
-const userId = "fed78975-307f-44fa-8700-b5b52273d813 ";
+const userId = "6b5deafc-fa59-4899-b427-970f13210630";
 
 
 /**
@@ -45,6 +45,18 @@ export async function checkIfTaskExists(id: string): Promise<any> {
   .catch(err => err);
   
   return { isRecordExists };
+}
+
+export async function getPutValidation(id: string, description: string): Promise<any> {
+  let condition: any = {};
+  
+  const descriptionCondition = await getDescriptionValidation(description);
+  const recordCondition = await checkIfTaskExists(id);
+  
+  condition.isDescriptionExists = descriptionCondition.isDescriptionExists;
+  condition.isRecordExists = recordCondition.isRecordExists;
+  
+  return condition;
 }
 
 

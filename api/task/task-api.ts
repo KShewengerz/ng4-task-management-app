@@ -25,7 +25,7 @@ export async function addTask(req: Request, res: Response): Promise<void> {
 
   const condition = await taskValidation.getDescriptionValidation(body.description);
   
-  await taskErrorHandler.postandPutErrorHandler(condition, res);
+  await taskErrorHandler.postErrorHandler(condition, res);
   
   if (res.statusCode !== 400) taskQuery.addTaskQuery(body, res);
 }
@@ -44,10 +44,11 @@ export async function updateTask(req: Request, res: Response): Promise<void> {
   const id = req.params.id;
   const body: Task = snakeCase(req.body);
   
-  const condition = await taskValidation.getDescriptionValidation(body.description);
+  const condition = await taskValidation.getPutValidation(id, body.description);
   
-  await taskErrorHandler.postandPutErrorHandler(condition, res);
   
+  await taskErrorHandler.putErrorHandler(condition, res);
+
   if (res.statusCode !== 400) await taskQuery.updateTaskQuery(id, body, res);
 }
 
