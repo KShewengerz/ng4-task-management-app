@@ -1,4 +1,10 @@
 
-#Ignore Files
+# compiled output
+dist/
+
+# dependencies
 node_modules/
+
+# IDEs
 .idea/
+

@@ -10,7 +10,7 @@ import { ErrorHandler } from "../error-handler/index";
 
 
 /**
- * @api {post} /
+ * @controllers {post} /
  * @description Add new user.
  *
  * @param {Request} request
@@ -31,7 +31,7 @@ export async function addUser(req: Request, res: Response): Promise<void> {
 
 
 /**
- * @api {put} /:userId
+ * @controllers {put} /:userId
  * @description Update's user information by userId.
  *
  * @apiParam {Uuid} userId
@@ -54,7 +54,7 @@ export async function updateUser(req: Request, res: Response): Promise<void> {
 
 
 /**
- * @api {get} /:id
+ * @controllers {get} /:id
  * @description Get user by userId.
  *
  * @apiParam {Uuid} userId
@@ -76,7 +76,7 @@ export async function getUser(req: Request, res: Response): Promise<void> {
 
 
 /**
- * @api {delete} /:userId
+ * @controllers {delete} /:userId
  * @description Delete user by userId.
  *
  * @apiParam {Uuid} userId

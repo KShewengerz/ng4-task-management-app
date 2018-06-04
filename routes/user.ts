@@ -2,19 +2,19 @@
 
 import {Router} from "express";
 
-import { api } from "../api/user/index";
+import { api } from "../controllers/user/index";
 
 const router: Router = Router();
 
 
 /**
- * @api {post} /
+ * @controllers {post} /
  * @description Add new user
  */
 router.post("/", api.addUser);
 
 /**
- * @api {put} /:userId
+ * @controllers {put} /:userId
  * @description Update's user information by userId
  *
  * @apiParam {Uuid} userId
@@ -22,7 +22,7 @@ router.post("/", api.addUser);
 router.put("/:userId", api.updateUser);
 
 /**
- * @api {get} /:id
+ * @controllers {get} /:id
  * @description Get user by userId
  *
  * @apiParam {Uuid} userId
@@ -30,7 +30,7 @@ router.put("/:userId", api.updateUser);
 router.get("/:userId", api.getUser);
 
 /**
- * @api {delete} /:userId
+ * @controllers {delete} /:userId
  * @description Delete user by userId
  *
  * @apiParam {Uuid} userId
@@ -39,7 +39,7 @@ router.delete("/:userId", api.deleteUser);
 
 
 /**
- * @description Holds user api routes
+ * @description Holds user controllers routes
  *
  * @type {Router} userRoutes
  */
