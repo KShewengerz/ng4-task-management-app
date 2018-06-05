@@ -27,6 +27,7 @@ class Server {
      */
     middlewares() {
         // this.app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
+        this.app.use(cors({credentials: true, origin: true}));
         this.app.use(logger("dev"));
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));

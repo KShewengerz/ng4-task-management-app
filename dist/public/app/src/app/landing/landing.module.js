@@ -10,8 +10,10 @@ const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
 const common_1 = require("@angular/common");
 const forms_1 = require("@angular/forms");
+const http_1 = require("@angular/http");
 const core_2 = require("@angular-mdl/core");
 const landing_component_1 = require("./landing.component");
+const landing_service_1 = require("./landing.service");
 const landing_routing_module_1 = require("./landing-routing.module");
 let LandingModule = class LandingModule {
 };
@@ -20,13 +22,14 @@ LandingModule = __decorate([
         imports: [
             router_1.RouterModule,
             common_1.CommonModule,
+            http_1.HttpModule,
             forms_1.FormsModule,
             forms_1.ReactiveFormsModule,
             core_2.MdlModule,
             landing_routing_module_1.LandingRouting
         ],
         declarations: [landing_component_1.LandingComponent],
-        providers: [],
+        providers: [landing_service_1.LandingService],
         bootstrap: [landing_component_1.LandingComponent]
     })
 ], LandingModule);

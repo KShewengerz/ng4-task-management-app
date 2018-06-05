@@ -80,9 +80,12 @@
                 </mdl-textfield>
               </p>
 
-              <br/>
+              <p *ngIf="errorMessage"
+                 class="mdl-typography--text-center text-red"
+                 id="error-message">{{ errorMessage }}</p>
 
               <div class="mdl-typography--text-center">
+                <br/>
                 <button class="text-light-red"
                         mdl-button
                         mdl-ripple

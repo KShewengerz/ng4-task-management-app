@@ -1,1 +1,13 @@
-{"version":3,"file":"landing.service.js","sourceRoot":"","sources":["../../../../../../public/app/src/app/landing/landing.service.ts"],"names":[],"mappings":";;;;;;;;AAAA,wCAA2C;AAI3C,IAAa,cAAc,GAA3B;IAEE,gBAAe,CAAC;CAEjB,CAAA;AAJY,cAAc;IAD1B,iBAAU,EAAE;GACA,cAAc,CAI1B;AAJY,wCAAc","sourcesContent":["import { Injectable } from \"@angular/core\";\r\n\r\n\r\n@Injectable()\r\nexport class LandingService {\r\n\r\n  constructor() {}\r\n\r\n}\r\n\r\n"]}
+{
+  "version": 3,
+  "file": "landing.service.js",
+  "sourceRoot": "",
+  "sources": [
+    "../../../../../../public/app/src/app/landing/landing.service.ts"
+  ],
+  "names": [],
+  "mappings": ";;;;;;;;;;;AAAA,wCAAmD;AAInD,iCAA+B;AAC/B,mCAAiC;AAIjC,IAAa,cAAc,GAA3B;IAIE,YAAoB,IAAU,EACS,MAAc;QADjC,SAAI,GAAJ,IAAI,CAAM;QACS,WAAM,GAAN,MAAM,CAAQ;QACnD,IAAI,CAAC,GAAG,GAAG,GAAG,MAAM,OAAO,CAAC;IAC9B,CAAC;IAED,KAAK,CAAC,WAAgB;QACpB,OAAO,IAAI,CAAC,IAAI;aACf,IAAI,CAAC,GAAG,IAAI,CAAC,GAAG,QAAQ,EAAE,WAAW,CAAC;aACrC,GAAG,CAAC,QAAQ,CAAC,EAAE,CAAC,QAAQ,CAAC,IAAI,EAAE,CAAC,CAAC;IACrC,CAAC;CAEF,CAAA;AAfY,cAAc;IAD1B,iBAAU,EAAE;IAME,WAAA,aAAM,CAAC,SAAS,CAAC,CAAA;GALnB,cAAc,CAe1B;AAfY,wCAAc",
+  "sourcesContent": [
+    "import { Injectable, Inject } from \"@angular/core\";\r\nimport { Http } from \"@angular/http\";\r\n\r\nimport { Observable } from \"rxjs/Observable\";\r\nimport \"rxjs/add/operator/map\";\r\nimport \"rxjs/add/operator/catch\";\r\n\r\n\r\n@Injectable()\r\nexport class LandingService {\r\n\r\n  url: string;\r\n  \r\n  constructor(private http: Http,\r\n              @Inject(\"API_URL\") private apiUrl: string) {\r\n    this.url = `${apiUrl}/user`;\r\n  }\r\n  \r\n  login(credentials: any): Observable<any> {\r\n    return this.http\r\n    .post(`${this.url}/login`, credentials)\r\n     .map(response => response.json());\r\n  }\r\n\r\n}\r\n\r\n"
+  ]
+}

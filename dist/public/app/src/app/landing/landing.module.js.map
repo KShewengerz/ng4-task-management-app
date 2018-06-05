@@ -1,1 +1,13 @@
-{"version":3,"file":"landing.module.js","sourceRoot":"","sources":["../../../../../../public/app/src/app/landing/landing.module.ts"],"names":[],"mappings":";;;;;;;;AAAA,wCAAyC;AACzC,4CAA+C;AAC/C,4CAA+C;AAC/C,0CAAkE;AAElE,4CAA8C;AAE9C,2DAAuD;AAEvD,qEAA0D;AAgB1D,IAAa,aAAa,GAA1B;CAA8B,CAAA;AAAjB,aAAa;IAbzB,eAAQ,CAAC;QACR,OAAO,EAAE;YACP,qBAAY;YACZ,qBAAY;YACZ,mBAAW;YACX,2BAAmB;YACnB,gBAAS;YACT,uCAAc;SACf;QACD,YAAY,EAAE,CAAE,oCAAgB,CAAE;QAClC,SAAS,EAAE,EAAE;QACb,SAAS,EAAE,CAAE,oCAAgB,CAAE;KAChC,CAAC;GACW,aAAa,CAAI;AAAjB,sCAAa","sourcesContent":["import { NgModule } from \"@angular/core\";\r\nimport { RouterModule } from \"@angular/router\";\r\nimport { CommonModule } from \"@angular/common\";\r\nimport { FormsModule, ReactiveFormsModule } from \"@angular/forms\";\r\n\r\nimport { MdlModule } from \"@angular-mdl/core\";\r\n\r\nimport { LandingComponent } from \"./landing.component\";\r\n\r\nimport { LandingRouting } from \"./landing-routing.module\";\r\n\r\n\r\n@NgModule({\r\n  imports: [\r\n    RouterModule,\r\n    CommonModule,\r\n    FormsModule,\r\n    ReactiveFormsModule,\r\n    MdlModule,\r\n    LandingRouting\r\n  ],\r\n  declarations: [ LandingComponent ],\r\n  providers: [],\r\n  bootstrap: [ LandingComponent ]\r\n})\r\nexport class LandingModule { }\r\n"]}
+{
+  "version": 3,
+  "file": "landing.module.js",
+  "sourceRoot": "",
+  "sources": [
+    "../../../../../../public/app/src/app/landing/landing.module.ts"
+  ],
+  "names": [],
+  "mappings": ";;;;;;;;AAAA,wCAAyC;AACzC,4CAA+C;AAC/C,4CAA+C;AAC/C,0CAAkE;AAClE,wCAA2C;AAE3C,4CAA8C;AAE9C,2DAAuD;AACvD,uDAAmD;AAEnD,qEAA0D;AAiB1D,IAAa,aAAa,GAA1B;CAA8B,CAAA;AAAjB,aAAa;IAdzB,eAAQ,CAAC;QACR,OAAO,EAAE;YACP,qBAAY;YACZ,qBAAY;YACZ,iBAAU;YACV,mBAAW;YACX,2BAAmB;YACnB,gBAAS;YACT,uCAAc;SACf;QACD,YAAY,EAAE,CAAE,oCAAgB,CAAE;QAClC,SAAS,EAAE,CAAE,gCAAc,CAAE;QAC7B,SAAS,EAAE,CAAE,oCAAgB,CAAE;KAChC,CAAC;GACW,aAAa,CAAI;AAAjB,sCAAa",
+  "sourcesContent": [
+    "import { NgModule } from \"@angular/core\";\r\nimport { RouterModule } from \"@angular/router\";\r\nimport { CommonModule } from \"@angular/common\";\r\nimport { FormsModule, ReactiveFormsModule } from \"@angular/forms\";\r\nimport { HttpModule } from \"@angular/http\";\r\n\r\nimport { MdlModule } from \"@angular-mdl/core\";\r\n\r\nimport { LandingComponent } from \"./landing.component\";\r\nimport { LandingService } from \"./landing.service\";\r\n\r\nimport { LandingRouting } from \"./landing-routing.module\";\r\n\r\n\r\n@NgModule({\r\n  imports: [\r\n    RouterModule,\r\n    CommonModule,\r\n    HttpModule,\r\n    FormsModule,\r\n    ReactiveFormsModule,\r\n    MdlModule,\r\n    LandingRouting\r\n  ],\r\n  declarations: [ LandingComponent ],\r\n  providers: [ LandingService ],\r\n  bootstrap: [ LandingComponent ]\r\n})\r\nexport class LandingModule { }\r\n"
+  ]
+}

@@ -128,3 +128,9 @@ button.mdl-button:hover {
   background-color: #d8605c;
   color: white;
 }
+
+#error-message {
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
+}

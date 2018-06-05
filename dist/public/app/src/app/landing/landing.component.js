@@ -9,9 +9,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
 const forms_1 = require("@angular/forms");
 let LandingComponent = class LandingComponent {
-    constructor(router, fb) {
+    constructor(router, fb, landingService) {
         this.router = router;
         this.fb = fb;
+        this.landingService = landingService;
         this.isLogin = true;
         this.isSignUp = false;
     }
@@ -31,9 +32,15 @@ let LandingComponent = class LandingComponent {
             "password": ["", forms_1.Validators.required]
         });
     }
-    login(user) {
-        console.log(user);
-        this.router.navigate(["/dashboard"]);
+
+    login(credential) {
+        this.landingService
+            .login(credential)
+            .subscribe(response => {
+                const user = JSON.stringify(response);
+                localStorage.setItem("user", user);
+                this.router.navigate(["/dashboard"]);
+            }, err => this.errorMessage = err._body.replace(/['"]+/g, ""));
     }
     register(user) {
         console.log(user);
