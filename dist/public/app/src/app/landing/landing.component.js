@@ -32,7 +32,6 @@ let LandingComponent = class LandingComponent {
             "password": ["", forms_1.Validators.required]
         });
     }
-
     login(credential) {
         this.landingService
             .login(credential)

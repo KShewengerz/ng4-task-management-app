@@ -1,5 +1,5 @@
 # task-management-system
-A system that handles your tasks.
+An application that helps you manage your tasks.
 
 
 #### Main dev tools used:

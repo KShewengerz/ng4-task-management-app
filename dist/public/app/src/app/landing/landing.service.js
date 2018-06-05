@@ -20,7 +20,6 @@ let LandingService = class LandingService {
         this.apiUrl = apiUrl;
         this.url = `${apiUrl}/user`;
     }
-
     login(credentials) {
         return this.http
             .post(`${this.url}/login`, credentials)
