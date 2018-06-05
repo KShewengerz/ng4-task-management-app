@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -8,7 +9,13 @@ import { Component } from "@angular/core";
   styleUrls: ["user-image-header.component.css"]
 })
 export class UserImageHeaderComponent {
-
-  constructor() {}
+  
+  constructor(private router: Router) {
+  }
+  
+  logOut(): void {
+    localStorage.removeItem("user");
+    this.router.navigate(["/"]);
+  }
 
 }

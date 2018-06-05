@@ -21,9 +21,11 @@ button {
   margin: 10px auto;
 }
 
-button:hover {
+button:hover, div > button:last-child {
   background-color: #d8605c;
   color: white;
 }
 
-h6 { font-size: 17px; }
+h6, .material-icons {
+  font-size: 17px;
+}
