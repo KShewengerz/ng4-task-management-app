@@ -4,24 +4,24 @@ const express_1 = require("express");
 const index_1 = require("../controllers/task/index");
 const router = express_1.Router();
 /**
- * @controllers {post} /
+ * @api {post} /
  * @description Adds new task.
  */
 router.post("/", index_1.api.addTask);
 /**
- * @controllers {put} /:id
+ * @api {put} /:id
  * @apiParam {Uuid} id
  *
  * @description Updates task information.
  */
 router.put("/:id", index_1.api.updateTask);
 /**
- * @controllers {get} /
+ * @api {get} /
  * @description Gets all user tasks.
  */
 router.get("/", index_1.api.getTasks);
 /**
- * @controllers {delete} /:id
+ * @api {delete} /:id
  * @apiParam {Uuid} id
  *
  * @description Deletes a task.

@@ -10,7 +10,7 @@ import { projectQuery, projectValidation, projectErrorHandler } from "./index";
 
 
 /**
- * @controllers {post} /
+ * @api {post} /
  * @description Add new project.
  *
  * @apiParam {String} userId
@@ -32,7 +32,7 @@ export async function addProjectByUserId(req: Request, res: Response): Promise<v
 }
 
 /**
- * @controllers {put} /:id
+ * @api {put} /:id
  * @description Update Project by projectId.
  *
  * @apiParam {Uuid} projectId
@@ -54,7 +54,7 @@ export async function updateProject(req: Request, res: Response): Promise<void> 
 }
 
 /**
- * @controllers {get} /
+ * @api {get} /
  * @description Get user projects.
  *
  * @param {Request} request
@@ -69,7 +69,7 @@ export async function getProjects(req: Request, res: Response): Promise<void> {
 
 
 /**
- * @controllers {get} /:id
+ * @api {get} /:id
  * @description Get project by projectId.
  *
  * @apiParam {Uuid} id
@@ -93,7 +93,7 @@ export async function getProjectById(req: Request, res: Response): Promise<void>
 }
 
 /**
- * @controllers {get} /:id
+ * @api {get} /:id
  * @description Delete Project by projectId.
  *
  * @apiParam {Uuid} id

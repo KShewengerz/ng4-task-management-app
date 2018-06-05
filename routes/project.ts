@@ -8,7 +8,7 @@ const router: Router = Router();
 
 
 /**
- * @controllers {post} /user/:userId
+ * @api {post} /user/:userId
  * @description Add new project by userId.
  *
  * @apiParam {Uuid} userId
@@ -17,7 +17,7 @@ router.post("/", api.addProjectByUserId);
 
 
 /**
- * @controllers {put} /project/:projectId/user/:userId
+ * @api {put} /project/:projectId/user/:userId
  * @description Update Project by projectId
  *
  * @apiParam {Uuid} id
@@ -26,21 +26,21 @@ router.put("/:id", api.updateProject);
 
 
 /**
- * @controllers {get} /:id
+ * @api {get} /:id
  * @description Get project by projectId
  */
 router.get("/:id", api.getProjectById);
 
 
 /**
- * @controllers {get} /user/:userId
+ * @api {get} /user/:userId
  * @description Get projects by userId
  */
 router.get("/", api.getProjects);
 
 
 /**
- * @controllers {get} /:id
+ * @api {get} /:id
  * @description Delete Project by projectId
  *
  * @apiParam {Uuid} id

@@ -6,14 +6,18 @@ import * as express from "express";
 import * as logger from "morgan";
 import * as path from "path";
 import * as favicon from "serve-favicon";
+import * as passport from "passport";
+
+import { initializePassportLocalStrategy } from "./config/passport";
 
 import knex = require("./config/db");
 
-// Api Routes
-import {indexRoutes} from "./routes/index";
-import {userRoutes} from "./routes/user";
-import {taskRoutes} from "./routes/task";
-import {projectRoutes} from "./routes/project";
+import { homeRoute, userRoutes, taskRoutes, projectRoutes } from "./routes/-index";
+
+const cors = require("cors");
+const session = require("express-session");
+
+export const Passport = passport;
 
 
 export class Server {
@@ -27,10 +31,15 @@ export class Server {
     this.app = express();
     
     this.middlewares();
+    this.initializePassport();
     this.routes();
     this.catchErrors();
   }
   
+  
+  /**
+   * Middlewares
+   */
   private middlewares(): void {
     // this.app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
     this.app.use(logger("dev"));
@@ -38,10 +47,17 @@ export class Server {
     this.app.use(bodyParser.urlencoded({extended: false}));
     this.app.use(cookieParser());
     this.app.use(express.static(path.join(__dirname, "public")));
+  
+    this.app.use(session({ secret: "secret", resave: true, saveUninitialized: true }));
+    this.app.use(passport.initialize());
+    this.app.use(passport.session());
   }
   
+  
+  /**
+   * Error Handlers
+   */
   private catchErrors(): void {
-    // catch 404 and forward to error handler
     this.app.use((req: any, res: any, next: any) => {
       const err: any = new Error("Not Found");
       err.status = 404;
@@ -49,21 +65,31 @@ export class Server {
       next(err);
     });
     
-    // error handler
-    this.app.use((err: any, req: any, res: any, next: any) => {
+    this.app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
       const statusCode = err.status || 500;
       
       res.locals.message = err.message;
       res.locals.error = req.app.get("env") === "development" ? err : {};
       
-      // render the error page
       res.status(statusCode);
-      res.send("Server Error", statusCode);
+      res.status(statusCode).send("Server Error");
     });
   }
   
+  
+  /**
+   * Initialize Passport Strategies
+   */
+  private initializePassport(): void {
+    initializePassportLocalStrategy(passport);
+  }
+  
+  
+  /**
+   * Assign API Routes
+   */
   private routes(): void {
-    this.app.use("/", indexRoutes);
+    this.app.use("/", homeRoute);
     this.app.use("/user", userRoutes);
     this.app.use("/task", taskRoutes);
     this.app.use("/project", projectRoutes);

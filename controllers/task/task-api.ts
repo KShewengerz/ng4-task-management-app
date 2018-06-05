@@ -9,7 +9,7 @@ import { taskQuery, taskValidation, taskErrorHandler } from "./index";
 
 
 /**
- * @controllers {post} /
+ * @api {post} /
  * @description Adds new task.
  *
  * @param {Request} request
@@ -32,7 +32,7 @@ export async function addTask(req: Request, res: Response): Promise<void> {
 
 
 /**
- * @controllers {put} /:id
+ * @api {put} /:id
  * @description Updates task information.
  *
  * @param {Request} request
@@ -54,7 +54,7 @@ export async function updateTask(req: Request, res: Response): Promise<void> {
 
 
 /**
- * @controllers {get} /
+ * @api {get} /
  * @description Gets all user tasks.
  *
  * @param {Request} request
@@ -69,7 +69,7 @@ export async function getTasks(req: Request, res: Response): Promise<void> {
 
 
 /**
- * @controllers {delete} /:id
+ * @api {delete} /:id
  * @description Adds new task.
  *
  * @apiParam {Uuid} id

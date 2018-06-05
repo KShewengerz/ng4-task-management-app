@@ -1,5 +1,6 @@
 import { Response } from "express";
 import * as camelCase from "camelcase-keys";
+import * as bcrypt from "bcrypt";
 
 import * as dbConnection from "../../config/db";
 
@@ -19,6 +20,8 @@ const { User: userTable } = TableName;
  * @returns {Promise<void>}
  */
 export async function addNewUserQuery(body: User, res: Response): Promise<void> {
+  body.password = await bcrypt.hashSync(body.password, bcrypt.genSaltSync(8));
+  
   await db(userTable)
   .insert(body)
   .catch(err => err);

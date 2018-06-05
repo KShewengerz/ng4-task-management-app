@@ -8,14 +8,14 @@ const router: Router = Router();
 
 
 /**
- * @controllers {post} /
+ * @api {post} /
  * @description Adds new task.
  */
 router.post("/", api.addTask);
 
 
 /**
- * @controllers {put} /:id
+ * @api {put} /:id
  * @apiParam {Uuid} id
  *
  * @description Updates task information.
@@ -24,14 +24,14 @@ router.put("/:id", api.updateTask);
 
 
 /**
- * @controllers {get} /
+ * @api {get} /
  * @description Gets all user tasks.
  */
 router.get("/", api.getTasks);
 
 
 /**
- * @controllers {delete} /:id
+ * @api {delete} /:id
  * @apiParam {Uuid} id
  *
  * @description Deletes a task.

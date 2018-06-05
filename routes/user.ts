@@ -8,13 +8,13 @@ const router: Router = Router();
 
 
 /**
- * @controllers {post} /
+ * @api {post} /
  * @description Add new user
  */
 router.post("/", api.addUser);
 
 /**
- * @controllers {put} /:userId
+ * @api {put} /:userId
  * @description Update's user information by userId
  *
  * @apiParam {Uuid} userId
@@ -22,7 +22,7 @@ router.post("/", api.addUser);
 router.put("/:userId", api.updateUser);
 
 /**
- * @controllers {get} /:id
+ * @api {get} /:id
  * @description Get user by userId
  *
  * @apiParam {Uuid} userId
@@ -30,12 +30,18 @@ router.put("/:userId", api.updateUser);
 router.get("/:userId", api.getUser);
 
 /**
- * @controllers {delete} /:userId
+ * @api {delete} /:userId
  * @description Delete user by userId
  *
  * @apiParam {Uuid} userId
  */
 router.delete("/:userId", api.deleteUser);
+
+/**
+ * @api {get} /login
+ * @description Passport Local Authentication
+ */
+router.post("/login", api.login);
 
 
 /**
