@@ -1,10 +1,9 @@
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { AppComponent } from "./app.component";
 
-import { AppComponent } from './app.component';
-
-import { AppRouting } from './app-routing.module';
+import { AppRouting } from "./app-routing.module";
 
 
 @NgModule({
@@ -13,7 +12,7 @@ import { AppRouting } from './app-routing.module';
     AppRouting
   ],
   declarations: [ AppComponent ],
-  providers: [],
+  providers: [{ provide: "API_URL", useValue: "http://localhost:3000" }],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -14,7 +14,7 @@ let AppComponent = class AppComponent {
 };
 AppComponent = __decorate([
     core_1.Component({
-        selector: 'tms-app',
+        selector: "tms-app",
         template: `<router-outlet></router-outlet>`
     })
 ], AppComponent);

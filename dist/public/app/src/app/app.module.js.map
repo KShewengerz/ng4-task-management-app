@@ -1,13 +1,1 @@
-{
-  "version": 3,
-  "file": "app.module.js",
-  "sourceRoot": "",
-  "sources": [
-    "../../../../../public/app/src/app/app.module.ts"
-  ],
-  "names": [],
-  "mappings": ";;;;;;;;AACA,gEAA0D;AAC1D,wCAAyC;AAEzC,mDAA+C;AAE/C,6DAAkD;AAYlD,IAAa,SAAS,GAAtB;CAA0B,CAAA;AAAb,SAAS;IATrB,eAAQ,CAAC;QACR,OAAO,EAAE;YACP,gCAAa;YACb,+BAAU;SACX;QACD,YAAY,EAAE,CAAE,4BAAY,CAAE;QAC9B,SAAS,EAAE,EAAE;QACb,SAAS,EAAE,CAAE,4BAAY,CAAE;KAC5B,CAAC;GACW,SAAS,CAAI;AAAb,8BAAS",
-  "sourcesContent": [
-    "\r\nimport { BrowserModule } from '@angular/platform-browser';\r\nimport { NgModule } from '@angular/core';\r\n\r\nimport { AppComponent } from './app.component';\r\n\r\nimport { AppRouting } from './app-routing.module';\r\n\r\n\r\n@NgModule({\r\n  imports: [\r\n    BrowserModule,\r\n    AppRouting\r\n  ],\r\n  declarations: [ AppComponent ],\r\n  providers: [],\r\n  bootstrap: [ AppComponent ]\r\n})\r\nexport class AppModule { }\r\n"
-  ]
-}
+{"version":3,"file":"app.module.js","sourceRoot":"","sources":["../../../../../public/app/src/app/app.module.ts"],"names":[],"mappings":";;;;;;;;AAAA,gEAA0D;AAC1D,wCAAyC;AAEzC,mDAA+C;AAE/C,6DAAkD;AAYlD,IAAa,SAAS,GAAtB;CAA0B,CAAA;AAAb,SAAS;IATrB,eAAQ,CAAC;QACR,OAAO,EAAE;YACP,gCAAa;YACb,+BAAU;SACX;QACD,YAAY,EAAE,CAAE,4BAAY,CAAE;QAC9B,SAAS,EAAE,CAAC,EAAE,OAAO,EAAE,SAAS,EAAE,QAAQ,EAAE,uBAAuB,EAAE,CAAC;QACtE,SAAS,EAAE,CAAE,4BAAY,CAAE;KAC5B,CAAC;GACW,SAAS,CAAI;AAAb,8BAAS","sourcesContent":["import { BrowserModule } from \"@angular/platform-browser\";\r\nimport { NgModule } from \"@angular/core\";\r\n\r\nimport { AppComponent } from \"./app.component\";\r\n\r\nimport { AppRouting } from \"./app-routing.module\";\r\n\r\n\r\n@NgModule({\r\n  imports: [\r\n    BrowserModule,\r\n    AppRouting\r\n  ],\r\n  declarations: [ AppComponent ],\r\n  providers: [{ provide: \"API_URL\", useValue: \"http://localhost:3000\" }],\r\n  bootstrap: [ AppComponent ]\r\n})\r\nexport class AppModule { }\r\n"]}

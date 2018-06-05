@@ -1,13 +1,12 @@
+import { NgModule } from "@angular/core";
 
-import { NgModule } from '@angular/core';
+import { MdlModule } from "@angular-mdl/core";
 
-import { MdlModule } from '@angular-mdl/core';
+import { DashboardComponent } from "./dashboard.component";
+import { NavigationComponent } from "./sections/navigation/navigation.component";
+import { UserImageHeaderComponent } from "./sections/user-image-header/user-image-header.component";
 
-import { DashboardComponent } from './dashboard.component';
-import { NavigationComponent } from './sections/navigation/navigation.component';
-import { UserImageHeaderComponent } from './sections/user-image-header/user-image-header.component';
-
-import { DashboardRouting } from './dashboard-routing.module';
+import { DashboardRouting } from "./dashboard-routing.module";
 
 
 @NgModule({

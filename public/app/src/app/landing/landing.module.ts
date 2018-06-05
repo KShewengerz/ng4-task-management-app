@@ -1,14 +1,13 @@
+import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
+import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MdlModule } from "@angular-mdl/core";
 
-import { MdlModule } from '@angular-mdl/core';
+import { LandingComponent } from "./landing.component";
 
-import { LandingComponent } from './landing.component';
-
-import { LandingRouting } from './landing-routing.module';
+import { LandingRouting } from "./landing-routing.module";
 
 
 @NgModule({

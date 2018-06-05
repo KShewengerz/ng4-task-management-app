@@ -1,13 +1,1 @@
-{
-  "version": 3,
-  "file": "home-routing.module.js",
-  "sourceRoot": "",
-  "sources": [
-    "../../../../../../../public/app/src/app/dashboard/home/home-routing.module.ts"
-  ],
-  "names": [],
-  "mappings": ";;AACA,4CAAuD;AAEvD,qDAAiD;AAGjD,MAAM,MAAM,GAAW;IACrB,EAAE,IAAI,EAAE,EAAE,EAAE,SAAS,EAAE,8BAAa,EAAC;CACtC,CAAC;AAEW,QAAA,WAAW,GAAG,qBAAY,CAAC,QAAQ,CAAC,MAAM,CAAC,CAAC",
-  "sourcesContent": [
-    "\r\nimport { RouterModule, Routes } from '@angular/router';\r\n\r\nimport { HomeComponent } from './home.component';\r\n\r\n\r\nconst routes: Routes = [\r\n  { path: '', component: HomeComponent}\r\n];\r\n\r\nexport const HomeRouting = RouterModule.forChild(routes);\r\n"
-  ]
-}
+{"version":3,"file":"home-routing.module.js","sourceRoot":"","sources":["../../../../../../../public/app/src/app/dashboard/home/home-routing.module.ts"],"names":[],"mappings":";;AAAA,4CAAuD;AAEvD,qDAAiD;AAGjD,MAAM,MAAM,GAAW;IACrB,EAAE,IAAI,EAAE,EAAE,EAAE,SAAS,EAAE,8BAAa,EAAE;CACvC,CAAC;AAEW,QAAA,WAAW,GAAG,qBAAY,CAAC,QAAQ,CAAC,MAAM,CAAC,CAAC","sourcesContent":["import { RouterModule, Routes } from \"@angular/router\";\r\n\r\nimport { HomeComponent } from \"./home.component\";\r\n\r\n\r\nconst routes: Routes = [\r\n  { path: \"\", component: HomeComponent }\r\n];\r\n\r\nexport const HomeRouting = RouterModule.forChild(routes);\r\n"]}

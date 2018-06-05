@@ -1,13 +1,1 @@
-{
-  "version": 3,
-  "file": "task-list.component.js",
-  "sourceRoot": "",
-  "sources": [
-    "../../../../../../../../../public/app/src/app/dashboard/home/sections/task-list/task-list.component.ts"
-  ],
-  "names": [],
-  "mappings": ";;;;;;;;AACA,wCAAyD;AAUzD,IAAa,iBAAiB,GAA9B;IAIE;QAFS,UAAK,GAAW,EAAE,CAAC;IAEb,CAAC;IAEhB,QAAQ;QAEN,OAAO,CAAC,GAAG,CAAC,IAAI,CAAC,KAAK,CAAC,CAAC;IAC1B,CAAC;CAEF,CAAA;AATU;IAAR,YAAK,EAAE;gDAAoB;AAFjB,iBAAiB;IAN7B,gBAAS,CAAC;QACT,QAAQ,EAAE,MAAM,CAAC,EAAE;QACnB,QAAQ,EAAE,oBAAoB;QAC9B,WAAW,EAAE,0BAA0B;QACvC,SAAS,EAAE,CAAC,yBAAyB,CAAC;KACvC,CAAC;GACW,iBAAiB,CAW7B;AAXY,8CAAiB",
-  "sourcesContent": [
-    "\r\nimport { Component, OnInit, Input } from '@angular/core';\r\n\r\nimport { Task } from './task.model';\r\n\r\n@Component({\r\n  moduleId: module.id,\r\n  selector: 'tms-home-task-list',\r\n  templateUrl: 'task-list.component.html',\r\n  styleUrls: ['task-list.component.css']\r\n})\r\nexport class TaskListComponent implements OnInit {\r\n\r\n  @Input() tasks: Task[] = [];\r\n\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {\r\n\r\n    console.log(this.tasks);\r\n  }\r\n\r\n}\r\n"
-  ]
-}
+{"version":3,"file":"task-list.component.js","sourceRoot":"","sources":["../../../../../../../../../public/app/src/app/dashboard/home/sections/task-list/task-list.component.ts"],"names":[],"mappings":";;;;;;;;AAAA,wCAAyD;AAUzD,IAAa,iBAAiB,GAA9B;IAIE;QAFS,UAAK,GAAW,EAAE,CAAC;IAEb,CAAC;IAEhB,QAAQ;QAEN,OAAO,CAAC,GAAG,CAAC,IAAI,CAAC,KAAK,CAAC,CAAC;IAC1B,CAAC;CAEF,CAAA;AATU;IAAR,YAAK,EAAE;gDAAoB;AAFjB,iBAAiB;IAN7B,gBAAS,CAAC;QACT,QAAQ,EAAE,MAAM,CAAC,EAAE;QACnB,QAAQ,EAAE,oBAAoB;QAC9B,WAAW,EAAE,0BAA0B;QACvC,SAAS,EAAE,CAAC,yBAAyB,CAAC;KACvC,CAAC;GACW,iBAAiB,CAW7B;AAXY,8CAAiB","sourcesContent":["import { Component, OnInit, Input } from \"@angular/core\";\r\n\r\nimport { Task } from \"./task.model\";\r\n\r\n@Component({\r\n  moduleId: module.id,\r\n  selector: \"tms-home-task-list\",\r\n  templateUrl: \"task-list.component.html\",\r\n  styleUrls: [\"task-list.component.css\"]\r\n})\r\nexport class TaskListComponent implements OnInit {\r\n\r\n  @Input() tasks: Task[] = [];\r\n\r\n  constructor() {}\r\n\r\n  ngOnInit(): void {\r\n\r\n    console.log(this.tasks);\r\n  }\r\n\r\n}\r\n"]}

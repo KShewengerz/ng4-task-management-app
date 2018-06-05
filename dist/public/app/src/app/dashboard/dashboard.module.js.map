@@ -1,13 +1,1 @@
-{
-  "version": 3,
-  "file": "dashboard.module.js",
-  "sourceRoot": "",
-  "sources": [
-    "../../../../../../public/app/src/app/dashboard/dashboard.module.ts"
-  ],
-  "names": [],
-  "mappings": ";;;;;;;;AACA,wCAAyC;AAEzC,4CAA8C;AAE9C,+DAA2D;AAC3D,qFAAiF;AACjF,0GAAoG;AAEpG,yEAA8D;AAe9D,IAAa,eAAe,GAA5B;CAAgC,CAAA;AAAnB,eAAe;IAZ3B,eAAQ,CAAC;QACR,OAAO,EAAE;YACP,gBAAS;YACT,2CAAgB;SACjB;QACD,YAAY,EAAE;YACZ,wCAAkB;YAClB,0CAAmB;YACnB,sDAAwB;SACzB;QACD,SAAS,EAAE,EAAE;KACd,CAAC;GACW,eAAe,CAAI;AAAnB,0CAAe",
-  "sourcesContent": [
-    "\r\nimport { NgModule } from '@angular/core';\r\n\r\nimport { MdlModule } from '@angular-mdl/core';\r\n\r\nimport { DashboardComponent } from './dashboard.component';\r\nimport { NavigationComponent } from './sections/navigation/navigation.component';\r\nimport { UserImageHeaderComponent } from './sections/user-image-header/user-image-header.component';\r\n\r\nimport { DashboardRouting } from './dashboard-routing.module';\r\n\r\n\r\n@NgModule({\r\n  imports: [\r\n    MdlModule,\r\n    DashboardRouting\r\n  ],\r\n  declarations: [\r\n    DashboardComponent,\r\n    NavigationComponent,\r\n    UserImageHeaderComponent\r\n  ],\r\n  providers: []\r\n})\r\nexport class DashboardModule { }\r\n"
-  ]
-}
+{"version":3,"file":"dashboard.module.js","sourceRoot":"","sources":["../../../../../../public/app/src/app/dashboard/dashboard.module.ts"],"names":[],"mappings":";;;;;;;;AAAA,wCAAyC;AAEzC,4CAA8C;AAE9C,+DAA2D;AAC3D,qFAAiF;AACjF,0GAAoG;AAEpG,yEAA8D;AAe9D,IAAa,eAAe,GAA5B;CAAgC,CAAA;AAAnB,eAAe;IAZ3B,eAAQ,CAAC;QACR,OAAO,EAAE;YACP,gBAAS;YACT,2CAAgB;SACjB;QACD,YAAY,EAAE;YACZ,wCAAkB;YAClB,0CAAmB;YACnB,sDAAwB;SACzB;QACD,SAAS,EAAE,EAAE;KACd,CAAC;GACW,eAAe,CAAI;AAAnB,0CAAe","sourcesContent":["import { NgModule } from \"@angular/core\";\r\n\r\nimport { MdlModule } from \"@angular-mdl/core\";\r\n\r\nimport { DashboardComponent } from \"./dashboard.component\";\r\nimport { NavigationComponent } from \"./sections/navigation/navigation.component\";\r\nimport { UserImageHeaderComponent } from \"./sections/user-image-header/user-image-header.component\";\r\n\r\nimport { DashboardRouting } from \"./dashboard-routing.module\";\r\n\r\n\r\n@NgModule({\r\n  imports: [\r\n    MdlModule,\r\n    DashboardRouting\r\n  ],\r\n  declarations: [\r\n    DashboardComponent,\r\n    NavigationComponent,\r\n    UserImageHeaderComponent\r\n  ],\r\n  providers: []\r\n})\r\nexport class DashboardModule { }\r\n"]}

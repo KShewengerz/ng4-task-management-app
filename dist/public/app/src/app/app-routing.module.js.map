@@ -1,13 +1,1 @@
-{
-  "version": 3,
-  "file": "app-routing.module.js",
-  "sourceRoot": "",
-  "sources": [
-    "../../../../../public/app/src/app/app-routing.module.ts"
-  ],
-  "names": [],
-  "mappings": ";;AACA,4CAAuD;AAGvD,MAAM,MAAM,GAAW;IACrB,EAAE,IAAI,EAAE,EAAE,EAAE,YAAY,EAAE,wCAAwC,EAAE;IACpE,EAAE,IAAI,EAAE,WAAW,EAAE,YAAY,EAAE,8CAA8C,EAAE;CACpF,CAAC;AAEW,QAAA,UAAU,GAAG,qBAAY,CAAC,OAAO,CAAC,MAAM,EAAE,EAAE,OAAO,EAAE,KAAK,EAAE,CAAC,CAAC",
-  "sourcesContent": [
-    "\r\nimport { RouterModule, Routes } from '@angular/router';\r\n\r\n\r\nconst routes: Routes = [\r\n  { path: '', loadChildren: './landing/landing.module#LandingModule' },\r\n  { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' }\r\n];\r\n\r\nexport const AppRouting = RouterModule.forRoot(routes, { useHash: false });\r\n"
-  ]
-}
+{"version":3,"file":"app-routing.module.js","sourceRoot":"","sources":["../../../../../public/app/src/app/app-routing.module.ts"],"names":[],"mappings":";;AAAA,4CAAuD;AAGvD,MAAM,MAAM,GAAW;IACrB,EAAE,IAAI,EAAE,EAAE,EAAE,YAAY,EAAE,wCAAwC,EAAE;IACpE,EAAE,IAAI,EAAE,WAAW,EAAE,YAAY,EAAE,8CAA8C,EAAE;CACpF,CAAC;AAEW,QAAA,UAAU,GAAG,qBAAY,CAAC,OAAO,CAAC,MAAM,EAAE,EAAE,OAAO,EAAE,KAAK,EAAE,CAAC,CAAC","sourcesContent":["import { RouterModule, Routes } from \"@angular/router\";\r\n\r\n\r\nconst routes: Routes = [\r\n  { path: \"\", loadChildren: \"./landing/landing.module#LandingModule\" },\r\n  { path: \"dashboard\", loadChildren: \"./dashboard/dashboard.module#DashboardModule\" }\r\n];\r\n\r\nexport const AppRouting = RouterModule.forRoot(routes, { useHash: false });\r\n"]}

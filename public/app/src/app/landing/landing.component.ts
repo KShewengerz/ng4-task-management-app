@@ -1,16 +1,15 @@
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
-import { User } from './landing.model';
+import { User } from "./landing.model";
 
 
 @Component({
   moduleId: module.id,
-  selector: 'tms-landing',
-  templateUrl: 'landing.component.html',
-  styleUrls: ['landing.component.css']
+  selector: "tms-landing",
+  templateUrl: "landing.component.html",
+  styleUrls: ["landing.component.css"]
 })
 export class LandingComponent implements OnInit {
 
@@ -29,27 +28,27 @@ export class LandingComponent implements OnInit {
 
   buildForm(): void {
     this.loginForm = this.fb.group({
-      'username': ['', Validators.required],
-      'password': ['', Validators.required]
+      "email": ["", Validators.required],
+      "password": ["", Validators.required]
     });
 
     this.signupForm = this.fb.group({
-      'firstName'   : ['', Validators.required],
-      'lastName'    : ['', Validators.required],
-      'emailAddress': ['', Validators.required],
-      'username'    : ['', Validators.required],
-      'password'    : ['', Validators.required]
+      "firstName": ["", Validators.required],
+      "lastName": ["", Validators.required],
+      "emailAddress": ["", Validators.required],
+      "username": ["", Validators.required],
+      "password": ["", Validators.required]
     });
   }
 
   login(user: User): void {
     console.log(user);
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(["/dashboard"]);
   }
 
   register(user: User): void {
     console.log(user);
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(["/dashboard"]);
   }
 
 }

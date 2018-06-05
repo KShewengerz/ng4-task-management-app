@@ -1,12 +1,11 @@
-
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 
 @Component({
   moduleId: module.id,
-  selector: 'tms-home-header',
-  templateUrl: 'header.component.html',
-  styleUrls: ['header.component.css']
+  selector: "tms-home-header",
+  templateUrl: "header.component.html",
+  styleUrls: ["header.component.css"]
 })
 export class HeaderComponent {
 
