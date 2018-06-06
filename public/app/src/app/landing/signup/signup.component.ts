@@ -2,9 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 
-import { User } from "../landing.model";
-
 import { LandingService } from "../landing.service";
+
+import { User } from "../../../../../../shared/interfaces";
 
 
 @Component({

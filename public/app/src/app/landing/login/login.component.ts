@@ -2,9 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 
-import { LandingService } from "../landing.service";
+import { User } from "../../../../../../shared/interfaces";
 
-import { User } from "../landing.model";
+import { LandingService } from "../landing.service";
 
 
 @Component({
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     });
   }
   
-  login(credential: User): void {
+  login(credential: any): void {
     this.landingService
     .login(credential)
     .subscribe(

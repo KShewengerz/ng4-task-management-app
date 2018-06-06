@@ -10,7 +10,8 @@
     "outDir": "dist",
     "baseUrl": ".",
     "types": [
-      "jasmine"
+      "jasmine",
+      "node"
     ],
     "allowSyntheticDefaultImports": true,
     "paths": {
