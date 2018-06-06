@@ -29,14 +29,6 @@
   #breadcrumbs span { font-size: 17px !important; }
 
   #form { width: 100% !important; }
-
-  #login { margin-bottom: 35px; }
-
-  #forgot-password {
-    text-align: center;
-    right: 0 !important;
-    left: 0;
-  }
 }
 
 @media screen and (max-width: 479px) {
@@ -110,14 +102,6 @@
 
 #form .container { margin-top: 20px; }
 
-#forgot-password {
-  position: absolute;
-  bottom: 20px;
-  right: 35px;
-}
-
-#forgot-password p { font-size: 12px; }
-
 button.mdl-button {
   border: 1px solid #d8605c;
   width: 105px;
@@ -127,10 +111,4 @@ button.mdl-button {
 button.mdl-button:hover {
   background-color: #d8605c;
   color: white;
-}
-
-#error-message {
-  font-size: 14px;
-  font-style: italic;
-  text-align: center;
 }

@@ -7,6 +7,9 @@ import { HttpModule } from "@angular/http";
 import { MdlModule } from "@angular-mdl/core";
 
 import { LandingComponent } from "./landing.component";
+import { LoginComponent } from "./login/login.component";
+import { SignupComponent } from "./signup/signup.component";
+
 import { LandingService } from "./landing.service";
 
 import { LandingRouting } from "./landing-routing.module";
@@ -22,8 +25,12 @@ import { LandingRouting } from "./landing-routing.module";
     MdlModule,
     LandingRouting
   ],
-  declarations: [ LandingComponent ],
-  providers: [LandingService],
+  declarations: [
+    LandingComponent,
+    LoginComponent,
+    SignupComponent
+  ],
+  providers: [ LandingService ],
   bootstrap: [ LandingComponent ]
 })
 export class LandingModule { }

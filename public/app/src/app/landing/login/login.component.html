@@ -1,0 +1,38 @@
+<div id="login">
+
+  <form [formGroup]="form">
+    <p>
+      <mdl-textfield type="text"
+                     label="Email Address"
+                     formControlName="email"
+                     floating-label>
+      </mdl-textfield>
+    </p>
+
+    <p>
+      <mdl-textfield 	type="password"
+                      label="Password"
+                      formControlName="password"
+                      floating-label>
+      </mdl-textfield>
+    </p>
+
+    <p *ngIf="errorMessage"
+       class="mdl-typography--text-center text-red"
+       id="error-message">{{ errorMessage }}</p>
+
+    <div class="mdl-typography--text-center">
+      <br/>
+      <button class="text-light-red"
+              mdl-button
+              mdl-ripple
+              (click)="login(form.value)">LOGIN</button>
+    </div><!-- END .mdl-typography--text-center -->
+
+    <div id="forgot-password">
+      <p class="text-gray">
+        <span>Forgot your password?</span> <span class="text-light-red"><strong>Click Here</strong></span>
+      </p>
+    </div><!-- END #forgot-password -->
+  </form>
+</div><!-- END ngIf(isLogin) -->

@@ -50,110 +50,18 @@
         <!-- Login and Sign Up Tabs -->
         <div id="breadcrumbs"
              class="text-dark-blue">
-          <span [ngClass]="{active: isLogin}"
-                (click)="isLogin=true;isSignUp=false">Login </span>
+          <span [routerLink]="['/login']"
+                [routerLinkActive]="'active'">Login </span>
+
           &nbsp; <span>/</span> &nbsp;
-          <span [ngClass]="{active: isSignUp}"
-                (click)="isSignUp=true;isLogin=false">Sign Up</span>
+
+          <span [routerLink]="['/signup']"
+                [routerLinkActive]="'active'">Sign Up</span>
         </div><!--  END #breadcrumbs -->
 
         <div class="container">
 
-          <!-- Login Form -->
-          <div *ngIf="isLogin"
-               id="login">
-
-            <form [formGroup]="loginForm">
-              <p>
-                <mdl-textfield type="text"
-                               label="Email Address"
-                               formControlName="email"
-                               floating-label>
-                </mdl-textfield>
-              </p>
-
-              <p>
-                <mdl-textfield 	type="password"
-                                label="Password"
-                                formControlName="password"
-                                floating-label>
-                </mdl-textfield>
-              </p>
-
-              <p *ngIf="errorMessage"
-                 class="mdl-typography--text-center text-red"
-                 id="error-message">{{ errorMessage }}</p>
-
-              <div class="mdl-typography--text-center">
-                <br/>
-                <button class="text-light-red"
-                        mdl-button
-                        mdl-ripple
-                        (click)="login(loginForm.value)">LOGIN</button>
-              </div><!-- END .mdl-typography--text-center -->
-
-              <div id="forgot-password">
-                <p class="text-gray">
-                  <span>Forgot your password?</span> <span class="text-light-red"><strong>Click Here</strong></span>
-                </p>
-              </div><!-- END #forgot-password -->
-            </form>
-          </div><!-- END ngIf(isLogin) -->
-
-          <!-- Sign Up Form -->
-          <div *ngIf="isSignUp"
-               id="sign-up">
-            <form [formGroup]="signupForm">
-
-              <p>
-                <mdl-textfield  type="text"
-                                label="First Name"
-                                formControlName="firstName"
-                                floating-label>
-                </mdl-textfield>
-              </p>
-
-              <p>
-                <mdl-textfield  type="text"
-                                label="Last Name"
-                                formControlName="lastName"
-                                floating-label>
-                </mdl-textfield>
-              </p>
-
-              <p>
-                <mdl-textfield  type="text"
-                                label="Email Address"
-                                formControlName="emailAddress"
-                                floating-label>
-                </mdl-textfield>
-              </p>
-
-              <p>
-                <mdl-textfield  type="text"
-                                label="Username"
-                                formControlName="username"
-                                floating-label>
-                </mdl-textfield>
-              </p>
-
-              <p>
-                <mdl-textfield 	type="password"
-                                label="Password"
-                                formControlName="password"
-                                floating-label>
-                </mdl-textfield>
-              </p><br/>
-
-              <div class="mdl-typography--text-center">
-                <button class="text-light-red"
-                        mdl-button
-                        mdl-ripple
-                        (click)="register(signupForm.value)">REGISTER</button>
-              </div><br/><!--END .mdl-typography--text-center -->
-
-            </form>
-          </div><!-- END ngIf(isSignUp) -->
+          <router-outlet></router-outlet>
 
         </div><!-- END .container -->
       </div><!-- END #form -->

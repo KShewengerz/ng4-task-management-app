@@ -1,0 +1,52 @@
+<div>
+  <form [formGroup]="form">
+
+    <p>
+      <mdl-textfield  type="text"
+                      label="First Name"
+                      formControlName="firstName"
+                      floating-label>
+      </mdl-textfield>
+    </p>
+
+    <p>
+      <mdl-textfield  type="text"
+                      label="Last Name"
+                      formControlName="lastName"
+                      floating-label>
+      </mdl-textfield>
+    </p>
+
+    <p>
+      <mdl-textfield  type="text"
+                      label="Email Address"
+                      formControlName="emailAddress"
+                      floating-label>
+      </mdl-textfield>
+    </p>
+
+    <p>
+      <mdl-textfield  type="text"
+                      label="Username"
+                      formControlName="username"
+                      floating-label>
+      </mdl-textfield>
+    </p>
+
+    <p>
+      <mdl-textfield 	type="password"
+                      label="Password"
+                      formControlName="password"
+                      floating-label>
+      </mdl-textfield>
+    </p><br/>
+
+    <div class="mdl-typography--text-center">
+      <button class="text-light-red"
+              mdl-button
+              mdl-ripple
+              (click)="register(form.value)">REGISTER</button>
+    </div><br/><!--END .mdl-typography--text-center -->
+
+  </form>
+</div><!-- END ngIf(isSignUp) -->
