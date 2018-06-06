@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { LandingService } from "../landing.service";
 
@@ -18,6 +18,9 @@ export class LoginComponent implements OnInit {
   
   errorMessage: string;
   
+  email    = new FormControl("", [ Validators.required ]);
+  password = new FormControl("", [ Validators.required ]);
+  
   constructor(private router: Router,
               private fb: FormBuilder,
               private landingService: LandingService) { }
@@ -28,8 +31,8 @@ export class LoginComponent implements OnInit {
   
   buildForm(): void {
     this.form = this.fb.group({
-      "email": ["", Validators.required],
-      "password": ["", Validators.required]
+      "email"    : this.email,
+      "password" : this.password
     });
   }
   
@@ -37,13 +40,15 @@ export class LoginComponent implements OnInit {
     this.landingService
     .login(credential)
     .subscribe(
-      response => {
-        const user = JSON.stringify(response);
-
-        localStorage.setItem("user", user);
-        this.router.navigate(["/dashboard"]);
-      },
+      response => this.setAndStoreUser(response),
       err => this.errorMessage = err._body.replace(/['"]+/g, ""));
+  }
+  
+  setAndStoreUser(response: User): void {
+    const user = JSON.stringify(response);
+  
+    localStorage.setItem("user", user);
+    this.router.navigate(["/dashboard"]);
   }
 
 }
