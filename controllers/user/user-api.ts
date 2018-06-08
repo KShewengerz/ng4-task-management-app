@@ -1,14 +1,16 @@
 "use strict";
 
 import { Request, Response, NextFunction } from "express";
-import * as snakeCase from "snakecase-keys";
-import * as camelCase from "camelcase-keys";
 import * as uuid from "uuid/v4";
+import * as bcrypt from "bcrypt";
 
 import { userQuery, userValidation, userErrorHandler } from "./index";
 
 import { ErrorHandler } from "../error-handler/index";
 import { Passport } from "../../server";
+
+const snakeCase = require("snakecase-keys");
+const camelCase = require("camelcase-keys");
 
 
 /**
@@ -22,7 +24,9 @@ import { Passport } from "../../server";
  */
 export async function addUser(req: Request, res: Response): Promise<void> {
   const body = snakeCase(req.body);
+  
   body.id = uuid();
+  body.password = await bcrypt.hashSync(body.password, bcrypt.genSaltSync(8));
   
   const condition = await userValidation.getPostValidation(body);
   
@@ -52,6 +56,22 @@ export async function updateUser(req: Request, res: Response): Promise<void> {
   await userErrorHandler.postAndPutErrorHandler(condition, res);
   
   if (res.statusCode !== 400) await userQuery.updateUserQuery(id, body, res);
+}
+
+
+/**
+ * @api {get} /
+ * @description Get all users.
+ *
+ * @apiParam {Uuid} userId
+ *
+ * @param {Request} request
+ * @param {Response} response
+ *
+ * @returns {Promise<void>}
+ */
+export async function getAllUsers(req: Request, res: Response): Promise<void> {
+  await userQuery.getAllUserQuery(res);
 }
 
 
@@ -113,13 +133,8 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
   Passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);
     if (!user) return res.status(404).json(info.message);
-    
-    req.logIn(user, err => {
-      if (err) next(err);
-      else {
-        const user = camelCase(req.user);
-        res.status(200).json(user);
-      }
-    });
+  
+    const transformUserCase = camelCase(user);
+    res.status(200).json(transformUserCase);
   })(req, res, next);
 }

@@ -1,0 +1,12 @@
+#success-message {
+  font-size: 13px;
+}
+
+#success-message .material-icons {
+  font-size: 19px;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+  color: #0ab90a;
+  padding-right: 2px;
+}

@@ -1,10 +1,11 @@
 "use strict";
 
-import * as snakeCase from "snakecase-keys";
 import * as dbConnection from "../../config/db";
 
 import { TableName, UserField } from "../../shared/enums/index";
 import { User } from "../../shared/interfaces/index";
+
+const snakeCase = require("snakecase-keys");
 
 const db = dbConnection.default;
 const { User: userTable } = TableName;

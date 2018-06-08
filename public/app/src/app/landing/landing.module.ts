@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 
 import { MdlModule } from "@angular-mdl/core";
+import { MdlPopoverModule } from "@angular-mdl/popover";
+import { MdlSelectModule } from "@angular-mdl/select";
 
 import { LandingComponent } from "./landing.component";
 import { LoginComponent } from "./login/login.component";
@@ -23,6 +25,8 @@ import { LandingRouting } from "./landing-routing.module";
     FormsModule,
     ReactiveFormsModule,
     MdlModule,
+    MdlPopoverModule,
+    MdlSelectModule,
     LandingRouting
   ],
   declarations: [

@@ -27,6 +27,14 @@ router.put("/:userId", api.updateUser);
  *
  * @apiParam {Uuid} userId
  */
+router.get("/", api.getAllUsers);
+
+/**
+ * @api {get} /:id
+ * @description Get user by userId
+ *
+ * @apiParam {Uuid} userId
+ */
 router.get("/:userId", api.getUser);
 
 /**

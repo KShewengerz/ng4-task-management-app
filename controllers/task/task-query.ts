@@ -1,10 +1,11 @@
 import { Response } from "express";
-import * as camelCase from "camelcase-keys";
 
 import * as dbConnection from "../../config/db";
 
 import { TableName, UserTaskField, TaskField } from "../../shared/enums";
 import { Task } from "../../shared/interfaces/index";
+
+const camelCase = require("camelcase-keys");
 
 const db = dbConnection.default;
 const { Task: taskTable, UserTask: userTaskTable } = TableName;

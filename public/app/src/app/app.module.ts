@@ -1,9 +1,9 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
-import { AppComponent } from "./app.component";
+import { SharedModule } from "./shared/shared.module";
 
-import { AuthGuardService } from "./auth/auth-guard.service";
+import { AppComponent } from "./app.component";
 
 import { AppRouting } from "./app-routing.module";
 
@@ -11,13 +11,11 @@ import { AppRouting } from "./app-routing.module";
 @NgModule({
   imports: [
     BrowserModule,
+    SharedModule,
     AppRouting
   ],
   declarations: [ AppComponent ],
-  providers: [
-    AuthGuardService,
-    { provide: "API_URL", useValue: "http://localhost:3000" }
-  ],
+  providers: [ { provide: "API_URL", useValue: "http://localhost:3000" }],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

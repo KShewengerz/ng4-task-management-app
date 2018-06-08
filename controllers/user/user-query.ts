@@ -1,11 +1,11 @@
 import { Response } from "express";
-import * as camelCase from "camelcase-keys";
-import * as bcrypt from "bcrypt";
 
 import * as dbConnection from "../../config/db";
 
 import { TableName } from "../../shared/enums";
 import { User } from "../../shared/interfaces/index";
+
+const camelCase = require("camelcase-keys");
 
 const db = dbConnection.default;
 const { User: userTable } = TableName;
@@ -20,8 +20,8 @@ const { User: userTable } = TableName;
  * @returns {Promise<void>}
  */
 export async function addNewUserQuery(body: User, res: Response): Promise<void> {
-  body.password = await bcrypt.hashSync(body.password, bcrypt.genSaltSync(8));
-  
+  console.log("enter query");
+  console.log(body);
   await db(userTable)
   .insert(body)
   .catch(err => err);
@@ -45,6 +45,21 @@ export async function updateUserQuery(id: string, body: User, res: Response): Pr
   .catch(err => err);
   
   res.sendStatus(200);
+}
+
+
+/**
+ * @description Get All Users MySQL Query
+ *
+ * @param {Response} res
+ *
+ * @returns {Promise<void>}
+ */
+export async function getAllUserQuery(res: Response): Promise<void> {
+  const fetchUser = await db(userTable).select();
+  const result = camelCase(fetchUser);
+  
+  res.json(<User[]>result);
 }
 
 

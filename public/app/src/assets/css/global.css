@@ -129,3 +129,8 @@ form p { margin-bottom: 0; }
 .mdl-menu__outline { width: 170px !important; }
 
 .mdl-menu__container, .mdl-menu { width: 170px !important; }
+
+#signup .mdl-select .mdl-textfield { width: 98% !important; }
+
+.mdl-textfield__error { bottom: -1px; }
+

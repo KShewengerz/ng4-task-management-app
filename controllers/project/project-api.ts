@@ -1,12 +1,13 @@
 "use strict";
 
 import { Request, Response } from "express";
-import * as snakeCase from "snakecase-keys";
 import * as uuid from "uuid/v4";
 
 import { ProjectField } from "../../shared/enums/index";
 import { Project } from "../../shared/interfaces/index";
 import { projectQuery, projectValidation, projectErrorHandler } from "./index";
+
+const snakeCase = require("snakecase-keys");
 
 
 /**

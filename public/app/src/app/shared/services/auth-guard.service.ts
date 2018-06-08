@@ -5,18 +5,18 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 @Injectable()
 export class AuthGuardService implements CanActivate {
   
-  constructor(public router: Router) {
-  }
+  constructor(public router: Router) {}
   
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const isUserSessionExists = localStorage.getItem("user");
+    const isDashboardPrefixUrl = state.url.split("/")[1] === "dashboard";
     
-    if (!isUserSessionExists && state.url != "/") {
-      this.router.navigate(["/"]);
+    if ((isUserSessionExists && state.url === "/login") || isUserSessionExists && state.url === "/signup") {
+      this.router.navigate(["/dashboard/home"]);
       return false;
     }
-    else if (isUserSessionExists && state.url === "/") {
-      this.router.navigate(["/dashboard/home"]);
+    else if (!isUserSessionExists && isDashboardPrefixUrl) {
+      this.router.navigate(["/login"]);
       return false;
     }
     

@@ -1,5 +1,4 @@
 import { Response } from "express";
-import * as camelCase from "camelcase-keys";
 
 import * as dbConnection from "../../config/db";
 
@@ -12,6 +11,7 @@ const {Project: projectTable, UserProject: userProjectTable} = TableName;
 
 //Temporary: TODO Create API Authentication
 const userId = "6b5deafc-fa59-4899-b427-970f13210630";
+const camelCase = require("camelcase-keys");
 
 
 /**

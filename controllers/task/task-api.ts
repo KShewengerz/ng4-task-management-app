@@ -1,11 +1,12 @@
 "use strict";
 
 import { Request, Response } from "express";
-import * as snakeCase from "snakecase-keys";
 import * as uuid from "uuid/v4";
 
 import { Task } from "../../shared/interfaces/index";
 import { taskQuery, taskValidation, taskErrorHandler } from "./index";
+
+const snakeCase = require("snakecase-keys");
 
 
 /**
