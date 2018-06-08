@@ -61,14 +61,13 @@ export class SignupComponent implements OnInit {
   }
   
   register(user: User): void {
-    console.log(user);
-    // this.userService
-    // .saveNewUser(user)
-    //   .subscribe(
-    //     response => this.isSuccessful = true,
-    //     err => console.error(err),
-    //     () => this.form.reset()
-    //   );
+    this.userService
+    .saveNewUser(user)
+      .subscribe(
+        response => this.isSuccessful = true,
+        err => console.error(err),
+        () => this.form.reset()
+      );
   }
 
 }
