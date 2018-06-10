@@ -8,9 +8,6 @@ import { TableName, ProjectField, UserProjectField, HttpVerb } from "../../share
 const db = dbConnection.default;
 const { Project: projectTable, UserProject: userProjectTable } = TableName;
 
-//Temporary: TODO Create API Authentication
-const userId = "6b5deafc-fa59-4899-b427-970f13210630";
-
 
 /**
  * @description Get Next User Project Ordinal Number
@@ -43,10 +40,10 @@ export async function getNextUserProjectOrdinal(userId: string): Promise<number>
  *
  * @returns {Promise<any>}
  */
-export async function getPostBodyValidation(body: Project): Promise<any> {
-  const isProjectExists = await getBodyValidation(ProjectField.Id, body.id);
-  const isProjectNameExists = await getBodyValidation(ProjectField.Name, body.name);
-  const isProjectColorExists = await getBodyValidation(ProjectField.Color, body.color);
+export async function getPostBodyValidation(userId: string, body: Project): Promise<any> {
+  const isProjectExists = await getBodyValidation(userId, ProjectField.Id, body.id);
+  const isProjectNameExists = await getBodyValidation(userId, ProjectField.Name, body.name);
+  const isProjectColorExists = await getBodyValidation(userId, ProjectField.Color, body.color);
   
   return { isProjectExists, isProjectNameExists, isProjectColorExists };
 }
@@ -60,10 +57,10 @@ export async function getPostBodyValidation(body: Project): Promise<any> {
  *
  * @returns {Promise<any>}
  */
-export async function getPutBodyValidation(body: Project, projectId: string): Promise<any> {
-  const isProjectExists = await getBodyValidation(ProjectField.Id, projectId);
-  const isProjectNameExists = await putBodyValidationMethod(ProjectField.Name, body.name, projectId);
-  const isProjectColorExists = await putBodyValidationMethod(ProjectField.Color, body.color, projectId);
+export async function getPutBodyValidation(userId: string, body: Project, projectId: string): Promise<any> {
+  const isProjectExists = await getBodyValidation(userId, ProjectField.Id, projectId);
+  const isProjectNameExists = await putBodyValidationMethod(userId, ProjectField.Name, body.name, projectId);
+  const isProjectColorExists = await putBodyValidationMethod(userId, ProjectField.Color, body.color, projectId);
   
   return { isProjectExists, isProjectNameExists, isProjectColorExists };
 }
@@ -78,7 +75,7 @@ export async function getPutBodyValidation(body: Project, projectId: string): Pr
  *
  * @returns {Promise<any>}
  */
-export async function getBodyValidation(field: string, value: any): Promise<any> {
+export async function getBodyValidation(userId: string, field: string, value: any): Promise<any> {
   const query = `${field} = '${value}' AND (${UserProjectField.UserId} = '${userId}' or ${UserProjectField.UserId} is null)`;
   
   const isRecordExists = await db(projectTable)
@@ -96,12 +93,13 @@ export async function getBodyValidation(field: string, value: any): Promise<any>
  * @description A method to validate PUT request with its supplied fields if its value is duplicate within its own project excluding project
  * with same id and name
  *
+ * @param {string} userId
  * @param {string} field
  * @param value
  *
  * @returns {Promise<any>}
  */
-async function putBodyValidationMethod(field: string, value: any, projectId: string) {
+async function putBodyValidationMethod(userId: string, field: string, value: any, projectId: string) {
   const query = db(userProjectTable).whereRaw(`(${field} = '${value}' AND NOT ${ProjectField.Id} = '${projectId}')
   AND ${UserProjectField.UserId} = '${userId}'`);
   

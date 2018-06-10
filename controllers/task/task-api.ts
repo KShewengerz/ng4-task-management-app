@@ -18,17 +18,19 @@ const snakeCase = require("snakecase-keys");
  *
  * @returns {Promise<void>}
  */
-export async function addTask(req: Request, res: Response): Promise<void> {
+export async function addTask(req: any, res: Response): Promise<void> {
+  const userId = req.user[0].id;
   const body = snakeCase(req.body);
+  
   body.id = uuid();
   body.status_id = "11e1c71d-475b-4f2f-a14e-20c76e45aef6";  //By default Open Task.
   body.schedule_date = new Date();                          //By default current date.
 
-  const condition = await taskValidation.getDescriptionValidation(body.description);
+  const condition = await taskValidation.getDescriptionValidation(userId, body.description);
   
   await taskErrorHandler.postErrorHandler(condition, res);
   
-  if (res.statusCode !== 400) taskQuery.addTaskQuery(body, res);
+  if (res.statusCode !== 400) taskQuery.addTaskQuery(userId, body, res);
 }
 
 
@@ -41,11 +43,12 @@ export async function addTask(req: Request, res: Response): Promise<void> {
  *
  * @returns {Promise<void>}
  */
-export async function updateTask(req: Request, res: Response): Promise<void> {
+export async function updateTask(req: any, res: Response): Promise<void> {
   const id = req.params.id;
+  const userId = req.user[0].id;
   const body: Task = snakeCase(req.body);
   
-  const condition = await taskValidation.getPutValidation(id, body.description);
+  const condition = await taskValidation.getPutValidation(id, userId, body.description);
   
   
   await taskErrorHandler.putErrorHandler(condition, res);
@@ -63,8 +66,10 @@ export async function updateTask(req: Request, res: Response): Promise<void> {
  *
  * @returns {Promise<void>}
  */
-export async function getTasks(req: Request, res: Response): Promise<void> {
-  const tasks = await taskQuery.getUserTasks();
+export async function getTasks(req: any, res: Response): Promise<void> {
+  const userId = req.user[0].id;
+  const tasks = await taskQuery.getUserTasks(userId);
+  
   res.json(<Task[]>tasks);
 }
 

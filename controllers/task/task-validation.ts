@@ -7,9 +7,6 @@ import { TableName, TaskField, UserTaskField } from "../../shared/enums/index";
 const db = dbConnection.default;
 const { Task: taskTable, UserTask: userTaskTable } = TableName;
 
-//Temporary: TODO Create API Authentication
-const userId = "6b5deafc-fa59-4899-b427-970f13210630";
-
 
 /**
  * @description Description Validation - checking if description already exists within user's tasks;
@@ -18,7 +15,7 @@ const userId = "6b5deafc-fa59-4899-b427-970f13210630";
  *
  * @returns {any[]}
  */
-export async function getDescriptionValidation(description: string): Promise<any> {
+export async function getDescriptionValidation(userId: string, description: string): Promise<any> {
   const isDescriptionExists = await db(taskTable)
   .count({ id: TaskField.Id })
   .leftJoin(userTaskTable, TaskField.Id, UserTaskField.TaskId)
@@ -47,10 +44,10 @@ export async function checkIfTaskExists(id: string): Promise<any> {
   return { isRecordExists };
 }
 
-export async function getPutValidation(id: string, description: string): Promise<any> {
+export async function getPutValidation(id: string, userId: string, description: string): Promise<any> {
   let condition: any = {};
   
-  const descriptionCondition = await getDescriptionValidation(description);
+  const descriptionCondition = await getDescriptionValidation(userId, description);
   const recordCondition = await checkIfTaskExists(id);
   
   condition.isDescriptionExists = descriptionCondition.isDescriptionExists;

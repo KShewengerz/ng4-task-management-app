@@ -21,15 +21,17 @@ const snakeCase = require("snakecase-keys");
  *
  * @returns {Promise<void>}
  */
-export async function addProjectByUserId(req: Request, res: Response): Promise<void> {
+export async function addProjectByUserId(req: any, res: Response): Promise<void> {
+  const userId = req.user[0].id;
   const body: Project = snakeCase(req.body);
+  
   body.id = uuid();
   
-  const condition = await projectValidation.getPostBodyValidation(body);
+  const condition = await projectValidation.getPostBodyValidation(userId, body);
   
   await projectErrorHandler.postErrorHandler(condition, res);
   
-  if (res.statusCode !== 400) await projectQuery.addProjectQuery(body, res);
+  if (res.statusCode !== 400) await projectQuery.addProjectQuery(userId, body, res);
 }
 
 /**
@@ -43,11 +45,12 @@ export async function addProjectByUserId(req: Request, res: Response): Promise<v
  *
  * @returns {Promise<void>}
  */
-export async function updateProject(req: Request, res: Response): Promise<void> {
+export async function updateProject(req: any, res: Response): Promise<void> {
   const id = req.params.id;
+  const userId = req.user[0].id;
   const body: Project = snakeCase(req.body);
   
-  const condition = await projectValidation.getPutBodyValidation(body, id);
+  const condition = await projectValidation.getPutBodyValidation(userId, body, id);
   
   await projectErrorHandler.putErrorHandler(condition, res);
   
@@ -63,8 +66,10 @@ export async function updateProject(req: Request, res: Response): Promise<void> 
  *
  * @returns {Promise<void>}
  */
-export async function getProjects(req: Request, res: Response): Promise<void> {
-  const projects = await projectQuery.getProjects();
+export async function getProjects(req: any, res: Response): Promise<void> {
+  const userId = req.user[0].id;
+  const projects = await projectQuery.getProjects(userId);
+  
   res.json(<Project[]>projects);
 }
 
@@ -80,10 +85,11 @@ export async function getProjects(req: Request, res: Response): Promise<void> {
  *
  * @returns {Promise<void>}
  */
-export async function getProjectById(req: Request, res: Response): Promise<void> {
+export async function getProjectById(req: any, res: Response): Promise<void> {
+  const userId = req.user[0].id;
   const id = req.params.id;
   
-  const condition = await projectValidation.getBodyValidation(ProjectField.Id, id);
+  const condition = await projectValidation.getBodyValidation(userId, ProjectField.Id, id);
   
   await projectErrorHandler.getAndDeleteErrorHandler(condition, res);
   
@@ -104,10 +110,11 @@ export async function getProjectById(req: Request, res: Response): Promise<void>
  *
  * @returns {Promise<void>}
  */
-export async function deleteProject(req: Request, res: Response): Promise<void> {
+export async function deleteProject(req: any, res: Response): Promise<void> {
+  const userId = req.user[0].id;
   const id = req.params.id;
   
-  const condition = await projectValidation.getBodyValidation(ProjectField.Id, id);
+  const condition = await projectValidation.getBodyValidation(userId, ProjectField.Id, id);
   
   await projectErrorHandler.getAndDeleteErrorHandler(condition, res);
   

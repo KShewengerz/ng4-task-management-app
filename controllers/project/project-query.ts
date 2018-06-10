@@ -9,8 +9,6 @@ import { Project } from "../../shared/interfaces/index";
 const db = dbConnection.default;
 const {Project: projectTable, UserProject: userProjectTable} = TableName;
 
-//Temporary: TODO Create API Authentication
-const userId = "6b5deafc-fa59-4899-b427-970f13210630";
 const camelCase = require("camelcase-keys");
 
 
@@ -23,7 +21,7 @@ const camelCase = require("camelcase-keys");
  *
  * @returns {Promise<void>}
  */
-export async function addProjectQuery(body: Project, res: Response): Promise<void> {
+export async function addProjectQuery(userId: string, body: Project, res: Response): Promise<void> {
   body.ordinal = await projectValidation.getNextUserProjectOrdinal(userId);
   
   const insertUserProjectData = {
@@ -73,7 +71,7 @@ export async function updateProject(id: string, body: Project, res: Response): P
  *
  * @returns {Promise<Project[]>}
  */
-export async function getProjects(): Promise<Project[]> {
+export async function getProjects(userId: string): Promise<Project[]> {
   const projectTableId = `${projectTable}.${ProjectField.Id}`;
   const userProjectTableProjectId = `${userProjectTable}.${UserProjectField.ProjectId}`;
   const userProjectTableUserId = `${userProjectTable}.${UserProjectField.UserId}`;

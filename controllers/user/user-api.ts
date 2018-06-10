@@ -70,7 +70,7 @@ export async function updateUser(req: Request, res: Response): Promise<void> {
  *
  * @returns {Promise<void>}
  */
-export async function getAllUsers(req: Request, res: Response): Promise<void> {
+export async function getAllUsers(req: any, res: Response): Promise<void> {
   await userQuery.getAllUserQuery(res);
 }
 
@@ -129,12 +129,32 @@ export async function deleteUser(req: Request, res: Response): Promise<void> {
  *
  * @returns {Promise<void>}
  */
-export async function login(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function login(req: any, res: Response, next: NextFunction): Promise<void> {
   Passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);
     if (!user) return res.status(404).json(info.message);
-  
-    const transformUserCase = camelCase(user);
-    res.status(200).json(transformUserCase);
+    
+    req.logIn(user, async () => {
+      await req.session.save(() => {
+        const transformUserCase = camelCase(user);
+        res.status(200).json(transformUserCase);
+      });
+    });
+    
   })(req, res, next);
+}
+
+
+/**
+ * @api {get} /logout
+ *
+ * @param {Any} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ *
+ * @returns {Promise<void>}
+ */
+export async function logout(req: any, res: Response, next: NextFunction): Promise<void> {
+  req.logOut();
+  res.sendStatus(200);
 }

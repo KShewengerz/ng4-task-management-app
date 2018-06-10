@@ -10,9 +10,6 @@ const camelCase = require("camelcase-keys");
 const db = dbConnection.default;
 const { Task: taskTable, UserTask: userTaskTable } = TableName;
 
-//Temporary: TODO Create API Authentication
-const userId = "6b5deafc-fa59-4899-b427-970f13210630";
-
 
 /**
  * @description Insert New Task MySQL Query
@@ -22,7 +19,7 @@ const userId = "6b5deafc-fa59-4899-b427-970f13210630";
  *
  * @returns {Promise<void>}
  */
-export async function addTaskQuery(body: Task, res: Response): Promise<void> {
+export async function addTaskQuery(userId: string, body: Task, res: Response): Promise<void> {
   const insertUserTaskData = {
     [UserTaskField.UserId]: userId,
     [UserTaskField.TaskId]: body.id
@@ -70,7 +67,7 @@ export async function updateTaskQuery(id, body, res): Promise<void> {
  *
  * @returns {Promise<Task[]>}
  */
-export async function getUserTasks(): Promise<Task[]> {
+export async function getUserTasks(userId: string): Promise<Task[]> {
   const taskTableId = `${taskTable}.${TaskField.Id}`;
   const userTaskTableTaskId = `${userTaskTable}.${UserTaskField.TaskId}`;
   

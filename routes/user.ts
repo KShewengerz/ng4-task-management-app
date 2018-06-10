@@ -51,6 +51,12 @@ router.delete("/:userId", api.deleteUser);
  */
 router.post("/login", api.login);
 
+/**
+ * @api {get} /logout
+ * @description Log Out User
+ */
+router.post("/logout", api.logout);
+
 
 /**
  * @description Holds user controllers routes
