@@ -1,3 +1,13 @@
-<p>
-  page-not-found works!
-</p>
+<div id="wrapper">
+  <div class="container mdl-cell--6-col-tablet mdl-typography--text-center">
+    <h1>404</h1>
+    <h1>Page Not Found</h1>
+
+    <p>The page you are looking for was moved, removed, renamed or might never existed.</p>
+
+    <button mdl-button
+            mdl-ripple
+            [routerLink]="[buttonUrl]">Go Back to {{ buttonLabel }} page</button>
+  </div>
+</div>
+

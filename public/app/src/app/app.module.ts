@@ -1,6 +1,8 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
+import { MdlModule } from "@angular-mdl/core";
+
 import { SharedModule } from "./shared/shared.module";
 
 import { AppComponent } from "./app.component";
@@ -12,6 +14,7 @@ import { AppRouting } from "./app-routing.module";
 @NgModule({
   imports: [
     BrowserModule,
+    MdlModule,
     SharedModule,
     AppRouting
   ],

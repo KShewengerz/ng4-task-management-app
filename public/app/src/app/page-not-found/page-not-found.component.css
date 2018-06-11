@@ -1,0 +1,38 @@
+@media screen and (max-width: 375px) {
+  .container > h1:first-child { font-size: 135px !important; }
+
+  .container > h1:nth-child(2) { font-size: 27px !important; }
+
+  p { font-size: 11px !important; }
+}
+
+.container {
+  background-color: #ffffff17 !important;
+  color: white;
+  padding: 40px;
+  padding-bottom: 70px;
+}
+
+h1, p { font-weight: 100; }
+
+.container > h1:first-child { font-size: 165px; }
+
+.container > h1:nth-child(2) {
+  position: relative;
+  top: -20px;
+  font-size: 34px;
+}
+
+p {
+  margin-top: -15px;
+  font-size: 15px;
+}
+
+button {
+  background: #e26b67;
+  color: white;
+  margin-top: 20px;
+  padding: 0 30px;
+  width: auto !important;
+  height: 40px !important;
+}
