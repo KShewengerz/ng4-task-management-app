@@ -10,9 +10,10 @@ import { User } from "../../../../../../shared/interfaces";
 
 
 @Component({
+  moduleId: module.id,
   selector: "tms-signup",
   templateUrl: "signup.component.html",
-  styleUrls: ["../landing.component.css", "./signup.component.css"]
+  styleUrls: ["signup.component.css", "../landing.component.css"]
 })
 export class SignupComponent implements OnInit {
   

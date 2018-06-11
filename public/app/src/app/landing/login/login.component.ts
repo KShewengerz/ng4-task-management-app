@@ -8,9 +8,10 @@ import { LandingService } from "../landing.service";
 
 
 @Component({
+  moduleId: module.id,
   selector: "tms-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css", "../landing.component.css"]
+  templateUrl: "login.component.html",
+  styleUrls: ["login.component.css", "../landing.component.css"]
 })
 export class LoginComponent implements OnInit {
   
