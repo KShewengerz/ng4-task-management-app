@@ -50,7 +50,13 @@ export class Server {
     this.app.use(cookieParser());
     this.app.use(express.static(path.join(__dirname, "public")));
   
-    this.app.use(session({ secret: "secret", resave: true, saveUninitialized: true }));
+    this.app.use(session({
+      secret: "secret",
+      resave: true,
+      saveUninitialized: true,
+      maxAge: 8.64e+7
+    }));
+    
     this.app.use(passport.initialize());
     this.app.use(passport.session());
   }
