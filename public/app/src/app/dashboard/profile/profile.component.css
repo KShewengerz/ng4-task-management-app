@@ -1,0 +1,68 @@
+.dashboard-content-container {
+  height: auto;
+  padding-bottom: 5px;
+}
+
+/* Back Button */
+#back .material-icons {
+  vertical-align: middle;
+  font-size: 22px;
+  color: rgb(255,82,82);
+}
+
+#back {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+}
+
+#back > a {
+  font-size: 13px;
+  text-decoration: none;
+  position: relative;
+  left: -4px;
+}
+
+h3 {
+  margin-top: 30px;
+  color: #2b3442;
+  position: relative;
+  top: 7px;
+}
+
+/* Header Menu */
+ul { margin: 20px 0; }
+
+ul > li { display: inline-block; }
+
+li {
+  color: #808080db;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+ul > li:last-child { margin-left: 20px; }
+
+li.active {
+  color: #d8605b;
+  font-weight: bold;
+  border-bottom: 2px solid;
+}
+
+/* Form */
+.mdl-textfield { width: 98%; }
+
+button {
+  border: 1px solid #d8615d;
+  margin-bottom: 20px;
+}
+
+button:hover {
+  background: #d8615d;
+  color: white;
+}
+
+#success-message {
+  position: relative;
+  top: -20px;
+}

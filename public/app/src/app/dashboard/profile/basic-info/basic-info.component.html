@@ -1,0 +1,78 @@
+<form [formGroup]="form"
+      class="mdl-typography--text-center">
+
+    <p>
+      <mdl-textfield  type="text"
+                      label="First Name"
+                      formControlName="firstName"
+                      floating-label
+                      disableNativeValidityChecking
+                      [class.is-invalid]="firstName.touched && firstName.invalid"
+                      [error-msg]="firstName.getError('invalidPattern') || firstName.getError('requiredField')"
+                      (blur)="checkFieldValueValidity('firstName', firstName)">
+      </mdl-textfield>
+    </p>
+
+    <p>
+      <mdl-textfield  type="text"
+                      label="Last Name"
+                      formControlName="lastName"
+                      floating-label
+                      disableNativeValidityChecking
+                      [class.is-invalid]="lastName.touched && lastName.invalid"
+                      [error-msg]="lastName.getError('invalidPattern') || lastName.getError('requiredField')"
+                      (blur)="checkFieldValueValidity('lastName', lastName)">
+      </mdl-textfield>
+    </p>
+
+    <p>
+      <mdl-textfield  type="text"
+                      label="Email Address"
+                      formControlName="emailAddress"
+                      floating-label
+                      disableNativeValidityChecking
+                      [class.is-invalid]="emailAddress.touched && emailAddress.invalid"
+                      [error-msg]="emailAddress.getError('notUnique')
+                      || emailAddress.getError('invalidPattern')
+                      || emailAddress.getError('requiredField')"
+                      (blur)="checkFieldValueValidity('emailAddress', emailAddress, true)">
+      </mdl-textfield>
+    </p>
+
+    <p>
+      <mdl-select label="Gender"
+                  formControlName="gender">
+        <mdl-option *ngFor="let g of genderSelection"
+                    [value]="Gender[g]">{{ g }}</mdl-option>
+      </mdl-select>
+    </p>
+
+    <p>
+      <mdl-textfield  type="text"
+                      label="Username"
+                      formControlName="username"
+                      floating-label
+                      disableNativeValidityChecking
+                      [class.is-invalid]="username.touched && username.invalid"
+                      [error-msg]="username.getError('notUnique')
+                      || username.getError('minLength')
+                      || username.getError('requiredField')"
+                      (blur)="checkFieldValueValidity('username', username, true)">
+      </mdl-textfield>
+    </p><br/>
+
+    <div class="mdl-typography--text-center">
+      <button class="text-light-red"
+              mdl-button
+              mdl-ripple
+              [disabled]="!form.valid"
+              (click)="update(form.value)">UPDATE</button>
+    </div><br/><!--END .mdl-typography--text-center -->
+
+    <p  *ngIf="isSuccessful"
+        class="mdl-typography--text-center"
+        id="success-message">
+      <mdl-icon>done</mdl-icon> Successfully Updated
+    </p>
+
+</form>

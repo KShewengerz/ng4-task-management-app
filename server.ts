@@ -14,8 +14,8 @@ import knex = require("./config/db");
 
 import { homeRoute, userRoutes, taskRoutes, projectRoutes } from "./routes/-index";
 
-const cors = require("cors");
-const session = require("express-session");
+const cors        = require("cors");
+const session     = require("express-session");
 
 export const Passport = passport;
 

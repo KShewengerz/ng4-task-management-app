@@ -5,7 +5,7 @@ import { AuthGuardService } from "./services/auth-guard.service";
 import { ErrorHandlerService } from "./services/error-handler.service";
 
 import { UserService } from "./user/user.service";
-import { UserListResolver } from "./user/user-resolver.service";
+import { UserResolver, UserListResolver } from "./user/user-resolver.service";
 
 
 @NgModule({
@@ -14,6 +14,7 @@ import { UserListResolver } from "./user/user-resolver.service";
     AuthGuardService,
     ErrorHandlerService,
     UserService,
+    UserResolver,
     UserListResolver
   ]
 })

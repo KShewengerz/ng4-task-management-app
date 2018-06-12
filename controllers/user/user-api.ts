@@ -37,8 +37,8 @@ export async function addUser(req: Request, res: Response): Promise<void> {
 
 
 /**
- * @api {put} /:userId
- * @description Update's user information by userId.
+ * @api {put} /
+ * @description Update current user information.
  *
  * @apiParam {Uuid} userId
  *
@@ -47,14 +47,15 @@ export async function addUser(req: Request, res: Response): Promise<void> {
  *
  * @returns {Promise<void>}
  */
-export async function updateUser(req: Request, res: Response): Promise<void> {
-  const id = req.params.userId;
+export async function updateUser(req: any, res: Response): Promise<void> {
+  const id = req.user[0].id;
+
   const body = snakeCase(req.body);
-  
+
   const condition = await userValidation.getPutValidation(body, id);
-  
+
   await userErrorHandler.postAndPutErrorHandler(condition, res);
-  
+
   if (res.statusCode !== 400) await userQuery.updateUserQuery(id, body, res);
 }
 

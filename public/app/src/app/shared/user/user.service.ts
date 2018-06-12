@@ -26,7 +26,7 @@ export class UserService {
   updateUser(body: User): Observable<any> {
     return this.http
     .put(this.url, body)
-    .map(response => response.json());
+    .map(response => response);
   }
   
   fetchAllUsers(): Observable<User[]> {
@@ -39,6 +39,12 @@ export class UserService {
     return this.http
     .get(`${this.url}/${id}`)
     .map(response => response.json());
+  }
+  
+  fetchAllTasks(): Observable<any> {
+    return this.http
+      .get(`${this.url}/`)
+      .map(response => response.json());
   }
   
 }

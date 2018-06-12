@@ -84,13 +84,3 @@ button.mdl-button {
   width: 105px;
   max-width: 100%;
 }
-
-button[disabled] {
-  border-color: #80808075;
-  pointer-events: none;
-}
-
-button.mdl-button:hover {
-  background-color: #d8605c;
-  color: white;
-}

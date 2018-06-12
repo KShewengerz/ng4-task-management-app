@@ -3,16 +3,6 @@
   #container { margin-left: auto !important; }
 }
 
-#container {
-  background-color: white;
-  margin-top: -170px;
-  height: 500px;
-  border-radius: 5px;
-  padding: 30px 50px;
-  box-shadow: 1px 1px 5px #0000002e;
-  position: relative;
-}
-
 hr {
   margin-top: 0;
   margin-bottom: 20px;

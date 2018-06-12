@@ -15,11 +15,11 @@ router.post("/", api.addUser);
 
 /**
  * @api {put} /:userId
- * @description Update's user information by userId
+ * @description Update current user information
  *
  * @apiParam {Uuid} userId
  */
-router.put("/:userId", api.updateUser);
+router.put("/", api.updateUser);
 
 /**
  * @api {get} /:id

@@ -1,3 +1,23 @@
-<p>
-  profile works!
-</p>
+<tms-content-header></tms-content-header>
+
+<div class="dashboard-content-container mdl-cell mdl-cell--8-col mdl-cell--2-offset">
+
+  <p id="back">
+    <mdl-icon>keyboard_arrow_left</mdl-icon> <a [routerLink]="['../task']">Back to Tasks</a>
+  </p>
+
+  <div class="mdl-typography--text-center">
+    <h3><mdl-icon>account_circle</mdl-icon> Edit Profile</h3>
+
+    <ul>
+      <li [ngClass]="{'active': isBasic}"
+          (click)="isBasic = true">Basic Info</li>
+      <li [ngClass]="{'active': !isBasic}"
+          (click)="isBasic = false">Reset Password</li>
+    </ul>
+
+    <tms-basic-info *ngIf="isBasic"
+                    [users]="users"
+                    [user]="user"></tms-basic-info>
+  </div>
+</div>

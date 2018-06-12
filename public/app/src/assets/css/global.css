@@ -104,6 +104,17 @@ form p { margin-bottom: 0; }
   background-color: white;
 }
 
+.dashboard-content-container {
+  position: relative;
+  background-color: white;
+  margin-top: -170px;
+  height: 500px;
+  border-radius: 5px;
+  padding: 30px 50px;
+  box-shadow: 1px 1px 5px #0000002e;
+  position: relative;
+}
+
 
 /* Mdl */
 @media screen and (max-width: 1024px) {
@@ -130,7 +141,18 @@ form p { margin-bottom: 0; }
 
 .mdl-menu__container, .mdl-menu { width: 170px !important; }
 
-#signup .mdl-select .mdl-textfield { width: 98% !important; }
+.mdl-select .mdl-textfield { width: 98% !important; }
 
 .mdl-textfield__error { bottom: -1px; }
 
+
+/* Disabled Button */
+button[disabled] {
+  border-color: #80808075 !important;
+  pointer-events: none;
+}
+
+button.mdl-button:hover {
+  background-color: #d8605c;
+  color: white;
+}
