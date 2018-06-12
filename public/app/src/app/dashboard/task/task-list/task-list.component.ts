@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
 import { Task } from "./task.model";
+import { tasks } from "./task-data";
+
 
 @Component({
   moduleId: module.id,
@@ -10,13 +12,12 @@ import { Task } from "./task.model";
 })
 export class TaskListComponent implements OnInit {
 
-  @Input() tasks: Task[] = [];
-
+  tasks: Task[] = [];
+  
   constructor() {}
 
   ngOnInit(): void {
-
-    console.log(this.tasks);
+    this.tasks = tasks;
   }
 
 }

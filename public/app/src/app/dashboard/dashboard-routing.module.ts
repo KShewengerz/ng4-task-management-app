@@ -1,6 +1,8 @@
 import { RouterModule, Routes } from "@angular/router";
 
 import { DashboardComponent } from "./dashboard.component";
+import { TaskComponent } from "./task/task.component";
+import { ProfileComponent } from "./profile/profile.component";
 
 
 const routes: Routes = [
@@ -8,8 +10,9 @@ const routes: Routes = [
     path: "",
     component: DashboardComponent,
     children: [
-      { path: "", redirectTo: "home", pathMatch: "full" },
-      { path: "home", loadChildren: "./home/home.module#HomeModule" }
+      { path: "", redirectTo: "task", pathMatch: "full" },
+      { path: "task", component: TaskComponent },
+      { path: "profile", component: ProfileComponent }
     ]
   }
 ];

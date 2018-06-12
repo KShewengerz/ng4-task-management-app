@@ -12,7 +12,7 @@ export class AuthGuardService implements CanActivate {
     const isDashboardPrefixUrl = state.url.split("/")[1] === "dashboard";
     
     if ((isUserSessionExists && state.url === "/login") || isUserSessionExists && state.url === "/signup") {
-      this.router.navigate(["/dashboard/home"]);
+      this.router.navigate(["/dashboard/task"]);
       return false;
     }
     else if (!isUserSessionExists && isDashboardPrefixUrl) {

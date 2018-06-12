@@ -18,7 +18,7 @@ export class PageNotFoundComponent implements OnInit {
     const session = localStorage.getItem("user");
     
     this.buttonLabel = session ? "Dashboard" : "Login";
-    this.buttonUrl = session ? "/dashboard/home" : "/login";
+    this.buttonUrl = session ? "/dashboard/task" : "/login";
   }
 
 }
