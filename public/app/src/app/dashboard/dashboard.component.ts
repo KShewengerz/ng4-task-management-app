@@ -5,10 +5,10 @@ import { UserImageHeaderComponent } from "./sections/user-image-header/user-imag
 
 
 @Component({
-  moduleId: module.id,
-  selector: "tms-dashboard",
-  templateUrl: "dashboard.component.html",
-  styleUrls: ["dashboard.component.css"],
+  moduleId    : module.id,
+  selector    : "tms-dashboard",
+  templateUrl : "dashboard.component.html",
+  styleUrls   : ["dashboard.component.css"],
   entryComponents: [
     NavigationComponent,
     UserImageHeaderComponent

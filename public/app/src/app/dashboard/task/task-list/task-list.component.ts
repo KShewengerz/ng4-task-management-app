@@ -5,10 +5,10 @@ import { tasks } from "./task-data";
 
 
 @Component({
-  moduleId: module.id,
-  selector: "tms-home-task-list",
-  templateUrl: "task-list.component.html",
-  styleUrls: ["task-list.component.css"]
+  moduleId    : module.id,
+  selector    : "tms-home-task-list",
+  templateUrl : "task-list.component.html",
+  styleUrls   : ["task-list.component.css"]
 })
 export class TaskListComponent implements OnInit {
 

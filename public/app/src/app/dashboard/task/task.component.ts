@@ -5,10 +5,10 @@ import { TaskListComponent } from "./task-list/task-list.component";
 
 
 @Component({
-  moduleId: module.id,
-  selector: "tms-task",
-  templateUrl: "task.component.html",
-  styleUrls: ["task.component.css"],
+  moduleId    : module.id,
+  selector    : "tms-task",
+  templateUrl : "task.component.html",
+  styleUrls   : ["task.component.css"],
   entryComponents: [
     ContentHeaderComponent,
     TaskListComponent
