@@ -11,6 +11,7 @@ import { MdlSelectModule } from "@angular-mdl/select";
 import { LandingComponent } from "./landing.component";
 import { LoginComponent } from "./login/login.component";
 import { SignupComponent } from "./signup/signup.component";
+import { FeatureComponent } from "./sections/feature/feature.component";
 
 import { LandingService } from "./landing.service";
 
@@ -32,7 +33,8 @@ import { LandingRouting } from "./landing-routing.module";
   declarations: [
     LandingComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    FeatureComponent
   ],
   providers: [ LandingService ],
   bootstrap: [ LandingComponent ]

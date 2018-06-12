@@ -13,16 +13,8 @@
 @media screen and (max-width: 839px) {
   .mdl-grid > .mdl-cell:first-child {
     width: 100%;
-    height: 150px !important;
+    min-height: 180px !important;
   }
-
-  #features { display: none; }
-
-  #logo > div:first-child { margin-top: 20px !important; }
-
-  #logo .material-icons { font-size: 45px !important;}
-
-  #logo #title h1 { font-size: 28px; }
 
   #breadcrumbs { margin-top: 0 !important; }
 
@@ -72,21 +64,6 @@
 .mdl-cell--7-col { width: calc(58.3333333333% - 0px); }
 
 .mdl-textfield { width: 98%; }
-
-/* Logo */
-
-#logo .material-icons { font-size: 70px; }
-
-#logo > div:first-child { margin-top: 70px; }
-
-#logo #title p { font-size: 12px; }
-
-/* Features */
-#features { padding-left: 15px; }
-
-#features .material-icons { font-size: 20px; }
-
-#features span { font-size: 13px; }
 
 /* Form */
 #form { padding: 20px; }

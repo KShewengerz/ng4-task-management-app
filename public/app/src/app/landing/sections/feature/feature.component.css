@@ -1,0 +1,28 @@
+@media screen and (max-width: 839px) {
+  #logo { padding-top: 15px; }
+
+  #features { display: none; }
+
+  #logo > div:first-child { margin-top: 15px !important; }
+
+  #logo .material-icons { font-size: 45px !important;}
+
+  #logo #title h1 { font-size: 28px; }
+}
+
+/* Logo */
+#logo .material-icons { font-size: 70px; }
+
+#logo > div:first-child { margin-top: 70px; }
+
+#logo #title p { font-size: 12px; }
+
+/* Features */
+#features {
+  padding-left: 15px;
+  padding-top: 15px;
+}
+
+#features .material-icons { font-size: 20px; }
+
+#features span { font-size: 13px; }
