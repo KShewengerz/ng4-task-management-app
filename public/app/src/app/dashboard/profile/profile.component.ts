@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { BasicInfoComponent } from "./basic-info/basic-info.component";
+import { ResetPasswordComponent } from "./reset-password/reset-password.component";
 
 import { User } from "../../../../../../shared/interfaces";
 
@@ -11,7 +12,10 @@ import { User } from "../../../../../../shared/interfaces";
   selector    : "tms-profile",
   templateUrl : "profile.component.html",
   styleUrls   : ["profile.component.css", "../../landing/signup/signup.component.css"],
-  entryComponents : [ BasicInfoComponent ]
+  entryComponents : [
+    BasicInfoComponent,
+    ResetPasswordComponent
+  ]
 })
 export class ProfileComponent implements OnInit {
   

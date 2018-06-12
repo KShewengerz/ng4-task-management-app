@@ -19,5 +19,8 @@
     <tms-basic-info *ngIf="isBasic"
                     [users]="users"
                     [user]="user"></tms-basic-info>
+
+    <tms-reset-password *ngIf="!isBasic"
+                        [user]="user"></tms-reset-password>
   </div>
 </div>
