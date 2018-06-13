@@ -7,3 +7,4 @@ export * from "./task-status";
 export * from "./user";
 export * from "./user-project";
 export * from "./user-task";
+export * from "./user-session";
