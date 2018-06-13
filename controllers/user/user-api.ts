@@ -48,7 +48,7 @@ export async function addUser(req: Request, res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function updateUser(req: any, res: Response): Promise<void> {
-  const id = req.user[0].id;
+  const id = "c6f1d168-fd2f-40cf-9a20-d86f84ebf7f3";
 
   const body = snakeCase(req.body);
 
@@ -158,4 +158,36 @@ export async function login(req: any, res: Response, next: NextFunction): Promis
 export async function logout(req: any, res: Response, next: NextFunction): Promise<void> {
   req.logOut();
   res.sendStatus(200);
+}
+
+
+/**
+ * @api {get} /compare-password/:password
+ *
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ *
+ * @returns {Promise<void>}
+ */
+export async function comparePassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+  const password = req.params.password;
+  
+  await userQuery.getUserHashedPassword(password, res);
+}
+
+
+/**
+ * @api {put} /change-password
+ *
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ *
+ * @returns {Promise<void>}
+ */
+export async function changePassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+  const body = req.body;
+  
+  await userQuery.changeUserPassword(body, res);
 }

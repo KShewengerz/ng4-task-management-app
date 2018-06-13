@@ -13,14 +13,13 @@
       <li [ngClass]="{'active': isBasic}"
           (click)="isBasic = true">Basic Info</li>
       <li [ngClass]="{'active': !isBasic}"
-          (click)="isBasic = false">Reset Password</li>
+          (click)="isBasic = false">Change Password</li>
     </ul>
 
     <tms-basic-info *ngIf="isBasic"
-                    [users]="users"
-                    [user]="user"></tms-basic-info>
+                    [users]="users"></tms-basic-info>
 
-    <tms-reset-password *ngIf="!isBasic"
-                        [user]="user"></tms-reset-password>
+    <tms-change-password *ngIf="!isBasic"
+                        [user]="user"></tms-change-password>
   </div>
 </div>

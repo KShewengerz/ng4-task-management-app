@@ -7,10 +7,11 @@ import { MdlPopoverModule } from "@angular-mdl/popover";
 import { MdlSelectModule } from "@angular-mdl/select";
 
 import { BasicInfoComponent } from "./basic-info/basic-info.component";
-import { ResetPasswordComponent } from "./reset-password/reset-password.component";
+import { ChangePasswordComponent } from "./change-password/change-password.component";
 
 import { UserService } from "../../shared/user/user.service";
 import { ErrorHandlerService } from "../../shared/services/error-handler.service";
+import { ChangePasswordService } from "./change-password/change-password.service";
 
 
 @NgModule({
@@ -24,15 +25,16 @@ import { ErrorHandlerService } from "../../shared/services/error-handler.service
   ],
   declarations: [
     BasicInfoComponent,
-    ResetPasswordComponent
+    ChangePasswordComponent
   ],
   providers: [
     UserService,
-    ErrorHandlerService
+    ErrorHandlerService,
+    ChangePasswordService
   ],
   exports: [
     BasicInfoComponent,
-    ResetPasswordComponent
+    ChangePasswordComponent
   ]
 })
 export class ProfileModule { }

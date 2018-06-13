@@ -18,7 +18,6 @@ import { User } from "../../../../../../../shared/interfaces";
 export class BasicInfoComponent implements OnInit {
   
   @Input() users: User[] = [];
-  @Input() user: User;
   
   form: FormGroup;
   
@@ -27,6 +26,8 @@ export class BasicInfoComponent implements OnInit {
   
   isBasic: boolean = true;
   isSuccessful: boolean = false;
+  
+  user: User;
   
   firstName       = new FormControl("", [ Validators.required, Validators.pattern("^[a-zA-Z].+\s?.") ]);
   lastName        = new FormControl("", [ Validators.required, Validators.pattern("^[a-zA-Z].+\s?.") ]);
@@ -44,6 +45,10 @@ export class BasicInfoComponent implements OnInit {
               private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit() {
+    const userSession = localStorage.getItem("user");
+    
+    this.user = JSON.parse(userSession);
+    
     this.buildForm();
   }
   
@@ -77,9 +82,20 @@ export class BasicInfoComponent implements OnInit {
     this.userService
       .updateUser(user)
       .subscribe(
-        response => this.isSuccessful = true,
+        response => this.saveNewUserSession(user),
         err => console.error(err)
       );
+  }
+  
+  saveNewUserSession(user: User): void {
+    user.id = this.user.id;
+    
+    const transformUser = JSON.stringify(user);
+    
+    this.isSuccessful = true;
+    
+    localStorage.removeItem("user");
+    localStorage.setItem("user", transformUser);
   }
   
 }

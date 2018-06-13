@@ -25,26 +25,22 @@ export class UserService {
   
   updateUser(body: User): Observable<any> {
     return this.http
-    .put(this.url, body)
-    .map(response => response);
+      .put(this.url, body)
+      .map(response => response);
   }
   
   fetchAllUsers(): Observable<User[]> {
     return this.http
-    .get(this.url)
-    .map(response => response.json());
+      .get(this.url)
+      .map(response => response.json())
+      .catch(err => Observable.throw(err));
   }
   
   fetchUser(id: string): Observable<User> {
     return this.http
-    .get(`${this.url}/${id}`)
-    .map(response => response.json());
-  }
-  
-  fetchAllTasks(): Observable<any> {
-    return this.http
-      .get(`${this.url}/`)
-      .map(response => response.json());
+      .get(`${this.url}/${id}`)
+      .map(response => response.json())
+      .catch(err => Observable.throw(err));
   }
   
 }
