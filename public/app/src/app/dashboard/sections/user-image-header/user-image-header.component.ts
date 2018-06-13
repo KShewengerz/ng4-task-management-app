@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 
+import { UserImageHeaderService } from "./user-image-header.service";
+
 
 @Component({
   moduleId: module.id,
@@ -10,12 +12,16 @@ import { Router } from "@angular/router";
 })
 export class UserImageHeaderComponent {
   
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private userImageHeaderService: UserImageHeaderService) {
   }
   
   logOut(): void {
     localStorage.removeItem("user");
-    this.router.navigate(["/"]);
+    
+    this.userImageHeaderService
+    .logOut()
+    .subscribe(response => this.router.navigate(["/"]));
   }
 
 }

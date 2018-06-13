@@ -5,6 +5,7 @@ import * as uuid from "uuid/v4";
 
 import { Task } from "../../shared/interfaces/-index";
 import { taskQuery, taskValidation, taskErrorHandler } from "./-index";
+import { getSessionUserId } from "../session";
 
 const snakeCase = require("snakecase-keys");
 
@@ -44,9 +45,9 @@ export async function addTask(req: any, res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function updateTask(req: any, res: Response): Promise<void> {
-  const id = req.params.id;
-  const userId = req.user[0].id;
-  const body: Task = snakeCase(req.body);
+  const id          = req.params.id;
+  const userId      = await getSessionUserId(req.sessionID);
+  const body: Task  = snakeCase(req.body);
   
   const condition = await taskValidation.getPutValidation(id, userId, body.description);
   
@@ -67,8 +68,8 @@ export async function updateTask(req: any, res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function getTasks(req: any, res: Response): Promise<void> {
-  const userId = req.user[0].id;
-  const tasks = await taskQuery.getUserTasks(userId);
+  const userId = await getSessionUserId(req.sessionID);
+  const tasks  = await taskQuery.getUserTasks(userId);
   
   res.json(<Task[]>tasks);
 }

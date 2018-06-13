@@ -6,8 +6,8 @@ import * as bcrypt from "bcrypt";
 
 import { userQuery, userValidation, userErrorHandler } from "./-index";
 
-import { ErrorHandler } from "../error-handler/-index";
 import { Passport } from "../../server";
+import * as session from "../session";
 
 const snakeCase = require("snakecase-keys");
 const camelCase = require("camelcase-keys");
@@ -47,9 +47,9 @@ export async function addUser(req: Request, res: Response): Promise<void> {
  *
  * @returns {Promise<void>}
  */
-export async function updateUser(req: Request, res: Response): Promise<void> {
-  const id = "0964df9a-0851-43c5-894b-2786394bd03c";
-
+export async function updateUser(req: any, res: Response): Promise<void> {
+  const id = await session.getSessionUserId(req.sessionID);
+  
   const body = snakeCase(req.body);
   
   const condition = await userValidation.getPutValidation(body, id);
@@ -110,7 +110,6 @@ export async function getUser(req: Request, res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function deleteUser(req: Request, res: Response): Promise<void> {
-  const errorHandler = new ErrorHandler();
   const id = req.params.userId;
   
   const condition = await userValidation.checkIfUserExists(id);
@@ -131,17 +130,16 @@ export async function deleteUser(req: Request, res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function login(req: any, res: Response, next: NextFunction): Promise<void> {
-  Passport.authenticate("local", (err, user, info) => {
+  Passport.authenticate("local", async (err, user, info) => {
     if (err) return next(err);
     if (!user) return res.status(404).json(info.message);
     
-    req.logIn(user, async () => {
-      await req.session.save(() => {
-        const transformUserCase = camelCase(user);
-        res.status(200).json(transformUserCase);
-      });
-    });
+    const transformUserCase = camelCase(user);
+    const sessionBody = { sessionId: req.sessionID, userId: user.id };
     
+    await session.saveSession(sessionBody);
+    
+    res.status(200).json(transformUserCase);
   })(req, res, next);
 }
 
@@ -156,7 +154,13 @@ export async function login(req: any, res: Response, next: NextFunction): Promis
  * @returns {Promise<void>}
  */
 export async function logout(req: any, res: Response, next: NextFunction): Promise<void> {
+  const id = await session.getLastActiveSession();
+  
+  await session.removeUserSession(id);
+
   req.logOut();
+  req.session.destroy();
+
   res.sendStatus(200);
 }
 
@@ -170,10 +174,11 @@ export async function logout(req: any, res: Response, next: NextFunction): Promi
  *
  * @returns {Promise<void>}
  */
-export async function comparePassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function comparePassword(req: any, res: Response, next: NextFunction): Promise<void> {
   const password = req.params.password;
+  const id       = await session.getSessionUserId(req.sessionID);
   
-  await userQuery.getUserHashedPassword(password, res);
+  await userQuery.getUserHashedPassword(id, password, res);
 }
 
 

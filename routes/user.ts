@@ -8,6 +8,18 @@ const router: Router = Router();
 
 
 /**
+ * @description Passport Local Authentication
+ */
+router.post("/login", api.login);
+
+
+/**
+ * @description Log Out User
+ */
+router.get("/logout", api.logout);
+
+
+/**
  * @description Add new user
  */
 router.post("/", api.addUser);
@@ -15,16 +27,12 @@ router.post("/", api.addUser);
 
 /**
  * @description Update current user information
- *
- * @apiParam {Uuid} userId
  */
 router.put("/", api.updateUser);
 
 
 /**
- * @description Get user by userId
- *
- * @apiParam {Uuid} userId
+ * @description Get All Users
  */
 router.get("/", api.getAllUsers);
 
@@ -43,18 +51,6 @@ router.get("/:userId", api.getUser);
  * @apiParam {Uuid} userId
  */
 router.delete("/:userId", api.deleteUser);
-
-
-/**
- * @description Passport Local Authentication
- */
-router.post("/login", api.login);
-
-
-/**
- * @description Log Out User
- */
-router.post("/logout", api.logout);
 
 
 /**

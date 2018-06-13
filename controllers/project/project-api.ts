@@ -6,6 +6,7 @@ import * as uuid from "uuid/v4";
 import { Project as ProjectEnum } from "../../shared/enums/-index";
 import { Project } from "../../shared/interfaces/-index";
 import { projectQuery, projectValidation, projectErrorHandler } from "./-index";
+import { getSessionUserId } from "../session";
 
 const snakeCase = require("snakecase-keys");
 
@@ -22,7 +23,7 @@ const snakeCase = require("snakecase-keys");
  * @returns {Promise<void>}
  */
 export async function addProjectByUserId(req: any, res: Response): Promise<void> {
-  const userId = req.user[0].id;
+  const userId        = await getSessionUserId(req.sessionID);
   const body: Project = snakeCase(req.body);
   
   body.id = uuid();
@@ -46,8 +47,8 @@ export async function addProjectByUserId(req: any, res: Response): Promise<void>
  * @returns {Promise<void>}
  */
 export async function updateProject(req: any, res: Response): Promise<void> {
-  const id = req.params.id;
-  const userId = req.user[0].id;
+  const id            = req.params.id;
+  const userId        = await getSessionUserId(req.sessionID);
   const body: Project = snakeCase(req.body);
   
   const condition = await projectValidation.getPutBodyValidation(userId, body, id);
@@ -67,8 +68,8 @@ export async function updateProject(req: any, res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function getProjects(req: any, res: Response): Promise<void> {
-  const userId = req.user[0].id;
-  const projects = await projectQuery.getProjects(userId);
+  const userId    = await getSessionUserId(req.sessionID);
+  const projects  = await projectQuery.getProjects(userId);
   
   res.json(<Project[]>projects);
 }
@@ -86,8 +87,8 @@ export async function getProjects(req: any, res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function getProjectById(req: any, res: Response): Promise<void> {
-  const userId = req.user[0].id;
-  const id = req.params.id;
+  const userId = await getSessionUserId(req.sessionID);
+  const id     = req.params.id;
   
   const condition = await projectValidation.getBodyValidation(userId, ProjectEnum.Id, id);
   
@@ -111,8 +112,8 @@ export async function getProjectById(req: any, res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function deleteProject(req: any, res: Response): Promise<void> {
-  const userId = req.user[0].id;
-  const id = req.params.id;
+  const userId = await getSessionUserId(req.sessionID);
+  const id     = req.params.id;
   
   const condition = await projectValidation.getBodyValidation(userId, ProjectEnum.Id, id);
   

@@ -54,7 +54,8 @@ export class Server {
       secret: "secret",
       resave: true,
       saveUninitialized: true,
-      maxAge: 8.64e+7
+      maxAge: 8.64e+7,
+      cookie: { secure: false }
     }));
     
     this.app.use(passport.initialize());

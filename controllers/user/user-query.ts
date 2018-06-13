@@ -102,8 +102,7 @@ export async function deleteUserQuery(id: string, res: Response): Promise<void> 
  *
  * @returns {Promise<string>}
  */
-export async function getUserHashedPassword(password: string, res: Response): Promise<any> {
-  const id = "0964df9a-0851-43c5-894b-2786394bd03c";
+export async function getUserHashedPassword(id: string, password: string, res: Response): Promise<any> {
   const userDbPassword = await db(UserEnum.Table).select("password").where({ id });
   const hashedPassword = userDbPassword[0].password;
   const isPasswordIdenticalToServer = bcrypt.compareSync(password, hashedPassword);
