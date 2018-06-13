@@ -3,9 +3,9 @@
 import { Request, Response } from "express";
 import * as uuid from "uuid/v4";
 
-import { ProjectField } from "../../shared/enums/index";
-import { Project } from "../../shared/interfaces/index";
-import { projectQuery, projectValidation, projectErrorHandler } from "./index";
+import { Project as ProjectEnum } from "../../shared/enums/-index";
+import { Project } from "../../shared/interfaces/-index";
+import { projectQuery, projectValidation, projectErrorHandler } from "./-index";
 
 const snakeCase = require("snakecase-keys");
 
@@ -89,7 +89,7 @@ export async function getProjectById(req: any, res: Response): Promise<void> {
   const userId = req.user[0].id;
   const id = req.params.id;
   
-  const condition = await projectValidation.getBodyValidation(userId, ProjectField.Id, id);
+  const condition = await projectValidation.getBodyValidation(userId, ProjectEnum.Id, id);
   
   await projectErrorHandler.getAndDeleteErrorHandler(condition, res);
   
@@ -114,7 +114,7 @@ export async function deleteProject(req: any, res: Response): Promise<void> {
   const userId = req.user[0].id;
   const id = req.params.id;
   
-  const condition = await projectValidation.getBodyValidation(userId, ProjectField.Id, id);
+  const condition = await projectValidation.getBodyValidation(userId, ProjectEnum.Id, id);
   
   await projectErrorHandler.getAndDeleteErrorHandler(condition, res);
   

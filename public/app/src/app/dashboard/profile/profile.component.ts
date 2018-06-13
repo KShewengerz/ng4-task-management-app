@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { BasicInfoComponent } from "./basic-info/basic-info.component";
 import { ChangePasswordComponent } from "./change-password/change-password.component";
 
-import { User } from "../../../../../../shared/interfaces";
+import { User } from "../../../../../../shared/interfaces/-index";
 
 
 @Component({

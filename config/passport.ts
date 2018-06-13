@@ -3,12 +3,11 @@ import * as passportLocal from "passport-local";
 import * as bcrypt from "bcrypt";
 
 import * as dbConnection from "../config/db";
-import { TableName } from "../shared/enums";
-import { User } from "../shared/interfaces";
+import { User as UserEnum } from "../shared/enums/-index";
+import { User } from "../shared/interfaces/-index";
 
 const db = dbConnection.default;
 const LocalStrategy = passportLocal.Strategy;
-const { User: userTable } = TableName;
 
 
 /**
@@ -19,7 +18,7 @@ export function initializePassportLocalStrategy(passport: PassportStatic): void 
   passport.serializeUser((user: any, done: Function) => done(null, user.id));
   
   passport.deserializeUser(async (id: string, done: Function) => {
-    await db(userTable)
+    await db(UserEnum.Table)
     .where({ id })
     .then(rows => done(null, rows))
     .catch(err => done(err));
@@ -30,7 +29,7 @@ export function initializePassportLocalStrategy(passport: PassportStatic): void 
     passwordField: "password",
   }, (email: string, password: string, done: Function) => {
     process.nextTick(async () => {
-      await db(userTable)
+      await db(UserEnum.Table)
       .where({ email_address: email })
       .then(rows => validateUser(password, rows[0], done))
       .catch(err => done(err));

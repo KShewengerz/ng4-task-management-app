@@ -2,7 +2,7 @@
 
 import {Router} from "express";
 
-import { api } from "../controllers/project/index";
+import { api } from "../controllers/project/-index";
 
 const router: Router = Router();
 

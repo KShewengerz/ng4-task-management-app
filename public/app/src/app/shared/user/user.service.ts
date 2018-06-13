@@ -4,7 +4,7 @@ import { Http } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
 
-import { User } from "../../../../../../shared/interfaces";
+import { User } from "../../../../../../shared/interfaces/-index";
 
 
 @Injectable()

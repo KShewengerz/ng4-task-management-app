@@ -2,13 +2,12 @@ import { Response } from "express";
 
 import * as dbConnection from "../../config/db";
 
-import { TableName, UserTaskField, TaskField } from "../../shared/enums";
-import { Task } from "../../shared/interfaces/index";
+import { UserTask, Task as TaskEnum } from "../../shared/enums/-index";
+import { Task } from "../../shared/interfaces/-index";
 
 const camelCase = require("camelcase-keys");
 
 const db = dbConnection.default;
-const { Task: taskTable, UserTask: userTaskTable } = TableName;
 
 
 /**
@@ -21,15 +20,15 @@ const { Task: taskTable, UserTask: userTaskTable } = TableName;
  */
 export async function addTaskQuery(userId: string, body: Task, res: Response): Promise<void> {
   const insertUserTaskData = {
-    [UserTaskField.UserId]: userId,
-    [UserTaskField.TaskId]: body.id
+    [UserTask.UserId]: userId,
+    [UserTask.TaskId]: body.id
   };
   
-  const insertTaskInfo = db(taskTable)
+  const insertTaskInfo = db(TaskEnum.Table)
   .insert(body)
   .catch(err => err);
   
-  const insertUserTask = db(userTaskTable)
+  const insertUserTask = db(UserTask.Table)
   .insert(insertUserTaskData)
   .catch(err => err);
   
@@ -53,7 +52,7 @@ export async function addTaskQuery(userId: string, body: Task, res: Response): P
  * @returns {Promise<void>}
  */
 export async function updateTaskQuery(id, body, res): Promise<void> {
-  await db(taskTable)
+  await db(TaskEnum.Table)
   .where({ id })
   .update(body)
   .catch(err => err);
@@ -68,13 +67,13 @@ export async function updateTaskQuery(id, body, res): Promise<void> {
  * @returns {Promise<Task[]>}
  */
 export async function getUserTasks(userId: string): Promise<Task[]> {
-  const taskTableId = `${taskTable}.${TaskField.Id}`;
-  const userTaskTableTaskId = `${userTaskTable}.${UserTaskField.TaskId}`;
+  const taskTableId = `${TaskEnum.Table}.${TaskEnum.Id}`;
+  const userTaskTableTaskId = `${UserTask.Table}.${UserTask.TaskId}`;
   
-  const fetchTasks = await db(taskTable)
-  .select(`${taskTable}.*`)
-  .innerJoin(userTaskTable, taskTableId, userTaskTableTaskId)
-  .where({ [UserTaskField.UserId]: userId })
+  const fetchTasks = await db(TaskEnum.Table)
+  .select(`${TaskEnum.Table}.*`)
+  .innerJoin(UserTask.Table, taskTableId, userTaskTableTaskId)
+  .where({ [UserTask.UserId]: userId })
   .catch(err => err);
   
   const result = camelCase(fetchTasks);
@@ -92,7 +91,7 @@ export async function getUserTasks(userId: string): Promise<Task[]> {
  * @returns {Promise<void>}
  */
 export async function deleteTaskQuery(id: string, res: Response): Promise<void> {
-  const deleteProject = await db(taskTable)
+  const deleteProject = await db(TaskEnum.Table)
   .where({ id })
   .del()
   .catch(err => err);

@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms"
 import { UserService } from "../../shared/user/user.service";
 import { ErrorHandlerService } from "../../shared/services/error-handler.service";
 
-import { Gender } from "../../../../../../shared/enums";
-import { User } from "../../../../../../shared/interfaces";
+import { Gender } from "../../../../../../shared/enums/-index";
+import { User } from "../../../../../../shared/interfaces/-index";
 
 
 @Component({

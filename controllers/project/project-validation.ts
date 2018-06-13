@@ -2,11 +2,10 @@
 
 import * as dbConnection from "../../config/db";
 
-import { Project } from "../../shared/interfaces/index";
-import { TableName, ProjectField, UserProjectField, HttpVerb } from "../../shared/enums/index";
+import { Project } from "../../shared/interfaces/-index";
+import { Project as ProjectEnum, UserProject, HttpVerb } from "../../shared/enums/-index";
 
 const db = dbConnection.default;
-const { Project: projectTable, UserProject: userProjectTable } = TableName;
 
 
 /**
@@ -17,10 +16,10 @@ const { Project: projectTable, UserProject: userProjectTable } = TableName;
  * @returns {Promise<number>}
  */
 export async function getNextUserProjectOrdinal(userId: string): Promise<number> {
-  const fetchNextOrdinal = await db(userProjectTable)
-  .max({ max: ProjectField.Ordinal })
-  .innerJoin(projectTable, ProjectField.Id, UserProjectField.ProjectId)
-  .where(UserProjectField.UserId, userId)
+  const fetchNextOrdinal = await db(UserProject.Table)
+  .max({ max: ProjectEnum.Ordinal })
+  .innerJoin(ProjectEnum.Table, ProjectEnum.Id, UserProject.ProjectId)
+  .where(UserProject.UserId, userId)
   .then(response => {
     const max = response[0].max;
     
@@ -41,9 +40,9 @@ export async function getNextUserProjectOrdinal(userId: string): Promise<number>
  * @returns {Promise<any>}
  */
 export async function getPostBodyValidation(userId: string, body: Project): Promise<any> {
-  const isProjectExists = await getBodyValidation(userId, ProjectField.Id, body.id);
-  const isProjectNameExists = await getBodyValidation(userId, ProjectField.Name, body.name);
-  const isProjectColorExists = await getBodyValidation(userId, ProjectField.Color, body.color);
+  const isProjectExists = await getBodyValidation(userId, ProjectEnum.Id, body.id);
+  const isProjectNameExists = await getBodyValidation(userId, ProjectEnum.Name, body.name);
+  const isProjectColorExists = await getBodyValidation(userId, ProjectEnum.Color, body.color);
   
   return { isProjectExists, isProjectNameExists, isProjectColorExists };
 }
@@ -58,9 +57,9 @@ export async function getPostBodyValidation(userId: string, body: Project): Prom
  * @returns {Promise<any>}
  */
 export async function getPutBodyValidation(userId: string, body: Project, projectId: string): Promise<any> {
-  const isProjectExists = await getBodyValidation(userId, ProjectField.Id, projectId);
-  const isProjectNameExists = await putBodyValidationMethod(userId, ProjectField.Name, body.name, projectId);
-  const isProjectColorExists = await putBodyValidationMethod(userId, ProjectField.Color, body.color, projectId);
+  const isProjectExists = await getBodyValidation(userId, ProjectEnum.Id, projectId);
+  const isProjectNameExists = await putBodyValidationMethod(userId, ProjectEnum.Name, body.name, projectId);
+  const isProjectColorExists = await putBodyValidationMethod(userId, ProjectEnum.Color, body.color, projectId);
   
   return { isProjectExists, isProjectNameExists, isProjectColorExists };
 }
@@ -76,11 +75,11 @@ export async function getPutBodyValidation(userId: string, body: Project, projec
  * @returns {Promise<any>}
  */
 export async function getBodyValidation(userId: string, field: string, value: any): Promise<any> {
-  const query = `${field} = '${value}' AND (${UserProjectField.UserId} = '${userId}' or ${UserProjectField.UserId} is null)`;
+  const query = `${field} = '${value}' AND (${UserProject.UserId} = '${userId}' or ${UserProject.UserId} is null)`;
   
-  const isRecordExists = await db(projectTable)
-  .count({ id: ProjectField.Id })
-  .leftJoin(userProjectTable, ProjectField.Id, UserProjectField.ProjectId)
+  const isRecordExists = await db(ProjectEnum.Table)
+  .count({ id: ProjectEnum.Id })
+  .leftJoin(UserProject.Table, ProjectEnum.Id, UserProject.ProjectId)
   .whereRaw(query)
   .then(response => response[0].id)
   .catch(err => err);
@@ -100,11 +99,11 @@ export async function getBodyValidation(userId: string, field: string, value: an
  * @returns {Promise<any>}
  */
 async function putBodyValidationMethod(userId: string, field: string, value: any, projectId: string) {
-  const query = db(userProjectTable).whereRaw(`(${field} = '${value}' AND NOT ${ProjectField.Id} = '${projectId}')
-  AND ${UserProjectField.UserId} = '${userId}'`);
+  const query = db(UserProject.Table).whereRaw(`(${field} = '${value}' AND NOT ${ProjectEnum.Id} = '${projectId}')
+  AND ${UserProject.UserId} = '${userId}'`);
   
-  const isRecordExists = await db(projectTable)
-  .count({ id: ProjectField.Id })
+  const isRecordExists = await db(ProjectEnum.Table)
+  .count({ id: ProjectEnum.Id })
   .whereExists(query)
   .then(response => response[0].id)
   .catch(err => err);

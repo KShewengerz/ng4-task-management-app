@@ -1,25 +1,25 @@
 import * as Knex from "knex";
 
-import { TableName, UserTaskField, UserField, TaskField } from "../shared/enums/index";
+import { User, UserTask, Task } from "../shared/enums/-index";
 
 
 export async function up(knex: Knex) {
-  return await knex.schema.createTable(TableName.UserTask, table => {
-    table.uuid(UserTaskField.UserId).notNullable();
-    table.uuid(UserTaskField.TaskId).unique().notNullable();
+  return await knex.schema.createTable(UserTask.Table, table => {
+    table.uuid(UserTask.UserId).notNullable();
+    table.uuid(UserTask.TaskId).unique().notNullable();
     
-    table.foreign(UserTaskField.UserId)
-    .references(`${TableName.User}.${UserField.Id}`)
+    table.foreign(UserTask.UserId)
+    .references(`${User.Table}.${User.Id}`)
     .onUpdate("CASCADE")
     .onDelete("CASCADE");
     
-    table.foreign(UserTaskField.TaskId)
-    .references(`${TableName.Task}.${TaskField.Id}`)
+    table.foreign(UserTask.TaskId)
+    .references(`${Task.Table}.${Task.Id}`)
     .onUpdate("CASCADE")
     .onDelete("CASCADE");
   });
 }
 
 export async function down(knex: Knex) {
-  return await knex.schema.dropTable(TableName.UserTask);
+  return await knex.schema.dropTable(UserTask.Table);
 }

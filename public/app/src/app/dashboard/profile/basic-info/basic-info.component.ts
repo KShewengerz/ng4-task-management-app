@@ -5,8 +5,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 import { UserService } from "../../../shared/user/user.service";
 import { ErrorHandlerService } from "../../../shared/services/error-handler.service";
 
-import { Gender } from "../../../../../../../shared/enums";
-import { User } from "../../../../../../../shared/interfaces";
+import { Gender } from "../../../../../../../shared/enums/-index";
+import { User } from "../../../../../../../shared/interfaces/-index";
 
 
 @Component({
@@ -79,6 +79,9 @@ export class BasicInfoComponent implements OnInit {
   }
   
   update(user: User): void {
+    if (user.emailAddress === this.user.emailAddress) delete user.emailAddress;
+    if (user.username === this.user.username) delete user.username;
+    
     this.userService
       .updateUser(user)
       .subscribe(
@@ -87,15 +90,17 @@ export class BasicInfoComponent implements OnInit {
       );
   }
   
-  saveNewUserSession(user: User): void {
-    user.id = this.user.id;
-    
-    const transformUser = JSON.stringify(user);
-    
-    this.isSuccessful = true;
-    
-    localStorage.removeItem("user");
-    localStorage.setItem("user", transformUser);
+  async saveNewUserSession(user: User): Promise<void> {
+    this.userService
+      .fetchUser(this.user.id)
+      .subscribe(response => {
+        const transformUser = JSON.stringify(response[0]);
+  
+        this.isSuccessful = true;
+  
+        localStorage.removeItem("user");
+        localStorage.setItem("user", transformUser);
+      });
   }
   
 }

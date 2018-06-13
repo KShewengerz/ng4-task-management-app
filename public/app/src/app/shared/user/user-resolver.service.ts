@@ -4,7 +4,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from "@angular/r
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/forkJoin";
 
-import { User } from "../../../../../../shared/interfaces";
+import { User } from "../../../../../../shared/interfaces/-index";
 
 import { UserService } from "./user.service";
 

@@ -1,21 +1,21 @@
 import * as Knex from "knex";
 
-import { TableName, TaskField, ProjectField, TaskStatusField } from "../shared/enums/index";
+import { Project, Task, TaskStatus } from "../shared/enums/-index";
 
 
 export async function up(knex: Knex) {
-  return await knex.schema.createTable(TableName.Task, table => {
-    table.uuid(TaskField.Id).primary();
-    table.uuid(TaskField.ProjectId).notNullable();
-    table.uuid(TaskField.StatusId).notNullable();
-    table.string(TaskField.Description, 255).notNullable();
-    table.date(TaskField.ScheduleDate).notNullable();
+  return await knex.schema.createTable(Task.Table, table => {
+    table.uuid(Task.Id).primary();
+    table.uuid(Task.ProjectId).notNullable();
+    table.uuid(Task.StatusId).notNullable();
+    table.string(Task.Description, 255).notNullable();
+    table.date(Task.ScheduleDate).notNullable();
     
-    table.foreign(TaskField.ProjectId).references(`${TableName.Project}.${ProjectField.Id}`);
-    table.foreign(TaskField.StatusId).references(`${TableName.TaskStatus}.${TaskStatusField.Id}`);
+    table.foreign(Task.ProjectId).references(`${Project.Table}.${Project.Id}`);
+    table.foreign(Task.StatusId).references(`${TaskStatus.Table}.${TaskStatus.Id}`);
   });
 }
 
 export async function down(knex: Knex) {
-  return await knex.schema.dropTable(TableName.Task);
+  return await knex.schema.dropTable(Task.Table);
 }

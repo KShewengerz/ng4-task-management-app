@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 import { ErrorHandlerService } from "../../../shared/services/error-handler.service";
 import { ChangePasswordService } from "./change-password.service";
 
-import { User } from "../../../../../../../shared/interfaces";
+import { User } from "../../../../../../../shared/interfaces/-index";
 
 
 @Component({

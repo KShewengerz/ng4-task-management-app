@@ -65,7 +65,7 @@
       <button class="text-light-red"
               mdl-button
               mdl-ripple
-              [disabled]="!form.valid"
+              [disabled]="!form.valid || !form.dirty"
               (click)="update(form.value)">UPDATE</button>
     </div><br/><!--END .mdl-typography--text-center -->
 

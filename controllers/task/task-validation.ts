@@ -2,10 +2,9 @@
 
 import * as dbConnection from "../../config/db";
 
-import { TableName, TaskField, UserTaskField } from "../../shared/enums/index";
+import { Task, UserTask } from "../../shared/enums/-index";
 
 const db = dbConnection.default;
-const { Task: taskTable, UserTask: userTaskTable } = TableName;
 
 
 /**
@@ -16,10 +15,10 @@ const { Task: taskTable, UserTask: userTaskTable } = TableName;
  * @returns {any[]}
  */
 export async function getDescriptionValidation(userId: string, description: string): Promise<any> {
-  const isDescriptionExists = await db(taskTable)
-  .count({ id: TaskField.Id })
-  .leftJoin(userTaskTable, TaskField.Id, UserTaskField.TaskId)
-  .whereRaw(`description = '${description}' AND ${UserTaskField.UserId} = '${userId}'`)
+  const isDescriptionExists = await db(Task.Table)
+  .count({ id: Task.Id })
+  .leftJoin(UserTask.Table, Task.Id, UserTask.TaskId)
+  .whereRaw(`description = '${description}' AND ${UserTask.UserId} = '${userId}'`)
   .then(response => response[0].id)
   .catch(err => err);
   
@@ -35,8 +34,8 @@ export async function getDescriptionValidation(userId: string, description: stri
  * @returns {Promise<number>}
  */
 export async function checkIfTaskExists(id: string): Promise<any> {
-  const isRecordExists = await db(taskTable)
-  .count({ id: TaskField.Id })
+  const isRecordExists = await db(Task.Table)
+  .count({ id: Task.Id })
   .where({ id })
   .then(response => response[0].id)
   .catch(err => err);

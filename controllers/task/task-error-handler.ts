@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { ErrorHandler, ErrorType } from "../error-handler";
+import { ErrorHandler, ErrorType } from "../error-handler/-index";
 
 
 /**

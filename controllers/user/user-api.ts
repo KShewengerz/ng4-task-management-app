@@ -4,9 +4,9 @@ import { Request, Response, NextFunction } from "express";
 import * as uuid from "uuid/v4";
 import * as bcrypt from "bcrypt";
 
-import { userQuery, userValidation, userErrorHandler } from "./index";
+import { userQuery, userValidation, userErrorHandler } from "./-index";
 
-import { ErrorHandler } from "../error-handler/index";
+import { ErrorHandler } from "../error-handler/-index";
 import { Passport } from "../../server";
 
 const snakeCase = require("snakecase-keys");
@@ -47,11 +47,11 @@ export async function addUser(req: Request, res: Response): Promise<void> {
  *
  * @returns {Promise<void>}
  */
-export async function updateUser(req: any, res: Response): Promise<void> {
-  const id = "c6f1d168-fd2f-40cf-9a20-d86f84ebf7f3";
+export async function updateUser(req: Request, res: Response): Promise<void> {
+  const id = "0964df9a-0851-43c5-894b-2786394bd03c";
 
   const body = snakeCase(req.body);
-
+  
   const condition = await userValidation.getPutValidation(body, id);
 
   await userErrorHandler.postAndPutErrorHandler(condition, res);

@@ -3,13 +3,12 @@ import * as bcrypt from "bcrypt";
 
 import * as dbConnection from "../../config/db";
 
-import { TableName } from "../../shared/enums";
-import { User } from "../../shared/interfaces/index";
+import { User as UserEnum } from "../../shared/enums/-index";
+import { User } from "../../shared/interfaces/-index";
 
 const camelCase = require("camelcase-keys");
 
 const db = dbConnection.default;
-const { User: userTable } = TableName;
 
 
 /**
@@ -21,7 +20,7 @@ const { User: userTable } = TableName;
  * @returns {Promise<void>}
  */
 export async function addNewUserQuery(body: User, res: Response): Promise<void> {
-  await db(userTable)
+  await db(UserEnum.Table)
   .insert(body)
   .catch(err => err);
   
@@ -38,7 +37,7 @@ export async function addNewUserQuery(body: User, res: Response): Promise<void> 
  * @returns {Promise<void>}
  */
 export async function updateUserQuery(id: string, body: User, res: Response): Promise<void> {
-  await db(userTable)
+  await db(UserEnum.Table)
   .where({ id })
   .update(body)
   .catch(err => err);
@@ -55,7 +54,7 @@ export async function updateUserQuery(id: string, body: User, res: Response): Pr
  * @returns {Promise<void>}
  */
 export async function getAllUserQuery(res: Response): Promise<void> {
-  const fetchUser = await db(userTable).select();
+  const fetchUser = await db(UserEnum.Table).select();
   const result = camelCase(fetchUser);
   
   res.json(<User[]>result);
@@ -71,7 +70,7 @@ export async function getAllUserQuery(res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function getUserQuery(id: string, res: Response): Promise<void> {
-  const fetchUser = await db(userTable).where({ id });
+  const fetchUser = await db(UserEnum.Table).where({ id });
   const result = camelCase(fetchUser);
   
   res.json(<User>result);
@@ -87,7 +86,7 @@ export async function getUserQuery(id: string, res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function deleteUserQuery(id: string, res: Response): Promise<void> {
-  await db(userTable)
+  await db(UserEnum.Table)
   .where({ id })
   .del()
   .catch(err => err);
@@ -104,8 +103,8 @@ export async function deleteUserQuery(id: string, res: Response): Promise<void> 
  * @returns {Promise<string>}
  */
 export async function getUserHashedPassword(password: string, res: Response): Promise<any> {
-  const id = "c6f1d168-fd2f-40cf-9a20-d86f84ebf7f3";
-  const userDbPassword = await db(userTable).select("password").where({ id });
+  const id = "0964df9a-0851-43c5-894b-2786394bd03c";
+  const userDbPassword = await db(UserEnum.Table).select("password").where({ id });
   const hashedPassword = userDbPassword[0].password;
   const isPasswordIdenticalToServer = bcrypt.compareSync(password, hashedPassword);
   
@@ -116,7 +115,7 @@ export async function getUserHashedPassword(password: string, res: Response): Pr
 export async function changeUserPassword(body: User, res: Response): Promise<any> {
   body.password = await bcrypt.hashSync(body.password, bcrypt.genSaltSync(8));
   
-  await db(userTable)
+  await db(UserEnum.Table)
   .where({ id: body.id })
   .update(body)
   .catch(err => err);

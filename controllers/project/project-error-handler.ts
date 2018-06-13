@@ -1,6 +1,6 @@
 import { Response } from "express";
 
-import { ErrorType, ErrorHandler } from "../error-handler/index";
+import { ErrorType, ErrorHandler } from "../error-handler/-index";
 
 
 /**
