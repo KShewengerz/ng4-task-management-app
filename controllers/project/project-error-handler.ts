@@ -16,7 +16,6 @@ export async function postErrorHandler(condition: any, res: Response): Promise<v
   
   if (condition.isProjectExists) errorHandler.computedFieldNames.push({id: ErrorType.Duplicate});
   if (condition.isProjectNameExists) errorHandler.computedFieldNames.push({name: ErrorType.Duplicate});
-  if (condition.isProjectColorExists) errorHandler.computedFieldNames.push({color: ErrorType.Duplicate});
   
   const errors = errorHandler.computedFieldNames.length;
   

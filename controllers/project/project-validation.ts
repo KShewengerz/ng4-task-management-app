@@ -42,9 +42,8 @@ export async function getNextUserProjectOrdinal(userId: string): Promise<number>
 export async function getPostBodyValidation(userId: string, body: Project): Promise<any> {
   const isProjectExists = await getBodyValidation(userId, ProjectEnum.Id, body.id);
   const isProjectNameExists = await getBodyValidation(userId, ProjectEnum.Name, body.name);
-  const isProjectColorExists = await getBodyValidation(userId, ProjectEnum.Color, body.color);
   
-  return { isProjectExists, isProjectNameExists, isProjectColorExists };
+  return { isProjectExists, isProjectNameExists };
 }
 
 

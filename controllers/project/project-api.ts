@@ -8,7 +8,8 @@ import { Project } from "../../shared/interfaces/-index";
 import { projectQuery, projectValidation, projectErrorHandler } from "./-index";
 import { getSessionUserId } from "../session";
 
-const snakeCase = require("snakecase-keys");
+const snakeCase    = require("snakecase-keys");
+const randomColor  = require("randomcolor");
 
 
 /**
@@ -26,12 +27,13 @@ export async function addProjectByUserId(req: any, res: Response): Promise<void>
   const userId        = await getSessionUserId(req.sessionID);
   const body: Project = snakeCase(req.body);
   
-  body.id = uuid();
+  body.id    = uuid();
+  body.color = randomColor();
   
   const condition = await projectValidation.getPostBodyValidation(userId, body);
-  
+
   await projectErrorHandler.postErrorHandler(condition, res);
-  
+
   if (res.statusCode !== 400) await projectQuery.addProjectQuery(userId, body, res);
 }
 
@@ -70,7 +72,7 @@ export async function updateProject(req: any, res: Response): Promise<void> {
 export async function getProjects(req: any, res: Response): Promise<void> {
   const userId    = await getSessionUserId(req.sessionID);
   const projects  = await projectQuery.getProjects(userId);
-  
+
   res.json(<Project[]>projects);
 }
 

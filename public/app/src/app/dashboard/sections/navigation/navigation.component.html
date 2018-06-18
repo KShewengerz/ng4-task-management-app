@@ -32,51 +32,42 @@
   </p>
 
   <ul id="projects">
-    <li>
+    <li *ngFor="let project of projects">
       <a href="#"
          class="mdl-navigation__link">
-        <mdl-icon class="red">fiber_manual_record</mdl-icon> Personal
+        <mdl-icon [ngStyle]="{'color': project.color}">fiber_manual_record</mdl-icon> {{ project.name }}
       </a>
     </li>
 
-    <li>
-      <a href="#"
-         class="mdl-navigation__link">
-        <mdl-icon class="green">fiber_manual_record</mdl-icon> Work
-      </a>
-    </li>
+    <li *ngIf="isNewTask">
 
-    <li>
-      <a href="#"
-         class="mdl-navigation__link">
-        <mdl-icon class="darkblue">fiber_manual_record</mdl-icon> Grocery
-      </a>
-    </li>
+      <mdl-textfield  type="text"
+                      label="Project Name"
+                      id="project-textfield"
+                      #projectName
+                      (click)="$event.stopPropagation()">
+      </mdl-textfield>
+      <span class="text-red">{{ errorMessage }}</span>
 
-    <li>
-      <a href="#"
-         class="mdl-navigation__link">
-        <mdl-icon class="orange">fiber_manual_record</mdl-icon> Shopping
-      </a>
-    </li>
+      <div id="buttons">
+        <button mdl-button
+                class="cursor-pointer"
+                (click)="addNewProject(projectName.value)">
+          <span>
+            <mdl-icon>check</mdl-icon>Add
+          </span>
+        </button>
 
-    <li>
-      <a href="#"
-         class="mdl-navigation__link">
-        <mdl-icon class="blue">fiber_manual_record</mdl-icon> Bills Payment
-      </a>
-    </li>
+        <span class="cursor-pointer"
+              (click)="cancel()">
 
-    <li>
-      <a href="#"
-         class="mdl-navigation__link">
-        <mdl-icon class="violet">fiber_manual_record</mdl-icon> Workout
-      </a>
-    </li>
+          <mdl-icon>clear</mdl-icon>Cancel
+        </span>
+      </div>
 
-    <li>
-      <a href="#"
-         class="mdl-navigation__link">
+    <li *ngIf="!isNewTask">
+      <a class="mdl-navigation__link cursor-pointer"
+         (click)="isNewTask = true">
         <mdl-icon class="text-red">add</mdl-icon>
         <span class="align-middle text-red">Add Project</span>
       </a>

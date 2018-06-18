@@ -1,6 +1,6 @@
 export interface Project {
-  id: string;
+  id?: string;
   name: string;
-  color: string;
-  ordinal: number;
+  color?: string;
+  ordinal?: number;
 }

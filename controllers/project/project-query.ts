@@ -42,7 +42,7 @@ export async function addProjectQuery(userId: string, body: Project, res: Respon
   ])
   .catch(err => err);
   
-  res.sendStatus(201);
+  res.status(201).send({projectColor: body.color});
 }
 
 

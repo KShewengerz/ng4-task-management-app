@@ -38,7 +38,7 @@ export async function getLastActiveSession(): Promise<string> {
  * @returns {Promise<void>}
  */
 export async function getSessionUserId(id: string): Promise<string> {
-  const existingUserId = getLastActiveSession();
+  const existingUserId = await getLastActiveSession();
 
   const user = await db(UserSession.Table)
   .where({ [UserSession.Id]: existingUserId })

@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { HttpModule } from "@angular/http";
+import { FormsModule } from "@angular/forms";
 
 import { MdlModule } from "@angular-mdl/core";
 
@@ -10,6 +11,7 @@ import { NavigationComponent } from "./navigation/navigation.component";
 import { UserImageHeaderComponent } from "./user-image-header/user-image-header.component";
 
 import { UserImageHeaderService } from "./user-image-header/user-image-header.service";
+import { ProjectService } from "../../shared/project/project.service";
 
 
 @NgModule({
@@ -17,6 +19,7 @@ import { UserImageHeaderService } from "./user-image-header/user-image-header.se
     CommonModule,
     RouterModule,
     HttpModule,
+    FormsModule,
     MdlModule
   ],
   declarations: [
@@ -29,6 +32,9 @@ import { UserImageHeaderService } from "./user-image-header/user-image-header.se
     NavigationComponent,
     UserImageHeaderComponent
   ],
-  providers: [ UserImageHeaderService ]
+  providers: [
+    UserImageHeaderService,
+    ProjectService
+  ]
 })
 export class SectionsModule { }
