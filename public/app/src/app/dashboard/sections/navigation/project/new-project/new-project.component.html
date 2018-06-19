@@ -2,7 +2,7 @@
   <mdl-textfield  type="text"
                   label="Project Name"
                   id="project-textfield"
-                  #projectName
+                  [(ngModel)]="projectName"
                   (click)="$event.stopPropagation()"></mdl-textfield>
 
   <span class="text-red">{{ errorMessage }}</span>
@@ -10,16 +10,16 @@
   <div id="buttons">
     <button mdl-button
             class="cursor-pointer"
-            (click)="save.emit({name: projectName.value})">
+            (click)="save.emit({name: projectName})">
       <span>
-        <mdl-icon>check</mdl-icon>Add
+        SAVE
       </span>
     </button>
 
     <span class="cursor-pointer"
           (click)="cancel.emit()">
 
-      <mdl-icon>clear</mdl-icon>Cancel
+      Cancel
     </span>
   </div>
 </div>

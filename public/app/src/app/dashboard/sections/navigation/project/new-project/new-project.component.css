@@ -1,10 +1,14 @@
 #input-wrapper {
   position: relative;
   top: -17px;
+  margin-left: 12px;
+  margin-right: 25px;
 }
 
 /* Textfield */
-.mdl-textfield, #buttons, #buttons > span { margin-left: 15px; }
+.mdl-textfield, #buttons { margin-left: 15px; }
+
+#buttons > span { margin-left: 11px; }
 
 .mdl-textfield { width: 87%; }
 
@@ -16,18 +20,7 @@
   left: 15px;
 }
 
-#buttons {
-  margin-top: -10px;
-  margin-bottom: 20px;
-}
-
-#buttons .material-icons {
-  vertical-align: middle;
-  position: relative;
-  top: -1px;
-  font-size: 15px;
-  margin-right: 2px;
-}
+#buttons { margin-top: -10px; }
 
 #buttons > span { font-size: 11px; }
 

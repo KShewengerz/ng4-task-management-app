@@ -2,9 +2,10 @@
 #projects a {
   padding: 5px 25px !important;
   display: inline-block;
+  color: #524c4c;
 }
 
-li > span {
+li div > span {
   vertical-align: middle;
   position: relative;
   top: 8px;
@@ -14,11 +15,11 @@ li > span {
   display: none;
 }
 
-li:hover > span { display: block !important; }
+li:hover div > span { display: block !important; }
 
-li > span > .material-icons:hover { color: #d8605c; }
+li div > span > .material-icons:hover { color: #d8605c; }
 
-li > span > .material-icons:first-child { margin-right: 5px; }
+li div > span > .material-icons:first-child { margin-right: 5px; }
 
-li:hover > a { font-weight: bold !important; }
+li:hover div > a { font-weight: bold !important; }
 

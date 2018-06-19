@@ -10,6 +10,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 export class NewProjectComponent implements OnInit {
 
   @Input() errorMessage: string;
+  @Input() projectName: string;
   @Output() cancel = new EventEmitter();
   @Output() save = new EventEmitter();
   

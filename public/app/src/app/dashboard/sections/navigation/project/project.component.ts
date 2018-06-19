@@ -18,6 +18,8 @@ export class ProjectComponent implements OnInit {
   projects: Project[] = [];
   
   isNewProject: boolean = false;
+  isEditProject: any = {};
+  
   errorMessage: string;
   
   constructor(private router: Router,
@@ -37,7 +39,7 @@ export class ProjectComponent implements OnInit {
       .subscribe(
         response => {
           const {id, color} = response;
-          
+
           this.projects.push({ id, name, color });
           this.isNewProject = false;
           this.errorMessage = "";
@@ -48,6 +50,10 @@ export class ProjectComponent implements OnInit {
         }
       );
     }
+  }
+  
+  editProject(id: string, name: string): void {
+    console.log("edit", id, name);
   }
   
   deleteProject(id: string, name: string): void {
@@ -64,8 +70,10 @@ export class ProjectComponent implements OnInit {
       err => {});
   }
   
-  cancel(): void {
-    this.isNewProject = false;
+  cancel(id?: string): void {
+    if (id) this.isEditProject[id] = false;
+    else this.isNewProject = false;
+    
     this.errorMessage = "";
   }
 

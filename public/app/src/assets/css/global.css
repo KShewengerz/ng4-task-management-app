@@ -150,7 +150,7 @@ form p { margin-bottom: 0; }
 #project-textfield .mdl-textfield__label,
 #project-textfield input { font-size: 13px; }
 
-#project-textfield input { padding-bottom: 10px; }
+#project-textfield input { padding-bottom: 5px; }
 
   /* Disabled Button */
 button[disabled] {
