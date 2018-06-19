@@ -44,16 +44,24 @@ export class ProjectComponent implements OnInit {
           this.isNewProject = false;
           this.errorMessage = "";
         },
-        err => {
-          const error = err.json().errorMessages[0];
-          this.errorMessage = error.message;
-        }
+        err => this.extractErrorMessage(err)
       );
     }
   }
   
   editProject(id: string, name: string): void {
-    console.log("edit", id, name);
+    if (name) {
+      this.projectService
+        .updateProject(id, name)
+        .subscribe(
+          response => {
+            this.projects.map(project => project.id === id ? project.name = name : project);
+            
+            this.isEditProject[id] = false;
+            this.errorMessage = "";
+          },
+          err => this.extractErrorMessage(err));
+    }
   }
   
   deleteProject(id: string, name: string): void {
@@ -68,6 +76,11 @@ export class ProjectComponent implements OnInit {
         });
       },
       err => {});
+  }
+  
+  extractErrorMessage(err: any): void {
+    const error = err.json().errorMessages[0];
+    this.errorMessage = error.message;
   }
   
   cancel(id?: string): void {
