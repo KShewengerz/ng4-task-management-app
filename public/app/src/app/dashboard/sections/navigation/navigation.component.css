@@ -36,7 +36,7 @@ li > span > .material-icons:first-child { margin-right: 5px; }
 
 ul#tasks > li:last-child { margin-bottom: 12px; }
 
-li:hover {
+li:hover:not(#new-task) {
   background-color: #dcdde26e !important;
   cursor: pointer;
 }
