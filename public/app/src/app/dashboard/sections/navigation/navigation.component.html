@@ -37,6 +37,11 @@
          class="mdl-navigation__link">
         <mdl-icon [ngStyle]="{'color': project.color}">fiber_manual_record</mdl-icon> {{ project.name }}
       </a>
+
+      <span>
+        <mdl-icon>edit</mdl-icon>
+        <mdl-icon>delete_outline</mdl-icon>
+      </span>
     </li>
 
     <li *ngIf="isNewTask">

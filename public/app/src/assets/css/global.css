@@ -145,10 +145,12 @@ form p { margin-bottom: 0; }
 
 .mdl-textfield__error { bottom: -1px; }
 
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover { background-color: unset !important; }
+
 #project-textfield .mdl-textfield__label,
 #project-textfield input { font-size: 13px; }
 
-#project-textfield input { padding-bottom: 5px; }
+#project-textfield input { padding-bottom: 10px; }
 
   /* Disabled Button */
 button[disabled] {

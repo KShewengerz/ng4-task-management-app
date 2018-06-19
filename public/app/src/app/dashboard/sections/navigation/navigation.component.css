@@ -13,14 +13,35 @@ li > a { color: #2d3545 !important; }
 
 ul#tasks a { padding: 8px 25px !important; }
 
-ul#projects a { padding: 5px 25px !important; }
+#projects a {
+  padding: 5px 25px !important;
+  display: inline-block;
+}
+
+li > span {
+  vertical-align: middle;
+  position: relative;
+  top: 8px;
+  float: right;
+  margin-right: 20px;
+  cursor: pointer;
+  display: none;
+}
+
+li:hover > span { display: block !important; }
+
+li > span > .material-icons:hover { color: #d8605c; }
+
+li > span > .material-icons:first-child { margin-right: 5px; }
 
 ul#tasks > li:last-child { margin-bottom: 12px; }
 
-li > a:hover {
-  background: #9da1a936 !important;
-  font-weight: bold !important;
+li:hover {
+  background-color: #dcdde26e !important;
+  cursor: pointer;
 }
+
+li:hover > a { font-weight: bold !important; }
 
 .material-icons {
   font-size: 15px;
