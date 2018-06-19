@@ -9,6 +9,7 @@ import { MdlModule, MdlDialogModule } from "@angular-mdl/core";
 import { ContentHeaderComponent } from "./content-header/content-header.component";
 import { NavigationComponent } from "./navigation/navigation.component";
 import { UserImageHeaderComponent } from "./user-image-header/user-image-header.component";
+import { ProjectComponent } from "./navigation/project/project.component";
 
 import { UserImageHeaderService } from "./user-image-header/user-image-header.service";
 import { ProjectService } from "../../shared/project/project.service";
@@ -26,7 +27,8 @@ import { ProjectService } from "../../shared/project/project.service";
   declarations: [
     ContentHeaderComponent,
     NavigationComponent,
-    UserImageHeaderComponent
+    UserImageHeaderComponent,
+    ProjectComponent
   ],
   exports: [
     ContentHeaderComponent,
@@ -36,6 +38,7 @@ import { ProjectService } from "../../shared/project/project.service";
   providers: [
     UserImageHeaderService,
     ProjectService
-  ]
+  ],
+  entryComponents: [ ProjectComponent ]
 })
 export class SectionsModule { }

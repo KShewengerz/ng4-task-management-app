@@ -21,6 +21,7 @@ const camelCase = require("camelcase-keys");
  * @returns {Promise<void>}
  */
 export async function addProjectQuery(userId: string, body: Project, res: Response): Promise<void> {
+  const {id, color} = body;
   body.ordinal = await projectValidation.getNextUserProjectOrdinal(userId);
   
   const insertUserProjectData = {
@@ -42,7 +43,7 @@ export async function addProjectQuery(userId: string, body: Project, res: Respon
   ])
   .catch(err => err);
   
-  res.status(201).send({projectColor: body.color});
+  res.status(201).send({id, color});
 }
 
 

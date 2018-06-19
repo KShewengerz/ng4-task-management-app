@@ -1,0 +1,54 @@
+<p class="text-dark-blue">
+  <small>PROJECTS</small>
+</p>
+
+<ul id="projects">
+  <li *ngFor="let project of projects">
+
+    <a href="#"
+       class="mdl-navigation__link">
+      <mdl-icon [ngStyle]="{'color': project.color}">fiber_manual_record</mdl-icon> {{ project.name }}
+    </a>
+
+    <span>
+        <mdl-icon>edit</mdl-icon>
+        <mdl-icon (click)="deleteProject(project.id, project.name)">delete_outline</mdl-icon>
+      </span>
+  </li>
+
+  <li id="new-task"
+      *ngIf="isNewTask">
+
+    <mdl-textfield  type="text"
+                    label="Project Name"
+                    id="project-textfield"
+                    #projectName
+                    (click)="$event.stopPropagation()">
+    </mdl-textfield>
+    <span class="text-red">{{ errorMessage }}</span>
+
+    <div id="buttons">
+      <button mdl-button
+              class="cursor-pointer"
+              (click)="addNewProject(projectName.value)">
+          <span>
+            <mdl-icon>check</mdl-icon>Add
+          </span>
+      </button>
+
+      <span class="cursor-pointer"
+            (click)="cancel()">
+
+          <mdl-icon>clear</mdl-icon>Cancel
+        </span>
+    </div>
+
+  <li *ngIf="!isNewTask">
+    <a class="mdl-navigation__link cursor-pointer"
+       (click)="isNewTask = true">
+      <mdl-icon class="text-red">add</mdl-icon>
+      <span class="align-middle text-red">Add Project</span>
+    </a>
+  </li>
+
+</ul>
