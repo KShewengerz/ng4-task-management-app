@@ -30,20 +30,29 @@ export class NavigationComponent implements OnInit {
   addNewProject(name: string): void {
     if (name) {
       this.projectService
-      .saveNewProject({ name })
-      .subscribe(
-        response => {
-          const color = response.projectColor;
-          
-          this.projects.push({ name, color });
-          this.isNewTask = false;
-        },
-        err => {
-          const parseError = JSON.parse(err._body);
-          this.errorMessage = parseError.errorMessages[0].message;
-        }
-      );
+        .saveNewProject({ name })
+        .subscribe(
+          response => {
+            const color = response.projectColor;
+            
+            this.projects.push({ name, color });
+            this.isNewTask = false;
+          },
+          err => {
+            const parseError = JSON.parse(err._body);
+            this.errorMessage = parseError.errorMessages[0].message;
+          }
+        );
     }
+  }
+  
+  deleteProject(id: string): void {
+    this.projectService
+      .deleteProject(id)
+      .subscribe(response => {
+        const index = this.projects.findIndex(project => project.id === id);
+        this.projects.splice(index, 1);
+      });
   }
   
   cancel(): void {
