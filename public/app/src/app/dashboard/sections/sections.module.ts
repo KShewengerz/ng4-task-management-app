@@ -4,7 +4,7 @@ import { CommonModule } from "@angular/common";
 import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
 
-import { MdlModule } from "@angular-mdl/core";
+import { MdlModule, MdlDialogModule } from "@angular-mdl/core";
 
 import { ContentHeaderComponent } from "./content-header/content-header.component";
 import { NavigationComponent } from "./navigation/navigation.component";
@@ -20,7 +20,8 @@ import { ProjectService } from "../../shared/project/project.service";
     RouterModule,
     HttpModule,
     FormsModule,
-    MdlModule
+    MdlModule,
+    MdlDialogModule.forRoot()
   ],
   declarations: [
     ContentHeaderComponent,

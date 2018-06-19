@@ -162,3 +162,9 @@ button.mdl-button:hover {
   background-color: #d8605c;
   color: white;
 }
+
+/* Dialog */
+.dialog-subject {
+  color: #c25552;
+  font-weight: bold;
+}

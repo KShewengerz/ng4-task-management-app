@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 
+import { MdlDialogService } from "@angular-mdl/core";
+
 import { Project } from "../../../../../../../shared/interfaces/-index";
 import { ProjectService } from "../../../shared/project/project.service";
 
@@ -20,6 +22,7 @@ export class NavigationComponent implements OnInit {
   
   constructor(private router: Router,
               private route: ActivatedRoute,
+              private dialogService: MdlDialogService,
               private projectService: ProjectService) {}
               
   ngOnInit(): void {
@@ -46,13 +49,18 @@ export class NavigationComponent implements OnInit {
     }
   }
   
-  deleteProject(id: string): void {
-    this.projectService
-      .deleteProject(id)
-      .subscribe(response => {
-        const index = this.projects.findIndex(project => project.id === id);
-        this.projects.splice(index, 1);
-      });
+  deleteProject(id: string, name: string): void {
+    this.dialogService
+      .confirm(`Are you sure you want to delete Project <span class="dialog-subject">${name}</span> ?`, "No", "Yes")
+      .subscribe(() => {
+        this.projectService
+        .deleteProject(id)
+        .subscribe(response => {
+          const index = this.projects.findIndex(project => project.id === id);
+          this.projects.splice(index, 1);
+        });
+      },
+      err => {});
   }
   
   cancel(): void {
