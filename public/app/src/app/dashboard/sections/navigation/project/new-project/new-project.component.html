@@ -1,0 +1,25 @@
+<div id="input-wrapper">
+  <mdl-textfield  type="text"
+                  label="Project Name"
+                  id="project-textfield"
+                  #projectName
+                  (click)="$event.stopPropagation()"></mdl-textfield>
+
+  <span class="text-red">{{ errorMessage }}</span>
+
+  <div id="buttons">
+    <button mdl-button
+            class="cursor-pointer"
+            (click)="save.emit({name: projectName.value})">
+      <span>
+        <mdl-icon>check</mdl-icon>Add
+      </span>
+    </button>
+
+    <span class="cursor-pointer"
+          (click)="cancel.emit()">
+
+      <mdl-icon>clear</mdl-icon>Cancel
+    </span>
+  </div>
+</div>

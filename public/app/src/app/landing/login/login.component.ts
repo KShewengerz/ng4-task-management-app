@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     .login(credential)
     .subscribe(
       response => this.setAndStoreUser(response),
-      err => this.errorMessage = err._body.replace(/['"]+/g, ""));
+      err => this.errorMessage = err.json());
   }
   
   setAndStoreUser(response: User): void {

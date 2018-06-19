@@ -17,7 +17,7 @@ export class ProjectComponent implements OnInit {
   
   projects: Project[] = [];
   
-  isNewTask: boolean = false;
+  isNewProject: boolean = false;
   errorMessage: string;
   
   constructor(private router: Router,
@@ -39,11 +39,12 @@ export class ProjectComponent implements OnInit {
           const {id, color} = response;
           
           this.projects.push({ id, name, color });
-          this.isNewTask = false;
+          this.isNewProject = false;
+          this.errorMessage = "";
         },
         err => {
-          const parseError = JSON.parse(err._body);
-          this.errorMessage = parseError.errorMessages[0].message;
+          const error = err.json().errorMessages[0];
+          this.errorMessage = error.message;
         }
       );
     }
@@ -64,7 +65,7 @@ export class ProjectComponent implements OnInit {
   }
   
   cancel(): void {
-    this.isNewTask = false;
+    this.isNewProject = false;
     this.errorMessage = "";
   }
 

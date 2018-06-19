@@ -13,7 +13,7 @@ ul#tasks a { padding: 8px 25px !important; }
 
 ul#tasks > li:last-child { margin-bottom: 12px; }
 
-li:hover:not(#new-task) {
+li:hover:not(#new-project) {
   background-color: #dcdde26e !important;
   cursor: pointer;
 }

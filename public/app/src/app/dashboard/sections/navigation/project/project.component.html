@@ -16,36 +16,17 @@
       </span>
   </li>
 
-  <li id="new-task"
-      *ngIf="isNewTask">
+  <li id="new-project"
+      *ngIf="isNewProject">
 
-    <mdl-textfield  type="text"
-                    label="Project Name"
-                    id="project-textfield"
-                    #projectName
-                    (click)="$event.stopPropagation()">
-    </mdl-textfield>
-    <span class="text-red">{{ errorMessage }}</span>
+  <tms-new-project *ngIf="isNewProject"
+                   [errorMessage]="errorMessage"
+                   (save)="addNewProject($event.name)"
+                   (cancel)="cancel()"></tms-new-project>
 
-    <div id="buttons">
-      <button mdl-button
-              class="cursor-pointer"
-              (click)="addNewProject(projectName.value)">
-          <span>
-            <mdl-icon>check</mdl-icon>Add
-          </span>
-      </button>
-
-      <span class="cursor-pointer"
-            (click)="cancel()">
-
-          <mdl-icon>clear</mdl-icon>Cancel
-        </span>
-    </div>
-
-  <li *ngIf="!isNewTask">
+  <li *ngIf="!isNewProject">
     <a class="mdl-navigation__link cursor-pointer"
-       (click)="isNewTask = true">
+       (click)="isNewProject = true">
       <mdl-icon class="text-red">add</mdl-icon>
       <span class="align-middle text-red">Add Project</span>
     </a>

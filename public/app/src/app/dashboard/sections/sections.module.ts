@@ -10,6 +10,7 @@ import { ContentHeaderComponent } from "./content-header/content-header.componen
 import { NavigationComponent } from "./navigation/navigation.component";
 import { UserImageHeaderComponent } from "./user-image-header/user-image-header.component";
 import { ProjectComponent } from "./navigation/project/project.component";
+import { NewProjectComponent } from "./navigation/project/new-project/new-project.component";
 
 import { UserImageHeaderService } from "./user-image-header/user-image-header.service";
 import { ProjectService } from "../../shared/project/project.service";
@@ -28,7 +29,8 @@ import { ProjectService } from "../../shared/project/project.service";
     ContentHeaderComponent,
     NavigationComponent,
     UserImageHeaderComponent,
-    ProjectComponent
+    ProjectComponent,
+    NewProjectComponent
   ],
   exports: [
     ContentHeaderComponent,
@@ -39,6 +41,9 @@ import { ProjectService } from "../../shared/project/project.service";
     UserImageHeaderService,
     ProjectService
   ],
-  entryComponents: [ ProjectComponent ]
+  entryComponents: [
+    ProjectComponent,
+    NewProjectComponent
+  ]
 })
 export class SectionsModule { }
