@@ -10,7 +10,7 @@ import { ContentHeaderComponent } from "./content-header/content-header.componen
 import { NavigationComponent } from "./navigation/navigation.component";
 import { UserImageHeaderComponent } from "./user-image-header/user-image-header.component";
 import { ProjectComponent } from "./navigation/project/project.component";
-import { NewProjectComponent } from "./navigation/project/new-project/new-project.component";
+import { ProjectActionFieldComponent } from "./navigation/project/project-action-field/project-action-field.component";
 
 import { UserImageHeaderService } from "./user-image-header/user-image-header.service";
 import { ProjectService } from "../../shared/project/project.service";
@@ -30,7 +30,7 @@ import { ProjectService } from "../../shared/project/project.service";
     NavigationComponent,
     UserImageHeaderComponent,
     ProjectComponent,
-    NewProjectComponent
+    ProjectActionFieldComponent
   ],
   exports: [
     ContentHeaderComponent,
@@ -43,7 +43,7 @@ import { ProjectService } from "../../shared/project/project.service";
   ],
   entryComponents: [
     ProjectComponent,
-    NewProjectComponent
+    ProjectActionFieldComponent
   ]
 })
 export class SectionsModule { }
