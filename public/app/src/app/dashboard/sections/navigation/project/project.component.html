@@ -2,7 +2,9 @@
   <small>PROJECTS</small>
 </p>
 
-<ul id="projects">
+<ul id="projects"
+    [dragula]='"bag-projects"'
+    [dragulaModel]='projects'>
   <li *ngFor="let project of projects"
       [ngClass]="{'transparent-hover': isEditProject[project.id]}">
 

@@ -6,6 +6,8 @@ import { FormsModule } from "@angular/forms";
 
 import { MdlModule, MdlDialogModule } from "@angular-mdl/core";
 
+import { DragulaModule } from "ng2-dragula/ng2-dragula";
+
 import { ContentHeaderComponent } from "./content-header/content-header.component";
 import { NavigationComponent } from "./navigation/navigation.component";
 import { UserImageHeaderComponent } from "./user-image-header/user-image-header.component";
@@ -23,7 +25,8 @@ import { ProjectService } from "../../shared/project/project.service";
     HttpModule,
     FormsModule,
     MdlModule,
-    MdlDialogModule.forRoot()
+    MdlDialogModule.forRoot(),
+    DragulaModule
   ],
   declarations: [
     ContentHeaderComponent,

@@ -37,6 +37,21 @@ export async function addProjectByUserId(req: any, res: Response): Promise<void>
   if (res.statusCode !== 400) await projectQuery.addProjectQuery(userId, body, res);
 }
 
+
+/**
+ * @apiUrl {put} /
+ * @description
+ *
+ * @param {Request} req
+ * @param {Response} res
+ *
+ * @returns {Promise<void>}
+ */
+export async function updateProjectsOrdinal(req: Request, res: Response): Promise<void> {
+  await projectQuery.updateProjectsOrdinal(req.body, res);
+}
+
+
 /**
  * @api {put} /:id
  * @description Update Project by projectId.
@@ -59,6 +74,7 @@ export async function updateProject(req: any, res: Response): Promise<void> {
   
   if (res.statusCode !== 400) await projectQuery.updateProject(id, body, res);
 }
+
 
 /**
  * @api {get} /

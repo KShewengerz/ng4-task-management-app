@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 import { MdlDialogService } from "@angular-mdl/core";
 
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
+
 import { ProjectService } from "../../../../shared/project/project.service";
 import { Project } from "../../../../../../../../shared/interfaces/-index";
 
@@ -25,11 +27,31 @@ export class ProjectComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private dialogService: MdlDialogService,
-              private projectService: ProjectService) {}
+              private projectService: ProjectService,
+              private dragula: DragulaService) {}
   
   ngOnInit(): void {
     const projectLists = this.route.snapshot.data.projects;
     this.projects      = projectLists.sort((a, b) => a.ordinal - b.ordinal);
+    
+    this.onUpdateListDrop();
+  }
+  
+  onUpdateListDrop(): void {
+    this.dragula
+    .drop
+    .subscribe(async value => {
+      const projects = await this.sortProjects();
+      
+      this.projectService.updateProjectsOrdinal(projects).subscribe(response => console.log(response));
+    });
+  }
+  
+  async sortProjects(): Promise<Project[]> {
+    return await this.projects.map((project, index) => {
+      project.ordinal = index + 1;
+      return project;
+    });
   }
   
   addNewProject(name: string): void {

@@ -22,6 +22,7 @@
         "assets/css/mdl-grey-red.min.css",
         "assets/css/material-icons.css",
         "../node_modules/@angular-mdl/select/select.css",
+        "../node_modules/dragula/dist/dragula.css",
         "assets/css/global.css"
       ],
       "scripts": [],

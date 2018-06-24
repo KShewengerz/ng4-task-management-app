@@ -48,6 +48,30 @@ export async function addProjectQuery(userId: string, body: Project, res: Respon
 
 
 /**
+ * @description Update All Projects Ordinal MySQL Query
+ *
+ * @param {Project} projects
+ * @param {Response} res
+ *
+ * @returns {Promise<void>}
+ */
+export async function updateProjectsOrdinal(projects: Project[], res: Response): Promise<void> {
+  await db.transaction(async trx => {
+    await projects.forEach(async project => {
+      await db(ProjectEnum.Table)
+      .where(ProjectEnum.Id, project.id)
+      .update(project)
+      .transacting(trx)
+      .catch(err => err);
+    });
+  })
+  .catch(err => err);
+  
+  res.sendStatus(200);
+}
+
+
+/**
  * @description Update Project MySQL Query
  *
  * @param {String} id

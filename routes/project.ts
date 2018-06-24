@@ -17,6 +17,13 @@ router.post("/", api.addProjectByUserId);
 
 
 /**
+ * @api {put} /project
+ * @description Update Projects Ordinal
+ */
+router.put("/", api.updateProjectsOrdinal);
+
+
+/**
  * @api {put} /project/:projectId/user/:userId
  * @description Update Project by projectId
  *

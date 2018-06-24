@@ -23,6 +23,12 @@ export class ProjectService {
       .map(response => response.json());
   }
   
+  updateProjectsOrdinal(body: Project[]): Observable<any> {
+    return this.http
+      .put(this.url, body)
+      .map(response => response);
+  }
+  
   updateProject(id: string, name: string): Observable<any> {
     return this.http
       .put(`${this.url}/${id}`, { name })
