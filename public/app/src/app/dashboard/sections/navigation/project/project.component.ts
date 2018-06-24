@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 import { MdlDialogService } from "@angular-mdl/core";
 
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { DragulaService } from "ng2-dragula/ng2-dragula";
 
 import { ProjectService } from "../../../../shared/project/project.service";
 import { Project } from "../../../../../../../../shared/interfaces/-index";
@@ -21,6 +21,7 @@ export class ProjectComponent implements OnInit {
   
   isNewProject: boolean = false;
   isEditProject: any = {};
+  isHovered: any = {};
   
   errorMessage: string;
   
@@ -43,7 +44,7 @@ export class ProjectComponent implements OnInit {
     .subscribe(async value => {
       const projects = await this.sortProjects();
       
-      this.projectService.updateProjectsOrdinal(projects).subscribe(response => console.log(response));
+      this.projectService.updateProjectsOrdinal(projects).subscribe(response => {});
     });
   }
   

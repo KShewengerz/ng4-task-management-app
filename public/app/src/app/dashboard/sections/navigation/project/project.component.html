@@ -6,7 +6,12 @@
     [dragula]='"bag-projects"'
     [dragulaModel]='projects'>
   <li *ngFor="let project of projects"
-      [ngClass]="{'transparent-hover': isEditProject[project.id]}">
+      [ngClass]="{'transparent-hover': isEditProject[project.id]}"
+      (mouseenter)="isHovered[project.id] = true"
+      (mouseleave)="isHovered[project.id] = false">
+
+    <mdl-icon class="text-gray align-middle drag-icon"
+              [ngClass]="{'active': isHovered[project.id]}">drag_handle</mdl-icon>
 
     <tms-project-action-field *ngIf="isEditProject[project.id]"
                      [projectName]="project.name"

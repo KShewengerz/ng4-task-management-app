@@ -1,6 +1,6 @@
 
 #projects a {
-  padding: 5px 25px !important;
+  padding: 5px 25px;
   display: inline-block;
   color: #524c4c;
 }
@@ -21,5 +21,18 @@ li div > span > .material-icons:hover { color: #d8605c; }
 
 li div > span > .material-icons:first-child { margin-right: 5px; }
 
-li:hover div > a { font-weight: bold !important; }
+li:hover div > a {
+  font-weight: bold !important;
+  padding-left: 5px !important;
+}
 
+.drag-icon {
+  float: left;
+  margin-left: 12px;
+  font-size: 14px;
+  position: relative;
+  top: 10px;
+  display: none;
+}
+
+.drag-icon.active { display: block; }

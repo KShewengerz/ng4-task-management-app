@@ -20,7 +20,7 @@ li:hover:not(#new-project):not(.transparent-hover) {
 
 li:hover > a { font-weight: bold !important; }
 
-.material-icons {
+.material-icons:not(.drag-icon) {
   font-size: 15px;
   padding-right: 3px;
   position: relative;
