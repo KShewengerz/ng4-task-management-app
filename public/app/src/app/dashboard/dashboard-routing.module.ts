@@ -1,7 +1,6 @@
 import { RouterModule, Routes } from "@angular/router";
 
 import { DashboardComponent } from "./dashboard.component";
-import { TaskComponent } from "./task/task.component";
 import { ProfileComponent } from "./profile/profile.component";
 
 import { UserListResolver } from "../shared/user/user-resolver.service";
@@ -17,12 +16,8 @@ const routes: Routes = [
     },
     children: [
       { path: "", redirectTo: "task", pathMatch: "full" },
-      { path: "task", component: TaskComponent },
-      {
-        path: "profile",
-        component: ProfileComponent,
-        resolve: { users: UserListResolver }
-      }
+      { path: "task", loadChildren: "./task/task.module#TaskModule" },
+      { path: "profile", loadChildren: "./profile/profile.module#ProfileModule" }
     ]
   }
 ];

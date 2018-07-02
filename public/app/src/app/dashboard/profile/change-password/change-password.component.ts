@@ -26,8 +26,7 @@ export class ChangePasswordComponent implements OnInit {
   isSuccessful: boolean = false;
   
   constructor(private fb: FormBuilder,
-              private changePasswordService: ChangePasswordService,
-              private errorHandlerService: ErrorHandlerService) { }
+              private changePasswordService: ChangePasswordService) { }
 
   ngOnInit() {
     this.buildForm();

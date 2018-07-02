@@ -158,10 +158,7 @@ button[disabled] {
   pointer-events: none;
 }
 
-button.mdl-button:hover {
-  background-color: #d8605c;
-  color: white;
-}
+button.mdl-button:hover { background-color: #d8605c; }
 
 /* Dialog */
 .dialog-subject {

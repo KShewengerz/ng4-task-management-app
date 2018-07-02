@@ -3,11 +3,11 @@
   <mdl-icon class="text-gray align-middle">drag_handle</mdl-icon>
   <mdl-checkbox class="inline-block"
                 [mdl-ripple]="true">
-    <span class="align-middle">{{ task.name }}</span>
+    <span class="align-middle">{{ task.description }}</span>
   </mdl-checkbox>
 
   <div class="actions inline-block right cursor-pointer">
-    <span>{{ task.scheduledDate }}</span>
+    <span>{{ task.scheduleDate }}</span>
     <button mdl-button
             #actionBtn="mdlButton"
             (click)="menu.toggle($event, actionBtn)"

@@ -38,6 +38,8 @@
 
 .actions button { margin-top: -5px; }
 
+button.mdl-button:hover > .material-icons { color: white; }
+
 
 /* Schedule Menu */
 .schedule-menu li {
