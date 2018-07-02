@@ -1,21 +1,15 @@
 import { RouterModule, Routes } from "@angular/router";
 
 import { TaskComponent } from "./task.component";
-
-import { TaskListResolver } from "./task-resolver.service";
+import { TaskListComponent } from "./task-list/task-list.component";
 
 
 const routes: Routes = [
-  {
-    path: "",
+  { 
+    path: "", 
     component: TaskComponent,
     children: [
-      { path: "", redirectTo: "task", pathMatch: "full" },
-      { 
-        path: "task", 
-        component: TaskComponent,
-        resolve: { tasks: TaskListResolver }
-      }
+      { path: "", component: TaskListComponent }
     ]
   }
 ];

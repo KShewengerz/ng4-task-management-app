@@ -1,5 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+
+import { TaskService } from "../task.service";
+import { ProjectService } from "../../../shared/project/project.service";
 
 import { Task } from "../../../../../../../shared/interfaces/-index";
 
@@ -14,10 +17,25 @@ export class TaskListComponent implements OnInit {
 
   tasks: Task[] = [];
   
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute,
+              private taskService: TaskService,
+              private projectService: ProjectService) {}
 
   ngOnInit(): void {
     this.tasks = this.route.snapshot.data.tasks;
+
+    this.loadProjects();
+  }
+
+  loadProjects(): void {
+    this.projectService.projectSelected.subscribe(id => {
+      // this.taskService
+      //   .fetchAllTasksByProjectId(id)
+      //   .subscribe(response => {
+      //     this.tasks = response;
+      //     console.log(this.tasks);
+      //   });
+    });
   }
 
   addTask(body: Task): void {

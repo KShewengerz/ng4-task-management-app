@@ -29,7 +29,7 @@ export class TaskService {
       .map(response => response);
   }
   
-  fetchAllTasks(): Observable<Task[]> {
+  fetchAllTasksByProjectId(id: string): Observable<Task[]> {
     return this.http
       .get(this.url)
       .map(response => response.json())

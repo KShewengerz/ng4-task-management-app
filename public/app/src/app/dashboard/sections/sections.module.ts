@@ -15,7 +15,6 @@ import { ProjectComponent } from "./navigation/project/project.component";
 import { ProjectActionFieldComponent } from "./navigation/project/project-action-field/project-action-field.component";
 
 import { UserImageHeaderService } from "./user-image-header/user-image-header.service";
-import { ProjectService } from "../../shared/project/project.service";
 
 
 @NgModule({
@@ -41,8 +40,7 @@ import { ProjectService } from "../../shared/project/project.service";
     UserImageHeaderComponent
   ],
   providers: [
-    UserImageHeaderService,
-    ProjectService
+    UserImageHeaderService
   ],
   entryComponents: [
     ProjectComponent,

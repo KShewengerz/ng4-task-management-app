@@ -15,7 +15,7 @@ import { TaskListComponent } from "./task-list/task-list.component";
   ]
 })
 export class TaskComponent {
-  
+
   constructor() {}
 
 }

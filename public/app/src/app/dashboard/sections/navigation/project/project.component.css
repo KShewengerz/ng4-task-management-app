@@ -26,6 +26,8 @@ li:hover div > a {
   padding-left: 5px !important;
 }
 
+li.active { background-color: #dcdde26e; }
+
 .drag-icon {
   float: left;
   margin-left: 12px;

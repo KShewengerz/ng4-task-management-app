@@ -12,7 +12,6 @@ import { TaskComponent } from "./task.component";
 import { TaskListComponent } from "./task-list/task-list.component";
 
 import { TaskService } from "./task.service";
-import { TaskListResolver } from "./task-resolver.service";
 
 import { TaskRouting } from "./task-routing.module";
 
@@ -33,8 +32,7 @@ import { TaskRouting } from "./task-routing.module";
     TaskListComponent
   ],
   providers: [
-    TaskService,
-    TaskListResolver
+    TaskService
   ]
 })
 export class TaskModule { }

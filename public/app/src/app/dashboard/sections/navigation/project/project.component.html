@@ -6,7 +6,8 @@
     [dragula]='"bag-projects"'
     [dragulaModel]='projects'>
   <li *ngFor="let project of projects"
-      [ngClass]="{'transparent-hover': isEditProject[project.id]}"
+      [ngClass]="{'transparent-hover': isEditProject[project.id], 'active': isSelected[project.id] }"
+      (click)="selectProject(project.id)"
       (mouseenter)="isHovered[project.id] = true"
       (mouseleave)="isHovered[project.id] = false">
 
@@ -20,8 +21,7 @@
                               (cancel)="cancel(project.id)"></tms-project-action-field>
 
     <div *ngIf="!isEditProject[project.id]">
-      <a href="#"
-         class="mdl-navigation__link">
+      <a class="mdl-navigation__link">
         <mdl-icon [ngStyle]="{'color': project.color}">fiber_manual_record</mdl-icon> {{ project.name }}
       </a>
 
