@@ -11,13 +11,13 @@
       (mouseleave)="isHovered[project.id] = false">
 
     <mdl-icon class="text-gray align-middle drag-icon"
-              [ngClass]="{'active': isHovered[project.id]}">drag_handle</mdl-icon>
+              [ngClass]="{'active': isHovered[project.id] && !isEditProject[project.id] }">drag_handle</mdl-icon>
 
     <tms-project-action-field *ngIf="isEditProject[project.id]"
-                     [projectName]="project.name"
-                     [errorMessage]="errorMessage"
-                     (save)="editProject(project.id, $event.name)"
-                     (cancel)="cancel(project.id)"></tms-project-action-field>
+                              [projectName]="project.name"
+                              [errorMessage]="errorMessage"
+                              (save)="editProject(project.id, $event.name)"
+                              (cancel)="cancel(project.id)"></tms-project-action-field>
 
     <div *ngIf="!isEditProject[project.id]">
       <a href="#"
@@ -36,9 +36,9 @@
       *ngIf="isNewProject">
 
   <tms-project-action-field *ngIf="isNewProject"
-                   [errorMessage]="errorMessage"
-                   (save)="addNewProject($event.name)"
-                   (cancel)="cancel()"></tms-project-action-field>
+                            [errorMessage]="errorMessage"
+                            (save)="addNewProject($event.name)"
+                            (cancel)="cancel()"></tms-project-action-field>
 
   <li *ngIf="!isNewProject">
     <a class="mdl-navigation__link cursor-pointer"
