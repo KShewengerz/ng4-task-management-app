@@ -9,9 +9,9 @@ p {
 
 li > a { color: #2d3545 !important; }
 
-ul#tasks a { padding: 8px 25px !important; }
+ul a { padding: 8px 25px !important; }
 
-ul#tasks > li:last-child { margin-bottom: 12px; }
+ul > li:last-child { margin-bottom: 12px; }
 
 li:hover:not(#new-project):not(.transparent-hover) {
   background-color: #dcdde26e !important;
@@ -19,6 +19,8 @@ li:hover:not(#new-project):not(.transparent-hover) {
 }
 
 li:hover > a { font-weight: bold !important; }
+
+li.active { background-color: #dcdde26e; }
 
 .material-icons:not(.drag-icon) {
   font-size: 15px;

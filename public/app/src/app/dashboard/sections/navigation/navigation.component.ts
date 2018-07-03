@@ -1,5 +1,9 @@
 import { Component } from "@angular/core";
-import { Router } from "@angular/router";
+
+import { ProjectService } from "../../../shared/project/project.service";
+
+import { TaskSchedule } from "../../../../../../../shared/enums/-index";
+
 
 @Component({
   moduleId    : module.id,
@@ -9,6 +13,17 @@ import { Router } from "@angular/router";
 })
 export class NavigationComponent {
   
-  constructor(private router: Router) {}
+  isSelected: any = {};
+
+  taskSchedule: typeof TaskSchedule = TaskSchedule;
+
+  constructor(private projectService: ProjectService) {}
+
+  selectProject(id: string): void {
+    this.isSelected = {};
+    this.isSelected[id] = true;
+
+    this.projectService.projectSelection.next(id);
+  }
   
 }

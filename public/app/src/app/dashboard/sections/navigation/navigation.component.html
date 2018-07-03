@@ -5,23 +5,23 @@
   </p>
 
   <ul id="tasks">
-    <li>
-      <a href="#"
-         class="mdl-navigation__link">
+    <li [ngClass]="{'active': isSelected[taskSchedule.Today]}"
+        (click)="selectProject(taskSchedule.Today)">
+      <a class="mdl-navigation__link">
         <mdl-icon>insert_invitation</mdl-icon> Today
       </a>
     </li>
 
-    <li>
-      <a href="#"
-         class="mdl-navigation__link">
+    <li [ngClass]="{'active': isSelected[taskSchedule.Tomorrow]}"
+        (click)="selectProject(taskSchedule.Tomorrow)">
+      <a class="mdl-navigation__link">
         <mdl-icon>update</mdl-icon> Tomorrow
       </a>
     </li>
 
-    <li>
-      <a href="#"
-         class="mdl-navigation__link">
+    <li [ngClass]="{'active': isSelected[taskSchedule.NextWeek]}"
+        (click)="selectProject(taskSchedule.NextWeek)">
+      <a class="mdl-navigation__link">
         <mdl-icon>event_note</mdl-icon> Next Week
       </a>
     </li>

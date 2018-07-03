@@ -7,3 +7,9 @@ export enum Task {
   Description   = "description",
   ScheduleDate  = "schedule_date"
 }
+
+export enum TaskSchedule {
+  Today       = "0",
+  Tomorrow    = "1",
+  NextWeek    = "2"
+}
