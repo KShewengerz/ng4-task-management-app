@@ -66,7 +66,7 @@ export async function updateTaskQuery(id, body, res): Promise<void> {
  *
  * @returns {Promise<Task[]>}
  */
-export async function getUserTasks(userId: string): Promise<Task[]> {
+export async function getUserTasks(userId: string, projectId: any): Promise<Task[]> {
   const taskTableId = `${TaskEnum.Table}.${TaskEnum.Id}`;
   const userTaskTableTaskId = `${UserTask.Table}.${UserTask.TaskId}`;
   
@@ -74,6 +74,7 @@ export async function getUserTasks(userId: string): Promise<Task[]> {
   .select(`${TaskEnum.Table}.*`)
   .innerJoin(UserTask.Table, taskTableId, userTaskTableTaskId)
   .where({ [UserTask.UserId]: userId })
+  .andWhere({ [TaskEnum.ProjectId]: projectId })
   .catch(err => err);
   
   const result = camelCase(fetchTasks);

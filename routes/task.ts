@@ -24,10 +24,12 @@ router.put("/:id", api.updateTask);
 
 
 /**
- * @api {get} /
+ * @api {get} /:projectId
+ * @apiParam {any} projectId
+ * 
  * @description Gets all user tasks.
  */
-router.get("/", api.getTasks);
+router.get("/:projectId", api.getTasksByProjectId);
 
 
 /**
