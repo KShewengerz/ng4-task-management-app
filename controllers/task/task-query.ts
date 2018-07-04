@@ -1,8 +1,9 @@
 import { Response } from "express";
+import * as moment from "moment";
 
 import * as dbConnection from "../../config/db";
 
-import { UserTask, Task as TaskEnum } from "../../shared/enums/-index";
+import { UserTask, Task as TaskEnum, TaskSchedule } from "../../shared/enums/-index";
 import { Task } from "../../shared/interfaces/-index";
 
 const camelCase = require("camelcase-keys");
@@ -67,19 +68,58 @@ export async function updateTaskQuery(id, body, res): Promise<void> {
  * @returns {Promise<Task[]>}
  */
 export async function getUserTasks(userId: string, projectId: any): Promise<Task[]> {
-  const taskTableId = `${TaskEnum.Table}.${TaskEnum.Id}`;
+  const taskTableId         = `${TaskEnum.Table}.${TaskEnum.Id}`;
   const userTaskTableTaskId = `${UserTask.Table}.${UserTask.TaskId}`;
-  
-  const fetchTasks = await db(TaskEnum.Table)
-  .select(`${TaskEnum.Table}.*`)
-  .innerJoin(UserTask.Table, taskTableId, userTaskTableTaskId)
-  .where({ [UserTask.UserId]: userId })
-  .andWhere({ [TaskEnum.ProjectId]: projectId })
-  .catch(err => err);
+  const dateFormat          = "MM/DD/YYYY";
+  const startOfNextWeek     = moment().add(1, 'weeks').startOf("isoWeek").subtract(1, "days").format(dateFormat);
+  const endOfNextWeek       = moment().add(1, 'weeks').endOf("isoWeek").subtract(1, "days").format(dateFormat);
+
+  let fetchTasks: any;
+
+  if (projectId === TaskSchedule.NextWeek) {
+    fetchTasks = await db(TaskEnum.Table)
+    .select(`${TaskEnum.Table}.*`)
+    .innerJoin(UserTask.Table, taskTableId, userTaskTableTaskId)
+    .where({ [UserTask.UserId]: userId })
+    .andWhereBetween(TaskEnum.ScheduleDate, [startOfNextWeek, endOfNextWeek])
+    .catch(err => err);
+  } else {
+    const secondaryCondition  = getUserTaskSecondaryCondition(projectId, dateFormat);
+
+    fetchTasks = await db(TaskEnum.Table)
+    .select(`${TaskEnum.Table}.*`)
+    .innerJoin(UserTask.Table, taskTableId, userTaskTableTaskId)
+    .where({ [UserTask.UserId]: userId })
+    .andWhere(secondaryCondition)
+    .catch(err => err);
+  }
   
   const result = camelCase(fetchTasks);
   
   return result;
+}
+
+
+/**
+ * @description 
+ * 
+ * @param projectId 
+ * 
+ * @returns {Any}
+ */
+function getUserTaskSecondaryCondition (projectId: any, dateFormat: string): any {
+  const now      = moment().format(dateFormat);
+  const tomorrow = moment().add("days", 1).format(dateFormat);
+
+  let secondaryCondition: any = {};
+
+  if (projectId.length == 1) {
+    if (projectId === TaskSchedule.Today) secondaryCondition = { [TaskEnum.ScheduleDate]: now };
+    else if (projectId === TaskSchedule.Tomorrow) secondaryCondition = { [TaskEnum.ScheduleDate]: tomorrow };
+  }
+  else secondaryCondition = { [TaskEnum.ProjectId]: projectId };
+
+  return secondaryCondition;
 }
 
 
@@ -92,7 +132,7 @@ export async function getUserTasks(userId: string, projectId: any): Promise<Task
  * @returns {Promise<void>}
  */
 export async function deleteTaskQuery(id: string, res: Response): Promise<void> {
-  const deleteProject = await db(TaskEnum.Table)
+  await db(TaskEnum.Table)
   .where({ id })
   .del()
   .catch(err => err);

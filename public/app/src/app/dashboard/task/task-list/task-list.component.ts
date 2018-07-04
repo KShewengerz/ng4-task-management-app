@@ -29,13 +29,9 @@ export class TaskListComponent implements OnInit {
 
   loadProjects(): void {
     this.projectService.projectSelected.subscribe(id => {
-      console.log(id);
-      // this.taskService
-      //   .fetchAllTasksByProjectId(id)
-      //   .subscribe(response => {
-      //     this.tasks = response;
-      //     console.log(this.tasks);
-      //   });
+      this.taskService
+        .fetchAllTasksByProjectId(id)
+        .subscribe(response => this.tasks = response);
     });
   }
 
