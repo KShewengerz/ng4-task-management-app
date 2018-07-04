@@ -39,7 +39,8 @@
                             [errorMessage]="errorMessage"
                             (save)="addNewProject($event.name)"
                             (cancel)="cancel()"></tms-project-action-field>
-
+  </li>
+  
   <li *ngIf="!isNewProject">
     <a class="mdl-navigation__link cursor-pointer"
        (click)="isNewProject = true">

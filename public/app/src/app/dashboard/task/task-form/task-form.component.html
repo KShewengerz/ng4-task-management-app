@@ -1,0 +1,21 @@
+<div id="input-wrapper">
+	<mdl-textfield  type="text"
+									label="What's your next task?"
+									id="form-textfield"
+									[(ngModel)]="task"
+									(click)="$event.stopPropagation()"></mdl-textfield>
+
+	<span class="text-red">{{ errorMessage }}</span>
+
+	<div id="buttons">
+		<button mdl-button
+						class="cursor-pointer"
+						(click)="add.emit({description: task})">
+			<span>ADD</span>
+		</button>
+
+		<span class="cursor-pointer"
+				(click)="cancel.emit()">CANCEL</span>
+	</div>
+</div>
+  

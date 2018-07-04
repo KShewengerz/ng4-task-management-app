@@ -1,0 +1,25 @@
+.mdl-textfield { 
+	width: 100%; 
+	margin-top: -21px; 
+}
+
+#input-wrapper .text-red {
+	position: relative;
+	top: -19px;
+	font-size: 12px;
+}
+
+#buttons {
+	position: relative;
+	top: -8px;
+}
+
+button {
+	background: #d8605b;
+	color: white;
+	height: 28px;
+	line-height: 1;
+	margin-right: 10px;
+}
+
+#buttons span { font-size: 11px; }

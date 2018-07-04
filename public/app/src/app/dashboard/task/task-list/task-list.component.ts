@@ -16,6 +16,8 @@ import { Task } from "../../../../../../../shared/interfaces/-index";
 export class TaskListComponent implements OnInit {
 
   tasks: Task[] = [];
+  isNewTask: boolean = false;
+  errorMessage: string;
   
   constructor(private route: ActivatedRoute,
               private taskService: TaskService,
@@ -35,15 +37,34 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  addTask(body: Task): void {
-    console.log(body);
+  addTask(description: string): void {
+    this.taskService
+    .saveNewTask({description})
+    .subscribe(
+      response => {
+        this.tasks.push(response);
+
+        this.isNewTask = false;
+        this.errorMessage = "";
+      },
+      err => this.extractErrorMessage(err)
+    )
   }
 
-  deleteTask(id: string): void {
+  completeTask(id: string): void {
     setTimeout(() => {
-      const taskIndex: number = this.tasks.findIndex(task => task.id === id);
-      this.tasks.splice(taskIndex, 1);
+      this.taskService
+      .completeTask(id)
+      .subscribe(response => {
+        const taskIndex: number = this.tasks.findIndex(task => task.id === id);
+        this.tasks.splice(taskIndex, 1);
+      })
     }, 400);
+  }
+
+  extractErrorMessage(err: any): void {
+    const error = err.json().errorMessages[0];
+    this.errorMessage = error.message;
   }
 
 }

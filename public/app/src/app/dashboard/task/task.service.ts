@@ -17,13 +17,13 @@ export class TaskService {
     this.url = `${apiUrl}/task`;
   }
 
-  saveNewTask(body: Task): Observable<any> {
+  saveNewTask(body: any): Observable<any> {
     return this.http
       .post(this.url, body)
-      .map(response => response);
+      .map(response => response.json());
   }
   
-  updateTask(body: Task): Observable<any> {
+  updateTask(body: any): Observable<any> {
     return this.http
       .put(this.url, body)
       .map(response => response);
@@ -36,10 +36,10 @@ export class TaskService {
       .catch(err => Observable.throw(err));
   }
   
-  fetchTask(id: string): Observable<Task> {
+  completeTask(id: string): Observable<any> {
     return this.http
-      .get(`${this.url}/${id}`)
-      .map(response => response.json())
+      .put(`${this.url}/complete/${id}`, {})
+      .map(response => response)
       .catch(err => Observable.throw(err));
   }
 

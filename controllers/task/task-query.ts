@@ -39,7 +39,7 @@ export async function addTaskQuery(userId: string, body: Task, res: Response): P
   ])
   .catch(err => err);
   
-  res.sendStatus(201);
+  res.status(201).send(body);
 }
 
 
@@ -101,7 +101,7 @@ export async function getUserTasks(userId: string, projectId: any): Promise<Task
 
 
 /**
- * @description 
+ * @description Returns user task secondary condition
  * 
  * @param projectId 
  * 
@@ -124,18 +124,18 @@ function getUserTaskSecondaryCondition (projectId: any, dateFormat: string): any
 
 
 /**
- * @description Delete Task by Id MySQL Query
+ * @description Complete Task by Id MySQL Query
  *
  * @param {String} id
  * @param {Response} res
  *
  * @returns {Promise<void>}
  */
-export async function deleteTaskQuery(id: string, res: Response): Promise<void> {
+export async function completeTaskQuery(id: string, res: Response): Promise<void> {
   await db(TaskEnum.Table)
   .where({ id })
-  .del()
+  .update({ [TaskEnum.StatusId]: "f1d24aa9-c0ec-46c2-ab11-1413e943cfad" })
   .catch(err => err);
   
-  res.sendStatus(204);
+  res.sendStatus(200);
 }

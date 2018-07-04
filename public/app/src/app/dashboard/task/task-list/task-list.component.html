@@ -3,15 +3,26 @@
   <mdl-icon class="text-gray align-middle">drag_handle</mdl-icon>
   <mdl-checkbox class="inline-block"
                 [mdl-ripple]="true"
-                (click)="deleteTask(task.id)">
+                (click)="completeTask(task.id)">
     <span class="align-middle">{{ task.description }}</span>
   </mdl-checkbox>
 
   <tms-task-menu></tms-task-menu>
 </li>
 
-<div id="add-task"
+<li *ngIf="isNewTask">
+  <tms-task-form  [errorMessage]="errorMessage"
+                  (add)="addTask($event.description)"
+                  (cancel)="isNewTask = false"></tms-task-form>
+</li>
+
+<li *ngIf="!isNewTask">  
+  <div id="add-task"
      class="text-red-pink cursor-pointer">
-  <mdl-icon class="align-middle">add</mdl-icon>
-  <span class="align-middle">Add Task</span>
-</div>
+    <span (click)="isNewTask = true">
+      <mdl-icon class="align-middle">add</mdl-icon>
+      <span class="align-middle">Add Task</span>
+    </span>
+  </div>
+</li>
+

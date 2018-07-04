@@ -1,7 +1,7 @@
 <div id="input-wrapper">
   <mdl-textfield  type="text"
                   label="Project Name"
-                  id="project-textfield"
+                  id="form-textfield"
                   [(ngModel)]="projectName"
                   (click)="$event.stopPropagation()"></mdl-textfield>
 
@@ -11,15 +11,10 @@
     <button mdl-button
             class="cursor-pointer"
             (click)="save.emit({name: projectName})">
-      <span>
-        SAVE
-      </span>
+      <span>SAVE</span>
     </button>
 
     <span class="cursor-pointer"
-          (click)="cancel.emit()">
-
-      Cancel
-    </span>
+          (click)="cancel.emit()">CANCEL</span>
   </div>
 </div>

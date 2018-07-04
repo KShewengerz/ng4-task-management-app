@@ -49,7 +49,7 @@ export async function putErrorHandler(condition: any, res: Response,): Promise<v
  *
  * @returns {Promise<void>}
  */
-export async function deleteErrorHandler(condition: any, res: Response): Promise<void> {
+export async function completeTaskErrorHandler(condition: any, res: Response): Promise<void> {
   const errorHandler = new ErrorHandler();
   
   if (!condition.isRecordExists) errorHandler.computedFieldNames.push({ task: ErrorType.NotFound });

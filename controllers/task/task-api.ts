@@ -25,8 +25,9 @@ export async function addTask(req: any, res: Response): Promise<void> {
   const body   = snakeCase(req.body);
   
   body.id = uuid();
-  body.status_id = "11e1c71d-475b-4f2f-a14e-20c76e45aef6";  //By default Open Task.
-  body.schedule_date = moment().format("MM/DD/YYYY");       //By default current date.
+  body.project_id    = "a51527b4-ef26-4dc3-aafb-eb9358f51b69";  //By default Personal Project 
+  body.status_id     = "11e1c71d-475b-4f2f-a14e-20c76e45aef6";  //By default Open Task.
+  body.schedule_date = moment().format("MM/DD/YYYY");           //By default current date.
   
   const condition = await taskValidation.getDescriptionValidation(userId, body.description);
   
@@ -80,8 +81,8 @@ export async function getTasksByProjectId(req: any, res: Response): Promise<void
 
 
 /**
- * @api {delete} /:id
- * @description Adds new task.
+ * @api {put} /:id
+ * @description Mark task as complete.
  *
  * @apiParam {Uuid} id
  *
@@ -90,13 +91,13 @@ export async function getTasksByProjectId(req: any, res: Response): Promise<void
  *
  * @returns {Promise<void>}
  */
-export async function deleteTask(req: Request, res: Response): Promise<void> {
+export async function completeTask(req: Request, res: Response): Promise<void> {
   const id = req.params.id;
   
   const condition = await taskValidation.checkIfTaskExists(id);
   
-  await taskErrorHandler.deleteErrorHandler(condition, res);
+  await taskErrorHandler.completeTaskErrorHandler(condition, res);
   
-  if (res.statusCode !== 404) await taskQuery.deleteTaskQuery(id, res);
+  if (res.statusCode !== 404) await taskQuery.completeTaskQuery(id, res);
 }
 

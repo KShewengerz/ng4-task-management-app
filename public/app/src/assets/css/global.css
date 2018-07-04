@@ -147,10 +147,10 @@ form p { margin-bottom: 0; }
 
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover { background-color: unset !important; }
 
-#project-textfield .mdl-textfield__label,
-#project-textfield input { font-size: 13px; }
+#form-textfield .mdl-textfield__label,
+#form-textfield input { font-size: 13px; }
 
-#project-textfield input { padding-bottom: 5px; }
+#form-textfield input { padding-bottom: 5px; }
 
   /* Disabled Button */
 button[disabled] {

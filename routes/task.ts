@@ -33,12 +33,12 @@ router.get("/:projectId", api.getTasksByProjectId);
 
 
 /**
- * @api {delete} /:id
+ * @api {put} /:id
  * @apiParam {Uuid} id
  *
  * @description Deletes a task.
  */
-router.delete("/:id", api.deleteTask);
+router.put("/complete/:id", api.completeTask);
 
 
 /**
