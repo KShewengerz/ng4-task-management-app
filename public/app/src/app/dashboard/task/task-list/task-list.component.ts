@@ -40,8 +40,10 @@ export class TaskListComponent implements OnInit {
   }
 
   deleteTask(id: string): void {
-    const taskIndex: number = this.tasks.findIndex(task => task.id === id);
-    this.tasks.splice(taskIndex, 1);
+    setTimeout(() => {
+      const taskIndex: number = this.tasks.findIndex(task => task.id === id);
+      this.tasks.splice(taskIndex, 1);
+    }, 400);
   }
 
 }

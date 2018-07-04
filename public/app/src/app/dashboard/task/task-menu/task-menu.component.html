@@ -1,0 +1,55 @@
+<div class="actions inline-block right cursor-pointer">
+    <button mdl-button
+            #actionBtn="mdlButton"
+            (click)="menu.toggle($event, actionBtn)"
+            mdl-button-type="icon"
+            mdl-ripple>
+      <mdl-icon class="text-gray">more_horiz</mdl-icon>
+    </button>
+
+    <mdl-menu #menu="mdlMenu"
+              mdl-menu-position="bottom-right"
+              (click)="$event.stopPropagation()">
+
+      <span class="title">Schedule</span>
+
+      <ul class="schedule-menu">
+        <li>
+          <mdl-icon>insert_invitation</mdl-icon>
+        </li>
+
+        <li>
+          <mdl-icon>update</mdl-icon>
+        </li>
+
+        <li>
+          <mdl-icon>event_note</mdl-icon>
+        </li>
+      </ul>
+
+      <span class="title">Projects</span>
+
+      <ul class="project-menu">
+        <li class="search">
+          <input type="text" placeholder="Search"/>
+        </li>
+
+        <li class="cursor-pointer">
+          <mdl-icon class="red">fiber_manual_record</mdl-icon>
+          <span>Personal</span>
+        </li>
+
+        <li class="cursor-pointer">
+          <mdl-icon class="green">fiber_manual_record</mdl-icon>
+          <span>Work</span>
+        </li>
+
+        <p class="text-gray">
+          <mdl-icon class="align-middle">add</mdl-icon>
+          <span>See More</span>
+        </p>
+
+      </ul>
+
+    </mdl-menu>
+  </div>

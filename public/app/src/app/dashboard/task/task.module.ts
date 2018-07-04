@@ -10,6 +10,7 @@ import { SectionsModule } from "../sections/sections.module";
 
 import { TaskComponent } from "./task.component";
 import { TaskListComponent } from "./task-list/task-list.component";
+import { TaskMenuComponent } from "./task-menu/task-menu.component";
 
 import { TaskService } from "./task.service";
 
@@ -29,10 +30,12 @@ import { TaskRouting } from "./task-routing.module";
   ],
   declarations: [
     TaskComponent,
-    TaskListComponent
+    TaskListComponent,
+    TaskMenuComponent
   ],
   providers: [
     TaskService
-  ]
+  ],
+  entryComponents: [ TaskMenuComponent ]
 })
 export class TaskModule { }
