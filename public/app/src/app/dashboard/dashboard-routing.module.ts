@@ -1,9 +1,7 @@
 import { RouterModule, Routes } from "@angular/router";
 
 import { DashboardComponent } from "./dashboard.component";
-import { ProfileComponent } from "./profile/profile.component";
 
-import { UserListResolver } from "../shared/user/user-resolver.service";
 import { ProjectListResolver } from "../shared/project/project-resolver.service";
 
 

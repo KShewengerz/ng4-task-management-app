@@ -14,6 +14,7 @@ import { TaskMenuComponent } from "./task-menu/task-menu.component";
 import { TaskFormComponent } from "./task-form/task-form.component";
 
 import { TaskService } from "./task.service";
+import { TaskListResolver } from "./task-resolver.service";
 
 import { TaskRouting } from "./task-routing.module";
 
@@ -36,7 +37,8 @@ import { TaskRouting } from "./task-routing.module";
     TaskFormComponent
   ],
   providers: [
-    TaskService
+    TaskService,
+    TaskListResolver
   ],
   entryComponents: [ 
     TaskMenuComponent,

@@ -6,8 +6,11 @@
     [dragula]='"bag-projects"'
     [dragulaModel]='projects'>
   <li *ngFor="let project of projects"
-      [ngClass]="{'transparent-hover': isEditProject[project.id], 'active': isSelected[project.id] }"
-      (click)="selectProject(project.id)"
+      class="cursor-pointer"
+      [routerLink]="['/dashboard/task/', project.id]"
+      routerLinkActive="active" 
+      [routerLinkActiveOptions]="{ exact: true }"
+      [ngClass]="{'transparent-hover': isEditProject[project.id]}"
       (mouseenter)="isHovered[project.id] = true"
       (mouseleave)="isHovered[project.id] = false">
 

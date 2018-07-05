@@ -22,7 +22,6 @@ export class ProjectComponent implements OnInit {
   isNewProject: boolean = false;
   isEditProject: any = {};
   isHovered: any = {};
-  isSelected: any = {};
   
   errorMessage: string;
   
@@ -47,13 +46,6 @@ export class ProjectComponent implements OnInit {
       
       this.projectService.updateProjectsOrdinal(projects).subscribe(response => {});
     });
-  }
-
-  selectProject(id: string): void {
-    this.isSelected = {};
-    this.isSelected[id] = true;
-
-    this.projectService.projectSelection.next(id);
   }
   
   async sortProjects(): Promise<Project[]> {

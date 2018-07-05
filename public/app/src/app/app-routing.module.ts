@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: "", loadChildren: "./landing/landing.module#LandingModule", canActivate: [ AuthGuardService ] },
   { path: "dashboard", loadChildren: "./dashboard/dashboard.module#DashboardModule", canActivate: [ AuthGuardService ] },
   { path: "404", component: PageNotFoundComponent },
-  { path: "**", redirectTo: "404" }
+  // { path: "**", redirectTo: "404" }
   
 ];
 

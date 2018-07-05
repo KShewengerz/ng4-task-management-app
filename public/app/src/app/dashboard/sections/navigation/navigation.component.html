@@ -5,22 +5,28 @@
   </p>
 
   <ul id="tasks">
-    <li [ngClass]="{'active': isSelected[taskSchedule.Today]}"
-        (click)="selectProject(taskSchedule.Today)">
+    <li class="cursor-pointer"
+        [routerLink]="['/dashboard/task/', taskSchedule.Today]"
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{ exact: true }">
       <a class="mdl-navigation__link">
         <mdl-icon>insert_invitation</mdl-icon> Today
       </a>
     </li>
 
-    <li [ngClass]="{'active': isSelected[taskSchedule.Tomorrow]}"
-        (click)="selectProject(taskSchedule.Tomorrow)">
+    <li class="cursor-pointer"
+        [routerLink]="['/dashboard/task/', taskSchedule.Tomorrow]"
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{ exact: true }">
       <a class="mdl-navigation__link">
         <mdl-icon>update</mdl-icon> Tomorrow
       </a>
     </li>
 
-    <li [ngClass]="{'active': isSelected[taskSchedule.NextWeek]}"
-        (click)="selectProject(taskSchedule.NextWeek)">
+    <li class="cursor-pointer"
+        [routerLink]="['/dashboard/task/', taskSchedule.NextWeek]"
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{ exact: true }">
       <a class="mdl-navigation__link">
         <mdl-icon>event_note</mdl-icon> Next Week
       </a>

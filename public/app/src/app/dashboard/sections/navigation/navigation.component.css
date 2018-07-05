@@ -13,10 +13,9 @@ ul a { padding: 8px 25px !important; }
 
 ul > li:last-child { margin-bottom: 12px; }
 
-li:hover:not(#new-project):not(.transparent-hover) {
-  background-color: #dcdde26e !important;
-  cursor: pointer;
-}
+li:hover:not(#new-project):not(.transparent-hover):not(.active) { background-color: #dcdde22e !important; }
+
+li.transparent-hover { background: transparent !important; }
 
 li:hover > a { font-weight: bold !important; }
 

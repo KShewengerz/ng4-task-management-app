@@ -3,13 +3,20 @@ import { RouterModule, Routes } from "@angular/router";
 import { TaskComponent } from "./task.component";
 import { TaskListComponent } from "./task-list/task-list.component";
 
+import { TaskListResolver } from "./task-resolver.service";
+
 
 const routes: Routes = [
   { 
     path: "", 
     component: TaskComponent,
     children: [
-      { path: "", component: TaskListComponent }
+      { path: "", pathMatch: "full", redirectTo: "0" },
+      { 
+        path: ":id", 
+        component: TaskListComponent,
+        resolve: { tasks: TaskListResolver }
+      }
     ]
   }
 ];
