@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
               private route: ActivatedRoute) {}
   
   ngOnInit() {
-    const session = localStorage.getItem("user");
+    const session = sessionStorage.getItem("user");
     
     this.user  = JSON.parse(session);
     this.users = this.route.snapshot.data.users.filter(user => user.id != this.user.id);

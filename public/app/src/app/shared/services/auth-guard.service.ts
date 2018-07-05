@@ -8,7 +8,7 @@ export class AuthGuardService implements CanActivate {
   constructor(public router: Router) {}
   
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const isUserSessionExists = localStorage.getItem("user");
+    const isUserSessionExists = sessionStorage.getItem("user");
     const isDashboardPrefixUrl = state.url.split("/")[1] === "dashboard";
     
     if ((isUserSessionExists && state.url === "/login") || isUserSessionExists && state.url === "/signup") {

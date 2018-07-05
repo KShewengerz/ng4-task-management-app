@@ -26,7 +26,7 @@ export class UserResolver implements Resolve<User> {
   constructor(private userService: UserService) {}
   
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    const session = localStorage.getItem("user");
+    const session = sessionStorage.getItem("user");
     const id = JSON.parse(session).id;
     
     return this.userService.fetchUser(id);

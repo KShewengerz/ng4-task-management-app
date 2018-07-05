@@ -45,7 +45,7 @@ export class BasicInfoComponent implements OnInit {
               private errorHandlerService: ErrorHandlerService) {}
   
   ngOnInit() {
-    const userSession = localStorage.getItem("user");
+    const userSession = sessionStorage.getItem("user");
     
     this.user = JSON.parse(userSession);
     
@@ -98,8 +98,8 @@ export class BasicInfoComponent implements OnInit {
   
         this.isSuccessful = true;
   
-        localStorage.removeItem("user");
-        localStorage.setItem("user", transformUser);
+        sessionStorage.removeItem("user");
+        sessionStorage.setItem("user", transformUser);
       });
   }
   

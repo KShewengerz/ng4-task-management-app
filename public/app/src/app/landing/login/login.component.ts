@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   setAndStoreUser(response: User): void {
     const user = JSON.stringify(response);
   
-    localStorage.setItem("user", user);
+    sessionStorage.setItem("user", user);
     this.router.navigate(["/dashboard"]);
   }
 

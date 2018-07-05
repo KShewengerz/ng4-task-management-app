@@ -15,7 +15,7 @@ export class PageNotFoundComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    const session = localStorage.getItem("user");
+    const session = sessionStorage.getItem("user");
     
     this.buttonLabel = session ? "Dashboard" : "Login";
     this.buttonUrl = session ? "/dashboard/task" : "/login";

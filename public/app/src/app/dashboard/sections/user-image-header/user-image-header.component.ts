@@ -17,7 +17,7 @@ export class UserImageHeaderComponent {
   }
   
   logOut(): void {
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
     
     this.userImageHeaderService
     .logOut()
