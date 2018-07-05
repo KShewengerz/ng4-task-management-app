@@ -23,9 +23,9 @@ export class TaskService {
       .map(response => response.json());
   }
   
-  updateTask(body: any): Observable<any> {
+  updateTask(id: string, description: string): Observable<any> {
     return this.http
-      .put(this.url, body)
+      .put(`${this.url}/${id}`, { description })
       .map(response => response);
   }
   

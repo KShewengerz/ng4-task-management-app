@@ -19,8 +19,10 @@ export class TaskListComponent implements OnInit {
 
   tasks: Task[] = [];
   projectId: string;
-  isNewTask: boolean = false;
   errorMessage: string;
+
+  isNewTask: boolean  = false;
+  isEditMode: any     = {};
   
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -52,6 +54,26 @@ export class TaskListComponent implements OnInit {
         },
         err => this.extractErrorMessage(err)
       )
+  }
+
+  edit(id: string): void {
+    this.isEditMode[id] = true;
+    this.isNewTask = false;
+  }
+
+  updateTask(id: string, description: string): void {
+    if (description) {
+      this.taskService.updateTask(id, description)
+        .subscribe(
+          response => {
+            this.tasks.map(task => task.id === id ? task.description = description : task);
+
+            this.isEditMode[id] = false;
+            this.errorMessage = "";
+          },
+          err => this.extractErrorMessage(err));
+    }
+    
   }
 
   completeTask(id: string): void {

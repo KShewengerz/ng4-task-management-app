@@ -1,25 +1,34 @@
 <li *ngFor="let task of tasks"
     class="task">
-  <mdl-icon class="text-gray align-middle">drag_handle</mdl-icon>
-  <mdl-checkbox class="inline-block"
-                [mdl-ripple]="true"
-                (click)="completeTask(task.id)">
-    <span class="align-middle">{{ task.description }}</span>
-  </mdl-checkbox>
+  <div *ngIf="!isEditMode[task.id]">  
+    <mdl-icon class="text-gray align-middle">drag_handle</mdl-icon>
+    <mdl-checkbox class="inline-block"
+                  [mdl-ripple]="true"
+                  (click)="completeTask(task.id)"></mdl-checkbox>
 
-  <tms-task-menu></tms-task-menu>
+    <span class="align-middle"
+          (click)="edit(task.id)">{{ task.description }}</span>              
+
+    <tms-task-menu></tms-task-menu>
+  </div>
+
+  <tms-task-form  *ngIf="isEditMode[task.id]"
+                  [task]="task.description"
+                  [errorMessage]="errorMessage"
+                  (save)="updateTask(task.id, $event.description)"
+                  (cancel)="isEditMode[task.id] = false"></tms-task-form>
 </li>
 
 <li *ngIf="isNewTask">
   <tms-task-form  [errorMessage]="errorMessage"
-                  (add)="addTask($event.description)"
+                  (save)="addTask($event.description)"
                   (cancel)="isNewTask = false"></tms-task-form>
 </li>
 
 <li *ngIf="!isNewTask">  
   <div id="add-task"
      class="text-red-pink cursor-pointer">
-    <span (click)="isNewTask = true">
+    <span (click)="isNewTask = true && isEditMode = {}">
       <mdl-icon class="align-middle">add</mdl-icon>
       <span class="align-middle">Add Task</span>
     </span>

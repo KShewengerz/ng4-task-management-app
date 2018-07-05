@@ -10,9 +10,9 @@ import { Component, Input, Output, EventEmitter } from "@angular/core";
 export class TaskFormComponent {
 
   @Input() errorMessage: string;
-  @Input() projectName: string;
+  @Input() task: string;
   @Output() cancel = new EventEmitter();
-  @Output() add    = new EventEmitter();
+  @Output() save    = new EventEmitter();
 
   constructor() {}
 

@@ -8,11 +8,11 @@
   padding-bottom: 10px;
 }
 
-.task > .material-icons { display: none; }
+.task .material-icons { display: none; }
 
-.task:hover { cursor: pointer; }
+.task:hover, .task .align-middle { cursor: text; }
 
-.task:hover > .material-icons {
+.task:hover .material-icons {
   display: inline;
   font-size: 18px;
   position: absolute;
