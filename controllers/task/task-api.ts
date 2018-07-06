@@ -95,14 +95,14 @@ export async function updateTasksOrdinal(req: Request, res: Response): Promise<v
  * @api {get} /:projectId
  * @apiParam {any} projectId
  * 
- * @description Gets all user tasks.
+ * @description Gets all open tasks.
  *
  * @param {Request} request
  * @param {Response} response
  *
  * @returns {Promise<void>}
  */
-export async function getTasksByProjectId(req: any, res: Response): Promise<void> {
+export async function getOpenTasksByProjectId(req: any, res: Response): Promise<void> {
   const projectId = req.params.projectId;
   const userId    = await getSessionUserId(req.sessionID); 
   const tasks     = await taskQuery.getUserTasks(userId, projectId);

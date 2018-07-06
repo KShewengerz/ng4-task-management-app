@@ -34,9 +34,9 @@ router.put("/:id", api.updateTask);
  * @api {get} /:projectId
  * @apiParam {any} projectId
  * 
- * @description Gets all user tasks.
+ * @description Gets all open tasks.
  */
-router.get("/:projectId", api.getTasksByProjectId);
+router.get("/open/:projectId", api.getOpenTasksByProjectId);
 
 
 /**

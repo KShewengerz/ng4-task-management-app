@@ -16,7 +16,7 @@ export class TaskListResolver implements Resolve<Task[]> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any[]> {
 		const projectId = route.params.id;  
 		
-    return this.taskService.fetchAllTasksByProjectId(projectId);
+    return this.taskService.fetchAllOpenTasksByProjectId(projectId);
   }
   
 }
