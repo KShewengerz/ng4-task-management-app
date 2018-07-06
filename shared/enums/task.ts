@@ -5,7 +5,8 @@ export enum Task {
   ProjectId     = "project_id",
   StatusId      = "status_id",
   Description   = "description",
-  ScheduleDate  = "schedule_date"
+  ScheduleDate  = "schedule_date",
+  Ordinal       = "ordinal"
 }
 
 export enum TaskSchedule {

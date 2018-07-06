@@ -139,3 +139,27 @@ export async function completeTaskQuery(id: string, res: Response): Promise<void
   
   res.sendStatus(200);
 }
+
+
+/**
+ * @description Update All Tasks Ordinal MySQL Query
+ *
+ * @param {Project} projects
+ * @param {Response} res
+ *
+ * @returns {Promise<void>}
+ */
+export async function updateTasksOrdinal(tasks: Task[], res: Response): Promise<void> {
+  await db.transaction(async trx => {
+    await tasks.forEach(async task => {
+      await db(TaskEnum.Table)
+      .where(TaskEnum.Id, task.id)
+      .update(task)
+      .transacting(trx)
+      .catch(err => err);
+    });
+  })
+  .catch(err => err);
+  
+  res.sendStatus(200);
+}

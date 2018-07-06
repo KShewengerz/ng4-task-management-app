@@ -8,6 +8,30 @@ const db = dbConnection.default;
 
 
 /**
+ * @description Get Next User Task Ordinal Number by Project
+ *
+ * @param {String} userId
+ *
+ * @returns {Promise<number>}
+ */
+export async function getNextUserTaskOrdinal(userId: string, projectId: string): Promise<number> {
+  const fetchNextOrdinal = await db(UserTask.Table)
+  .max({ max: Task.Ordinal })
+  .innerJoin(Task.Table, Task.Id, UserTask.TaskId)
+  .where(UserTask.UserId, userId)
+  .andWhere(Task.ProjectId, projectId)
+  .then(response => {
+    const max = response[0].max;
+    
+    return max + 1;
+  })
+  .catch(err => err);
+  
+  return fetchNextOrdinal;
+}
+
+
+/**
  * @description Description Validation - checking if description already exists within user's tasks;
  *
  * @param {String} description

@@ -4,4 +4,5 @@ export interface Task {
   statusId: string;
   description: string;
   scheduleDate: Date;
+  ordinal: number;
 }

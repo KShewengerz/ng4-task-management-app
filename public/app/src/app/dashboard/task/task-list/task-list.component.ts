@@ -32,38 +32,48 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit(): void {
     const snapshot = this.route.snapshot;
-    this.tasks     = snapshot.data.tasks;
+    const tasks    = snapshot.data.tasks;
     this.projectId = snapshot.params.id; 
     
+    this.sortTaskByOrdinal(tasks);
     this.loadTasksFromRouterChange();
   }
 
   loadTasksFromRouterChange(): void {
     this.router.events
     .filter(event => event instanceof NavigationEnd)
-    .subscribe((event: NavigationEnd) => this.tasks = this.route.snapshot.data.tasks);
+    .subscribe((event: NavigationEnd) => {
+      this.projectId = this.route.snapshot.params.id;
+      this.sortTaskByOrdinal(this.route.snapshot.data.tasks);
+    });
+  }
+
+  sortTaskByOrdinal(tasks: Task[]): void {
+    this.tasks = tasks.sort((a, b) => a.ordinal - b.ordinal);
   }
 
   onUpdateListDrop(): void {
     this.dragula
     .drop
     .subscribe(async value => {
-      const projects = await this.sortTasks();
+      const tasks = await this.sortTasks();
       
-      //this.taskService.updateProjectsOrdinal(projects).subscribe(response => {});
+      this.taskService.updateTasksOrdinal(tasks).subscribe(response => {});
     });
   }
 
   async sortTasks(): Promise<Task[]> {
     return await this.tasks.map((task, index) => {
-      //project.ordinal = index + 1;
+      task.ordinal = index + 1;
       return task;
     });
   }
 
   addTask(description: string): void {
+    const projectId = this.projectId;
+
     this.taskService
-      .saveNewTask({description})
+      .saveNewTask({projectId, description})
       .subscribe(
         response => {
           this.tasks.push(response);

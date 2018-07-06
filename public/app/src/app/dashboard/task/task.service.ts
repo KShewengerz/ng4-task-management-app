@@ -23,6 +23,12 @@ export class TaskService {
       .map(response => response.json());
   }
   
+  updateTasksOrdinal(body: Task[]): Observable<any> {
+    return this.http
+      .put(this.url, body)
+      .map(response => response);
+  }
+
   updateTask(id: string, description: string): Observable<any> {
     return this.http
       .put(`${this.url}/${id}`, { description })

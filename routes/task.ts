@@ -15,6 +15,13 @@ router.post("/", api.addTask);
 
 
 /**
+ * @api {put} /project
+ * @description Update Projects Ordinal
+ */
+router.put("/", api.updateTasksOrdinal);
+
+
+/**
  * @api {put} /:id
  * @apiParam {Uuid} id
  *

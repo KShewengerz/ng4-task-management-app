@@ -21,14 +21,16 @@ const snakeCase = require("snakecase-keys");
  * @returns {Promise<void>}
  */
 export async function addTask(req: any, res: Response): Promise<void> {
-  const userId = await getSessionUserId(req.sessionID);;
-  const body   = snakeCase(req.body);
+  const userId         = await getSessionUserId(req.sessionID);;
+  const body           = snakeCase(req.body);
+  const defaultProject = "a51527b4-ef26-4dc3-aafb-eb9358f51b69"; //By default Personal Project
   
-  body.id = uuid();
-  body.project_id    = "a51527b4-ef26-4dc3-aafb-eb9358f51b69";  //By default Personal Project 
+  body.id             = uuid();
+  body.project_id    = body.project_id.length == 1 ?  defaultProject : body.project_id;
   body.status_id     = "11e1c71d-475b-4f2f-a14e-20c76e45aef6";  //By default Open Task.
   body.schedule_date = moment().format("MM/DD/YYYY");           //By default current date.
-  
+  body.ordinal       = await taskValidation.getNextUserTaskOrdinal(userId, body.project_id);
+
   const condition = await taskValidation.getDescriptionValidation(userId, body.description);
   
   await taskErrorHandler.postErrorHandler(condition, res);
@@ -56,6 +58,20 @@ export async function updateTask(req: any, res: Response): Promise<void> {
   await taskErrorHandler.putErrorHandler(condition, res);
 
   if (res.statusCode !== 400) await taskQuery.updateTaskQuery(id, body, res);
+}
+
+
+/**
+ * @apiUrl {put} /
+ * @description Update Tasks Ordinal Sequence
+ *
+ * @param {Request} req
+ * @param {Response} res
+ *
+ * @returns {Promise<void>}
+ */
+export async function updateTasksOrdinal(req: Request, res: Response): Promise<void> {
+  await taskQuery.updateTasksOrdinal(req.body, res);
 }
 
 
