@@ -1,7 +1,11 @@
 <li *ngFor="let task of tasks"
     class="task">
   <div *ngIf="!isEditMode[task.id]">  
-    <mdl-icon class="text-gray align-middle">drag_handle</mdl-icon>
+
+    <span id="drag-handle">
+      <mdl-icon class="text-gray align-middle">drag_handle</mdl-icon>
+    </span>
+
     <mdl-checkbox class="inline-block"
                   [mdl-ripple]="true"
                   (click)="completeTask(task.id)"></mdl-checkbox>

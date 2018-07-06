@@ -6,6 +6,8 @@ import { MdlModule } from "@angular-mdl/core";
 import { MdlPopoverModule } from "@angular-mdl/popover";
 import { MdlSelectModule } from "@angular-mdl/select";
 
+import { DragulaModule } from "ng2-dragula/ng2-dragula";
+
 import { SectionsModule } from "../sections/sections.module";
 
 import { TaskComponent } from "./task.component";
@@ -27,6 +29,7 @@ import { TaskRouting } from "./task-routing.module";
     MdlModule,
     MdlPopoverModule,
     MdlSelectModule,
+    DragulaModule,
     SectionsModule,
     TaskRouting
   ],

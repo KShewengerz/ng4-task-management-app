@@ -8,17 +8,20 @@
   padding-bottom: 10px;
 }
 
-.task .material-icons { display: none; }
-
-.task:hover, .task .align-middle { cursor: text; }
-
-.task:hover .material-icons {
-  display: inline;
+#drag-handle > .material-icons {
+  color: white;
   font-size: 18px;
   position: absolute;
   left: -30px;
   top: 5px;
+ }
+
+#drag-handle:hover .material-icons, .task:hover .material-icons { 
+  color: gray !important; 
+  cursor: pointer;
 }
+
+.task:hover, .task .align-middle { cursor: text; }
 
 /* Add Task */
 #add-task {

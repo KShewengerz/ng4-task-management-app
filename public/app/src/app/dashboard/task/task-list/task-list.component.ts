@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from "@angular/router";
 
-import { Observable } from "rxjs/Observable";
+import { DragulaService } from "ng2-dragula/ng2-dragula";
+
 import "rxjs/add/operator/filter";
 
 import { TaskService } from "../task.service";
@@ -22,10 +23,11 @@ export class TaskListComponent implements OnInit {
   errorMessage: string;
 
   isNewTask: boolean  = false;
-  isEditMode: any     = {};
+  isEditMode: any     = {}; 
   
   constructor(private router: Router,
               private route: ActivatedRoute,
+              private dragula: DragulaService,
               private taskService: TaskService) {}
 
   ngOnInit(): void {
@@ -40,6 +42,23 @@ export class TaskListComponent implements OnInit {
     this.router.events
     .filter(event => event instanceof NavigationEnd)
     .subscribe((event: NavigationEnd) => this.tasks = this.route.snapshot.data.tasks);
+  }
+
+  onUpdateListDrop(): void {
+    this.dragula
+    .drop
+    .subscribe(async value => {
+      const projects = await this.sortTasks();
+      
+      //this.taskService.updateProjectsOrdinal(projects).subscribe(response => {});
+    });
+  }
+
+  async sortTasks(): Promise<Task[]> {
+    return await this.tasks.map((task, index) => {
+      //project.ordinal = index + 1;
+      return task;
+    });
   }
 
   addTask(description: string): void {
