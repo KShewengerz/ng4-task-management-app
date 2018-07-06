@@ -25,10 +25,10 @@ export async function addTask(req: any, res: Response): Promise<void> {
   const body           = snakeCase(req.body);
   const defaultProject = "a51527b4-ef26-4dc3-aafb-eb9358f51b69"; //By default Personal Project
   
-  body.id             = uuid();
+  body.id            = uuid();
+  body.schedule_date = setTaskScheduleDate(body.project_id);  
   body.project_id    = body.project_id.length == 1 ?  defaultProject : body.project_id;
   body.status_id     = "11e1c71d-475b-4f2f-a14e-20c76e45aef6";  //By default Open Task.
-  body.schedule_date = moment().format("MM/DD/YYYY");           //By default current date.
   body.ordinal       = await taskValidation.getNextUserTaskOrdinal(userId, body.project_id);
 
   const condition = await taskValidation.getDescriptionValidation(userId, body.description);
@@ -36,6 +36,22 @@ export async function addTask(req: any, res: Response): Promise<void> {
   await taskErrorHandler.postErrorHandler(condition, res);
   
   if (res.statusCode !== 400) taskQuery.addTaskQuery(userId, body, res);
+}
+
+function setTaskScheduleDate(projectId: string): string {
+  const projectIdLength = projectId.length;
+  const dateFormat      = "MM/DD/YYYY"
+  const today           = moment().format(dateFormat);  
+  const tomorrow        = moment().add("days", 1).format(dateFormat); 
+  const nextWeek        = moment().add(1, 'weeks').startOf("isoWeek").subtract(1, "days").format(dateFormat);
+
+  let scheduleDate: string;
+
+  if ((projectIdLength == 1 && projectId === "0") || projectIdLength > 1) scheduleDate = today;
+  else if (projectId === "1") scheduleDate = tomorrow;
+  else if (projectId === "2") scheduleDate = nextWeek;
+
+  return scheduleDate;
 }
 
 
@@ -89,10 +105,10 @@ export async function updateTasksOrdinal(req: Request, res: Response): Promise<v
 export async function getTasksByProjectId(req: any, res: Response): Promise<void> {
   const projectId = req.params.projectId;
   const userId    = await getSessionUserId(req.sessionID); 
-
   const tasks     = await taskQuery.getUserTasks(userId, projectId);
-  
-  res.json(<Task[]>tasks);
+  const result    = tasks.filter(task => task.statusId === "11e1c71d-475b-4f2f-a14e-20c76e45aef6");
+
+  res.json(<Task[]>result);
 }
 
 

@@ -95,7 +95,7 @@ export async function getUserTasks(userId: string, projectId: any): Promise<Task
   }
   
   const result = camelCase(fetchTasks);
-  
+
   return result;
 }
 
