@@ -35,6 +35,7 @@ export class TaskListComponent implements OnInit {
     const tasks    = snapshot.data.tasks;
     this.projectId = snapshot.params.id; 
     
+    this.onUpdateListDrop();
     this.sortTaskByOrdinal(tasks);
     this.loadTasksFromRouterChange();
   }
@@ -57,7 +58,6 @@ export class TaskListComponent implements OnInit {
     .drop
     .subscribe(async value => {
       const tasks = await this.sortTasks();
-      
       this.taskService.updateTasksOrdinal(tasks).subscribe(response => {});
     });
   }

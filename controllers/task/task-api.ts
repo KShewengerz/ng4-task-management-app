@@ -87,7 +87,8 @@ export async function updateTask(req: any, res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function updateTasksOrdinal(req: Request, res: Response): Promise<void> {
-  await taskQuery.updateTasksOrdinal(req.body, res);
+  const body = snakeCase(req.body);
+  await taskQuery.updateTasksOrdinal(body, res);
 }
 
 

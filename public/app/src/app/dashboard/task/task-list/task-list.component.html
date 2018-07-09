@@ -1,41 +1,44 @@
-<li *ngFor="let task of tasks"
-    class="task">
-  <div *ngIf="!isEditMode[task.id]">  
+<ul [dragula]='"bag-tasks"'
+    [dragulaModel]='tasks'>
+  <li *ngFor="let task of tasks"
+      class="task">
+    <div *ngIf="!isEditMode[task.id]">  
 
-    <span id="drag-handle">
-      <mdl-icon class="text-gray align-middle">drag_handle</mdl-icon>
-    </span>
+      <span id="drag-handle">
+        <mdl-icon class="text-gray align-middle">drag_handle</mdl-icon>
+      </span>
 
-    <mdl-checkbox class="inline-block"
-                  [mdl-ripple]="true"
-                  (click)="completeTask(task.id)"></mdl-checkbox>
+      <mdl-checkbox class="inline-block"
+                    [mdl-ripple]="true"
+                    (click)="completeTask(task.id)"></mdl-checkbox>
 
-    <span class="align-middle"
-          (click)="edit(task.id)">{{ task.description }}</span>              
+      <span class="align-middle"
+            (click)="edit(task.id)">{{ task.description }}</span>              
 
-    <tms-task-menu></tms-task-menu>
-  </div>
+      <tms-task-menu></tms-task-menu>
+    </div>
 
-  <tms-task-form  *ngIf="isEditMode[task.id]"
-                  [task]="task.description"
-                  [errorMessage]="errorMessage"
-                  (save)="updateTask(task.id, $event.description)"
-                  (cancel)="isEditMode[task.id] = false"></tms-task-form>
-</li>
+    <tms-task-form  *ngIf="isEditMode[task.id]"
+                    [task]="task.description"
+                    [errorMessage]="errorMessage"
+                    (save)="updateTask(task.id, $event.description)"
+                    (cancel)="isEditMode[task.id] = false"></tms-task-form>
+  </li>
 
-<li *ngIf="isNewTask">
-  <tms-task-form  [errorMessage]="errorMessage"
-                  (save)="addTask($event.description)"
-                  (cancel)="isNewTask = false"></tms-task-form>
-</li>
+  <li *ngIf="isNewTask">
+    <tms-task-form  [errorMessage]="errorMessage"
+                    (save)="addTask($event.description)"
+                    (cancel)="isNewTask = false"></tms-task-form>
+  </li>
 
-<li *ngIf="!isNewTask">  
-  <div id="add-task"
-     class="text-red-pink cursor-pointer">
-    <span (click)="isNewTask = true && isEditMode = {}">
-      <mdl-icon class="align-middle">add</mdl-icon>
-      <span class="align-middle">Add Task</span>
-    </span>
-  </div>
-</li>
+  <li *ngIf="!isNewTask">  
+    <div id="add-task"
+      class="text-red-pink cursor-pointer">
+      <span (click)="isNewTask = true && isEditMode = {}">
+        <mdl-icon class="align-middle">add</mdl-icon>
+        <span class="align-middle">Add Task</span>
+      </span>
+    </div>
+  </li>
+</ul>
 
