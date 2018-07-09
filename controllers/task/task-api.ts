@@ -5,6 +5,7 @@ import * as uuid from "uuid/v4";
 import * as moment from "moment";
 
 import { Task } from "../../shared/interfaces/-index";
+import { TaskSchedule } from "../../shared/enums/-index";
 import { taskQuery, taskValidation, taskErrorHandler } from "./-index";
 import { getSessionUserId } from "../session";
 
@@ -23,11 +24,10 @@ const snakeCase = require("snakecase-keys");
 export async function addTask(req: any, res: Response): Promise<void> {
   const userId         = await getSessionUserId(req.sessionID);;
   const body           = snakeCase(req.body);
-  const defaultProject = "a51527b4-ef26-4dc3-aafb-eb9358f51b69"; //By default Personal Project
   
   body.id            = uuid();
   body.schedule_date = setTaskScheduleDate(body.project_id);  
-  body.project_id    = body.project_id.length == 1 ?  defaultProject : body.project_id;
+  body.project_id    = body.project_id.length == 1 ?  null : body.project_id;
   body.status_id     = "11e1c71d-475b-4f2f-a14e-20c76e45aef6";  //By default Open Task.
   body.ordinal       = await taskValidation.getNextUserTaskOrdinal(userId, body.project_id);
 
@@ -39,7 +39,6 @@ export async function addTask(req: any, res: Response): Promise<void> {
 }
 
 function setTaskScheduleDate(projectId: string): string {
-  const projectIdLength = projectId.length;
   const dateFormat      = "MM/DD/YYYY"
   const today           = moment().format(dateFormat);  
   const tomorrow        = moment().add("days", 1).format(dateFormat); 
@@ -47,9 +46,10 @@ function setTaskScheduleDate(projectId: string): string {
 
   let scheduleDate: string;
 
-  if ((projectIdLength == 1 && projectId === "0") || projectIdLength > 1) scheduleDate = today;
-  else if (projectId === "1") scheduleDate = tomorrow;
-  else if (projectId === "2") scheduleDate = nextWeek;
+  if (projectId === TaskSchedule.Today) scheduleDate = today;
+  else if (projectId === TaskSchedule.Tomorrow) scheduleDate = tomorrow;
+  else if (projectId === TaskSchedule.NextWeek) scheduleDate = nextWeek;
+  else scheduleDate = null;
 
   return scheduleDate;
 }
