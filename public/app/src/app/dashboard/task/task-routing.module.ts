@@ -7,8 +7,9 @@ import { TaskListResolver } from "./task-resolver.service";
 
 
 const routes: Routes = [
+  { path: "", pathMatch: "full", redirectTo: "open" },
   { 
-    path: "", 
+    path: ":status", 
     component: TaskComponent,
     children: [
       { path: "", pathMatch: "full", redirectTo: "0" },

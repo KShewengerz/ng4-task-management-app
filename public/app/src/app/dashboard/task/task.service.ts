@@ -35,9 +35,9 @@ export class TaskService {
       .map(response => response);
   }
   
-  fetchAllOpenTasksByProjectId(id: string): Observable<Task[]> {
+  fetchAllTasksByProjectStatusId(id: string, status: string): Observable<Task[]> {
     return this.http
-      .get(`${this.url}/open/${id}`)
+      .get(`${this.url}/${status}/${id}`)
       .map(response => response.json())
       .catch(err => Observable.throw(err));
   }

@@ -16,12 +16,14 @@ hr {
   cursor: pointer;
   font-size: 14px;
   padding-bottom: 5px;
+  outline: none;
 }
 
 #main-menu li.active {
   font-weight: bold;
   color: #ff5252;
   border-bottom: 2px solid;
+  outline: none;
 }
 
 #main-menu > li:first-child { padding-left: 0; }

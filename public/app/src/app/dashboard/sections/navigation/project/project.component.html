@@ -7,7 +7,7 @@
     [dragulaModel]='projects'>
   <li *ngFor="let project of projects"
       class="cursor-pointer"
-      [routerLink]="['/dashboard/task/', project.id]"
+      [routerLink]="['/dashboard/task/open/', project.id]"
       routerLinkActive="active" 
       [routerLinkActiveOptions]="{ exact: true }"
       [ngClass]="{'transparent-hover': isEditProject[project.id]}"

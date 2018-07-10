@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { Router, NavigationEnd } from "@angular/router";
 
 import { ContentHeaderComponent } from "../sections/content-header/content-header.component";
 import { TaskListComponent } from "./task-list/task-list.component";
@@ -14,8 +15,22 @@ import { TaskListComponent } from "./task-list/task-list.component";
     TaskListComponent
   ]
 })
-export class TaskComponent {
+export class TaskComponent implements OnInit {
 
-  constructor() {}
+  projectId: string;
+
+  constructor(private router: Router) {}       
+
+  ngOnInit(): void {
+    this.projectId = this.router.url.split("/").pop();
+
+    this.checkRouterChange();
+  }
+
+  checkRouterChange(): void {
+    this.router.events
+    .filter(event => event instanceof NavigationEnd)
+    .subscribe((event: NavigationEnd) => this.projectId = this.router.url.split("/").pop());
+  }
 
 }

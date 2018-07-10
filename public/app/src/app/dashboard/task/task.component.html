@@ -4,9 +4,17 @@
 <div class="dashboard-content-container mdl-cell mdl-cell--8-col mdl-cell--2-offset">
 
   <ul id="main-menu">
-    <li class="active">Open</li>
-    <li>Completed</li>
-    <li>Overdue</li>
+    <li [routerLink]="['../open/', projectId]"
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{ exact: true, __change_detection_hack__: projectId }">Open</li>
+
+    <li [routerLink]="['../completed/', projectId]"
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{ exact: true }">Completed</li>
+
+    <li [routerLink]="['../overdue/', projectId]"
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{ exact: true }">Overdue</li>
   </ul>
 
   <hr/>

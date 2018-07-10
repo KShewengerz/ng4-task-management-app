@@ -34,7 +34,7 @@ export class TaskListComponent implements OnInit {
     const snapshot = this.route.snapshot;
     const tasks    = snapshot.data.tasks;
     this.projectId = snapshot.params.id; 
-    
+
     this.onUpdateListDrop();
     this.sortTaskByOrdinal(tasks);
     this.loadTasksFromRouterChange();
