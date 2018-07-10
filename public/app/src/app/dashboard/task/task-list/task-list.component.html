@@ -4,7 +4,8 @@
       class="task">
     <div *ngIf="!isEditMode[task.id]">  
 
-      <span id="drag-handle">
+      <span id="drag-handle"
+            *ngIf="status != 'completed'">
         <mdl-icon class="text-gray align-middle">drag_handle</mdl-icon>
       </span>
 
@@ -15,7 +16,7 @@
       <span class="align-middle"
             (click)="edit(task.id)">{{ task.description }}</span>              
 
-      <tms-task-menu></tms-task-menu>
+      <tms-task-menu *ngIf="status != 'completed'"></tms-task-menu>
     </div>
 
     <tms-task-form  *ngIf="isEditMode[task.id]"
@@ -31,7 +32,7 @@
                     (cancel)="isNewTask = false"></tms-task-form>
   </li>
 
-  <li *ngIf="!isNewTask">  
+  <li *ngIf="!isNewTask && status === 'open'">  
     <div id="add-task"
       class="text-red-pink cursor-pointer">
       <span (click)="isNewTask = true && isEditMode = {}">

@@ -21,6 +21,7 @@ export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
   projectId: string;
   errorMessage: string;
+  status: string;
 
   isNewTask: boolean  = false;
   isEditMode: any     = {}; 
@@ -34,6 +35,7 @@ export class TaskListComponent implements OnInit {
     const snapshot = this.route.snapshot;
     const tasks    = snapshot.data.tasks;
     this.projectId = snapshot.params.id; 
+    this.status    = snapshot.params.status;
 
     this.onUpdateListDrop();
     this.sortTaskByOrdinal(tasks);
@@ -44,7 +46,12 @@ export class TaskListComponent implements OnInit {
     this.router.events
     .filter(event => event instanceof NavigationEnd)
     .subscribe((event: NavigationEnd) => {
-      this.projectId = this.route.snapshot.params.id;
+      const params = this.route.snapshot.params;
+      
+      this.projectId = params.id;
+      this.status    = params.status;
+      this.isNewTask = false;
+
       this.sortTaskByOrdinal(this.route.snapshot.data.tasks);
     });
   }
