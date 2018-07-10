@@ -7,14 +7,13 @@ import { TaskListResolver } from "./task-resolver.service";
 
 
 const routes: Routes = [
-  { path: "", pathMatch: "full", redirectTo: "open" },
   { 
-    path: ":status", 
+    path: "", 
     component: TaskComponent,
     children: [
-      { path: "", pathMatch: "full", redirectTo: "0" },
+      { path: "", pathMatch: "full", redirectTo: "open/0" },
       { 
-        path: ":id", 
+        path: ":status/:id", 
         component: TaskListComponent,
         resolve: { tasks: TaskListResolver }
       }
