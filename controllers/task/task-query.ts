@@ -134,7 +134,7 @@ function getUserTaskSecondaryCondition (projectId: any, dateFormat: string): any
 export async function completeTaskQuery(id: string, res: Response): Promise<void> {
   await db(TaskEnum.Table)
   .where({ id })
-  .update({ [TaskEnum.StatusId]: "f1d24aa9-c0ec-46c2-ab11-1413e943cfad" })
+  .update({ [TaskEnum.StatusId]: 2 })
   .catch(err => err);
   
   res.sendStatus(200);

@@ -28,7 +28,7 @@ export async function addTask(req: any, res: Response): Promise<void> {
   body.id            = uuid();
   body.schedule_date = setTaskScheduleDate(body.project_id);  
   body.project_id    = body.project_id.length == 1 ?  null : body.project_id;
-  body.status_id     = "11e1c71d-475b-4f2f-a14e-20c76e45aef6";  //By default Open Task.
+  body.status_id     = 0;  //By default Open Task.
   body.ordinal       = await taskValidation.getNextUserTaskOrdinal(userId, body.project_id);
 
   const condition = await taskValidation.getDescriptionValidation(userId, body.description);
@@ -107,7 +107,7 @@ export async function getOpenTasksByProjectId(req: any, res: Response): Promise<
   const projectId = req.params.projectId;
   const userId    = await getSessionUserId(req.sessionID); 
   const tasks     = await taskQuery.getUserTasks(userId, projectId);
-  const result    = tasks.filter(task => task.statusId === "11e1c71d-475b-4f2f-a14e-20c76e45aef6");
+  const result    = tasks.filter(task => task.statusId === 0);
 
   res.json(<Task[]>result);
 }
