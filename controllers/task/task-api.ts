@@ -103,11 +103,13 @@ export async function updateTasksOrdinal(req: Request, res: Response): Promise<v
  *
  * @returns {Promise<void>}
  */
-export async function getOpenTasksByProjectId(req: any, res: Response): Promise<void> {
+export async function getTasks(req: any, res: Response): Promise<void> {
   const projectId = req.params.projectId;
+  const status    = req.params.status;
+  const statusId  = status === "open" ? 0 : status === "completed" ? 1 : 2;
   const userId    = await getSessionUserId(req.sessionID); 
   const tasks     = await taskQuery.getUserTasks(userId, projectId);
-  const result    = tasks.filter(task => task.statusId === 0);
+  const result    = tasks.filter(task => task.statusId == statusId);
 
   res.json(<Task[]>result);
 }

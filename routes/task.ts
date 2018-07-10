@@ -31,19 +31,21 @@ router.put("/:id", api.updateTask);
 
 
 /**
- * @api {get} /:projectId
- * @apiParam {any} projectId
+ * @api {get} /:status/:projectId
+ *
+ * @apiParam {String} status
+ * @apiParam {Any} projectId
  * 
  * @description Gets all open tasks.
  */
-router.get("/open/:projectId", api.getOpenTasksByProjectId);
+router.get("/:status/:projectId", api.getTasks);
 
 
 /**
  * @api {put} /:id
  * @apiParam {Uuid} id
  *
- * @description Deletes a task.
+ * @description Mark a task completed.
  */
 router.put("/complete/:id", api.completeTask);
 
