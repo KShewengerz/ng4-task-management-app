@@ -12,7 +12,8 @@
         routerLinkActive="active" 
         [routerLinkActiveOptions]="{ exact: true }">Completed</li>
 
-    <li [routerLink]="['overdue/', projectId]"
+    <li *ngIf="projectId == 0"
+        [routerLink]="['overdue/', projectId]"
         routerLinkActive="active" 
         [routerLinkActiveOptions]="{ exact: true }">Overdue</li>
   </ul>

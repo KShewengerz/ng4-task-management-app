@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router, NavigationEnd } from "@angular/router";
+import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 
 import { ContentHeaderComponent } from "../sections/content-header/content-header.component";
 import { TaskListComponent } from "./task-list/task-list.component";
@@ -19,10 +19,12 @@ export class TaskComponent implements OnInit {
 
   projectId: string;
 
-  constructor(private router: Router) {}       
+  constructor(private router: Router,
+              private route: ActivatedRoute) {}       
 
   ngOnInit(): void {
-    this.projectId = this.router.url.split("/").pop();
+    const url      = this.router.url.split("/");
+    this.projectId = url.pop();
 
     this.checkRouterChange();
   }
