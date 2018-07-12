@@ -7,6 +7,8 @@ p {
   font-weight: bold;
 }
 
+li:focus { outline: none; }
+
 li > a { color: #2d3545 !important; }
 
 ul a { padding: 8px 25px !important; }
