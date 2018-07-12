@@ -8,6 +8,11 @@
   padding-bottom: 10px;
 }
 
+.task-completed { 
+  text-decoration: line-through;
+  color: gray;
+}
+
 #drag-handle > .material-icons {
   color: white;
   font-size: 18px;

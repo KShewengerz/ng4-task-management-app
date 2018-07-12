@@ -9,11 +9,13 @@
         <mdl-icon class="text-gray align-middle">drag_handle</mdl-icon>
       </span>
 
-      <mdl-checkbox class="inline-block"
+      <mdl-checkbox *ngIf="status != 'completed'"
+                    class="inline-block"
                     [mdl-ripple]="true"
                     (click)="completeTask(task.id)"></mdl-checkbox>
 
       <span class="align-middle"
+            [ngClass]="{'task-completed': status === 'completed'}"
             (click)="edit(task.id)">{{ task.description }}</span>              
 
       <tms-task-menu *ngIf="status != 'completed'"></tms-task-menu>
