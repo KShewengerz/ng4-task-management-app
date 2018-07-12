@@ -8,7 +8,8 @@ import { Task } from "../../shared/interfaces/-index";
 
 const camelCase = require("camelcase-keys");
 
-const db = dbConnection.default;
+const db         = dbConnection.default;
+const dateFormat = "MM/DD/YYYY";
 
 
 /**
@@ -70,21 +71,34 @@ export async function updateTaskQuery(id, body, res): Promise<void> {
 export async function getUserTasks(userId: string, projectId: any, statusId: number): Promise<Task[]> {
   const taskTableId         = `${TaskEnum.Table}.${TaskEnum.Id}`;
   const userTaskTableTaskId = `${UserTask.Table}.${UserTask.TaskId}`;
-  const dateFormat          = "MM/DD/YYYY";
+  const now                 = moment().format(dateFormat);
   const startOfNextWeek     = moment().add(1, 'weeks').startOf("isoWeek").subtract(1, "days").format(dateFormat);
   const endOfNextWeek       = moment().add(1, 'weeks').endOf("isoWeek").subtract(1, "days").format(dateFormat);
 
   let fetchTasks: any;
 
-  if (statusId === 2) {
+  if (projectId < 3 && statusId === 1) {
+    fetchTasks = await db(TaskEnum.Table)
+    .select(`${TaskEnum.Table}.*`)
+    .innerJoin(UserTask.Table, taskTableId, userTaskTableTaskId)
+    .where({
+      [UserTask.UserId]      : userId,
+      [TaskEnum.StatusId]    : 1,
+      [TaskEnum.CompletedOn] : now
+    })
+    .catch(err => err);
+  }
+  else if (statusId == 2) {
     const id = projectId == 0 ? null : projectId;
 
     fetchTasks = await db(TaskEnum.Table)
     .select(`${TaskEnum.Table}.*`)
     .innerJoin(UserTask.Table, taskTableId, userTaskTableTaskId)
-    .where(UserTask.UserId, userId)
-    .andWhere(TaskEnum.ProjectId, id)
-    .andWhere(TaskEnum.StatusId, 0)
+    .where({
+      [UserTask.UserId]    : userId,
+      [TaskEnum.ProjectId] : id,
+      [TaskEnum.StatusId]  : 0
+    })
     .catch(err => err);
   }
   else if (projectId === TaskSchedule.NextWeek) {
@@ -96,7 +110,7 @@ export async function getUserTasks(userId: string, projectId: any, statusId: num
     .catch(err => err);
   } 
   else {
-    const secondaryCondition  = getUserTaskSecondaryCondition(projectId, dateFormat);
+    const secondaryCondition  = getUserTaskSecondaryCondition(projectId);
 
     fetchTasks = await db(TaskEnum.Table)
     .select(`${TaskEnum.Table}.*`)
@@ -120,7 +134,7 @@ export async function getUserTasks(userId: string, projectId: any, statusId: num
  * 
  * @returns {Any}
  */
-function getUserTaskSecondaryCondition (projectId: any, dateFormat: string): any {
+function getUserTaskSecondaryCondition (projectId: any): any {
   const now      = moment().format(dateFormat);
   const tomorrow = moment().add("days", 1).format(dateFormat);
 
@@ -145,9 +159,14 @@ function getUserTaskSecondaryCondition (projectId: any, dateFormat: string): any
  * @returns {Promise<void>}
  */
 export async function completeTaskQuery(id: string, res: Response): Promise<void> {
+  const now = moment().format(dateFormat);
+
   await db(TaskEnum.Table)
   .where({ id })
-  .update({ [TaskEnum.StatusId]: 1 })
+  .update({ 
+    [TaskEnum.StatusId]: 1,
+    [TaskEnum.CompletedOn]: now
+  })
   .catch(err => err);
   
   res.sendStatus(200);
