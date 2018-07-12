@@ -67,7 +67,7 @@ export async function updateTaskQuery(id, body, res): Promise<void> {
  *
  * @returns {Promise<Task[]>}
  */
-export async function getUserTasks(userId: string, projectId: any): Promise<Task[]> {
+export async function getUserTasks(userId: string, projectId: any, statusId: number): Promise<Task[]> {
   const taskTableId         = `${TaskEnum.Table}.${TaskEnum.Id}`;
   const userTaskTableTaskId = `${UserTask.Table}.${UserTask.TaskId}`;
   const dateFormat          = "MM/DD/YYYY";
@@ -76,27 +76,40 @@ export async function getUserTasks(userId: string, projectId: any): Promise<Task
 
   let fetchTasks: any;
 
-  if (projectId === TaskSchedule.NextWeek) {
+  if (statusId === 2) {
+    const id = projectId == 0 ? null : projectId;
+
     fetchTasks = await db(TaskEnum.Table)
     .select(`${TaskEnum.Table}.*`)
     .innerJoin(UserTask.Table, taskTableId, userTaskTableTaskId)
-    .where({ [UserTask.UserId]: userId })
+    .where(UserTask.UserId, userId)
+    .andWhere(TaskEnum.ProjectId, id)
+    .andWhere(TaskEnum.StatusId, 0)
+    .catch(err => err);
+  }
+  else if (projectId === TaskSchedule.NextWeek) {
+    fetchTasks = await db(TaskEnum.Table)
+    .select(`${TaskEnum.Table}.*`)
+    .innerJoin(UserTask.Table, taskTableId, userTaskTableTaskId)
+    .where(UserTask.UserId, userId)
     .andWhereBetween(TaskEnum.ScheduleDate, [startOfNextWeek, endOfNextWeek])
     .catch(err => err);
-  } else {
+  } 
+  else {
     const secondaryCondition  = getUserTaskSecondaryCondition(projectId, dateFormat);
 
     fetchTasks = await db(TaskEnum.Table)
     .select(`${TaskEnum.Table}.*`)
     .innerJoin(UserTask.Table, taskTableId, userTaskTableTaskId)
-    .where({ [UserTask.UserId]: userId })
+    .where(UserTask.UserId, userId)
     .andWhere(secondaryCondition)
     .catch(err => err);
   }
   
   const result = camelCase(fetchTasks);
+  const tasks  = statusId != 2 ? result.filter(task => task.statusId == statusId) : result;
 
-  return result;
+  return tasks;
 }
 
 

@@ -108,10 +108,9 @@ export async function getTasks(req: any, res: Response): Promise<void> {
   const status    = req.params.status;
   const statusId  = status === "open" ? 0 : status === "completed" ? 1 : 2;
   const userId    = await getSessionUserId(req.sessionID); 
-  const tasks     = await taskQuery.getUserTasks(userId, projectId);
-  const result    = tasks.filter(task => task.statusId == statusId);
+  const tasks     = await taskQuery.getUserTasks(userId, projectId, statusId);
 
-  res.json(<Task[]>result);
+  res.json(<Task[]>tasks);
 }
 
 
