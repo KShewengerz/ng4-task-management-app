@@ -1,13 +1,13 @@
 import * as Knex from "knex";
 
-import { TaskStatus as TaskStatusEnum } from "../shared/enums/-index";
+import { TaskStatusFields } from "../shared/enums/-index";
 import { TaskStatus } from "../shared/interfaces/-index";
 
 
 export async function up(knex: Knex) {
-  return await knex.schema.createTable(TaskStatusEnum.Table, table => {
-    table.integer(TaskStatusEnum.Id).primary();
-    table.string(TaskStatusEnum.Name, 20).notNullable();
+  return await knex.schema.createTable(TaskStatusFields.Table, table => {
+    table.integer(TaskStatusFields.Id).primary();
+    table.string(TaskStatusFields.Name, 20).notNullable();
   })
   .then(async () => {
     const statuses: TaskStatus[] = [
@@ -16,10 +16,10 @@ export async function up(knex: Knex) {
       { id: 2, name: "Overdue" }
     ];
   
-    return await knex(TaskStatusEnum.Table).insert(statuses);
+    return await knex(TaskStatusFields.Table).insert(statuses);
   });
 }
 
 export async function down(knex: Knex) {
-  return await knex.schema.dropTable(TaskStatusEnum.Table);
+  return await knex.schema.dropTable(TaskStatusFields.Table);
 }

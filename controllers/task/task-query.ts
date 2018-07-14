@@ -3,7 +3,7 @@ import * as moment from "moment";
 
 import * as dbConnection from "../../config/db";
 
-import { UserTask, Task as TaskEnum, TaskSchedule } from "../../shared/enums/-index";
+import { UserTaskFields, TaskFields, TaskSchedule } from "../../shared/enums/-index";
 import { Task } from "../../shared/interfaces/-index";
 
 const camelCase = require("camelcase-keys");
@@ -20,22 +20,22 @@ const db = dbConnection.default;
  * @returns {Promise<void>}
  */
 export async function addTaskQuery(userId: string, body: Task, res: Response): Promise<void> {
-  const insertUserTaskData = {
-    [UserTask.UserId]: userId,
-    [UserTask.TaskId]: body.id
+  const insertUserTaskFieldsData = {
+    [UserTaskFields.UserId]: userId,
+    [UserTaskFields.TaskId]: body.id
   };
   
-  const insertTaskInfo = db(TaskEnum.Table)
+  const insertTaskInfo = db(TaskFields.Table)
   .insert(body)
   .catch(err => err);
   
-  const insertUserTask = db(UserTask.Table)
-  .insert(insertUserTaskData)
+  const insertUserTaskFields = db(UserTaskFields.Table)
+  .insert(insertUserTaskFieldsData)
   .catch(err => err);
   
   await Promise.all([
     insertTaskInfo,
-    insertUserTask
+    insertUserTaskFields
   ])
   .catch(err => err);
   
@@ -53,7 +53,7 @@ export async function addTaskQuery(userId: string, body: Task, res: Response): P
  * @returns {Promise<void>}
  */
 export async function updateTaskQuery(id, body, res): Promise<void> {
-  await db(TaskEnum.Table)
+  await db(TaskFields.Table)
   .where({ id })
   .update(body)
   .catch(err => err);
@@ -68,8 +68,8 @@ export async function updateTaskQuery(id, body, res): Promise<void> {
  * @returns {Promise<Task[]>}
  */
 export async function getUserTasks(userId: string, projectId: any, statusId: number): Promise<Task[]> {
-  const taskTableId         = `${TaskEnum.Table}.${TaskEnum.Id}`;
-  const userTaskTableTaskId = `${UserTask.Table}.${UserTask.TaskId}`;
+  const taskTableId         = `${TaskFields.Table}.${TaskFields.Id}`;
+  const UserTaskFieldsTableTaskId = `${UserTaskFields.Table}.${UserTaskFields.TaskId}`;
   const dateFormat          = "MM/DD/YYYY";
   const startOfNextWeek     = moment().add(1, 'weeks').startOf("isoWeek").subtract(1, "days").format(dateFormat);
   const endOfNextWeek       = moment().add(1, 'weeks').endOf("isoWeek").subtract(1, "days").format(dateFormat);
@@ -79,29 +79,29 @@ export async function getUserTasks(userId: string, projectId: any, statusId: num
   if (statusId === 2) {
     const id = projectId == 0 ? null : projectId;
 
-    fetchTasks = await db(TaskEnum.Table)
-    .select(`${TaskEnum.Table}.*`)
-    .innerJoin(UserTask.Table, taskTableId, userTaskTableTaskId)
-    .where(UserTask.UserId, userId)
-    .andWhere(TaskEnum.ProjectId, id)
-    .andWhere(TaskEnum.StatusId, 0)
+    fetchTasks = await db(TaskFields.Table)
+    .select(`${TaskFields.Table}.*`)
+    .innerJoin(UserTaskFields.Table, taskTableId, UserTaskFieldsTableTaskId)
+    .where(UserTaskFields.UserId, userId)
+    .andWhere(TaskFields.ProjectId, id)
+    .andWhere(TaskFields.StatusId, 0)
     .catch(err => err);
   }
   else if (projectId === TaskSchedule.NextWeek) {
-    fetchTasks = await db(TaskEnum.Table)
-    .select(`${TaskEnum.Table}.*`)
-    .innerJoin(UserTask.Table, taskTableId, userTaskTableTaskId)
-    .where(UserTask.UserId, userId)
-    .andWhereBetween(TaskEnum.ScheduleDate, [startOfNextWeek, endOfNextWeek])
+    fetchTasks = await db(TaskFields.Table)
+    .select(`${TaskFields.Table}.*`)
+    .innerJoin(UserTaskFields.Table, taskTableId, UserTaskFieldsTableTaskId)
+    .where(UserTaskFields.UserId, userId)
+    .andWhereBetween(TaskFields.ScheduleDate, [startOfNextWeek, endOfNextWeek])
     .catch(err => err);
   } 
   else {
     const secondaryCondition  = getUserTaskSecondaryCondition(projectId, dateFormat);
 
-    fetchTasks = await db(TaskEnum.Table)
-    .select(`${TaskEnum.Table}.*`)
-    .innerJoin(UserTask.Table, taskTableId, userTaskTableTaskId)
-    .where(UserTask.UserId, userId)
+    fetchTasks = await db(TaskFields.Table)
+    .select(`${TaskFields.Table}.*`)
+    .innerJoin(UserTaskFields.Table, taskTableId, UserTaskFieldsTableTaskId)
+    .where(UserTaskFields.UserId, userId)
     .andWhere(secondaryCondition)
     .catch(err => err);
   }
@@ -127,10 +127,10 @@ function getUserTaskSecondaryCondition (projectId: any, dateFormat: string): any
   let secondaryCondition: any = {};
 
   if (projectId.length == 1) {
-    if (projectId === TaskSchedule.Today) secondaryCondition = { [TaskEnum.ScheduleDate]: now };
-    else if (projectId === TaskSchedule.Tomorrow) secondaryCondition = { [TaskEnum.ScheduleDate]: tomorrow };
+    if (projectId === TaskSchedule.Today) secondaryCondition = { [TaskFields.ScheduleDate]: now };
+    else if (projectId === TaskSchedule.Tomorrow) secondaryCondition = { [TaskFields.ScheduleDate]: tomorrow };
   }
-  else secondaryCondition = { [TaskEnum.ProjectId]: projectId };
+  else secondaryCondition = { [TaskFields.ProjectId]: projectId };
 
   return secondaryCondition;
 }
@@ -145,9 +145,9 @@ function getUserTaskSecondaryCondition (projectId: any, dateFormat: string): any
  * @returns {Promise<void>}
  */
 export async function completeTaskQuery(id: string, res: Response): Promise<void> {
-  await db(TaskEnum.Table)
+  await db(TaskFields.Table)
   .where({ id })
-  .update({ [TaskEnum.StatusId]: 1 })
+  .update({ [TaskFields.StatusId]: 1 })
   .catch(err => err);
   
   res.sendStatus(200);
@@ -165,8 +165,8 @@ export async function completeTaskQuery(id: string, res: Response): Promise<void
 export async function updateTasksOrdinal(tasks: Task[], res: Response): Promise<void> {
   await db.transaction(async trx => {
     await tasks.forEach(async task => {
-      await db(TaskEnum.Table)
-      .where(TaskEnum.Id, task.id)
+      await db(TaskFields.Table)
+      .where(TaskFields.Id, task.id)
       .update(task)
       .transacting(trx)
       .catch(err => err);

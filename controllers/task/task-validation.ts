@@ -2,7 +2,7 @@
 
 import * as dbConnection from "../../config/db";
 
-import { Task, UserTask } from "../../shared/enums/-index";
+import { TaskFields, UserTaskFields } from "../../shared/enums/-index";
 
 const db = dbConnection.default;
 
@@ -15,11 +15,11 @@ const db = dbConnection.default;
  * @returns {Promise<number>}
  */
 export async function getNextUserTaskOrdinal(userId: string, projectId: string): Promise<number> {
-  const fetchNextOrdinal = await db(UserTask.Table)
-  .max({ max: Task.Ordinal })
-  .innerJoin(Task.Table, Task.Id, UserTask.TaskId)
-  .where(UserTask.UserId, userId)
-  .andWhere(Task.ProjectId, projectId)
+  const fetchNextOrdinal = await db(UserTaskFields.Table)
+  .max({ max: TaskFields.Ordinal })
+  .innerJoin(TaskFields.Table, TaskFields.Id, UserTaskFields.TaskId)
+  .where(UserTaskFields.UserId, userId)
+  .andWhere(TaskFields.ProjectId, projectId)
   .then(response => {
     const max = response[0].max;
     
@@ -39,10 +39,10 @@ export async function getNextUserTaskOrdinal(userId: string, projectId: string):
  * @returns {any[]}
  */
 export async function getDescriptionValidation(userId: string, description: string): Promise<any> {
-  const isDescriptionExists = await db(Task.Table)
-  .count({ id: Task.Id })
-  .leftJoin(UserTask.Table, Task.Id, UserTask.TaskId)
-  .whereRaw(`description = '${description}' AND ${UserTask.UserId} = '${userId}'`)
+  const isDescriptionExists = await db(TaskFields.Table)
+  .count({ id: TaskFields.Id })
+  .leftJoin(UserTaskFields.Table, TaskFields.Id, UserTaskFields.TaskId)
+  .whereRaw(`description = '${description}' AND ${UserTaskFields.UserId} = '${userId}'`)
   .then(response => response[0].id)
   .catch(err => err);
   
@@ -58,8 +58,8 @@ export async function getDescriptionValidation(userId: string, description: stri
  * @returns {Promise<number>}
  */
 export async function checkIfTaskExists(id: string): Promise<any> {
-  const isRecordExists = await db(Task.Table)
-  .count({ id: Task.Id })
+  const isRecordExists = await db(TaskFields.Table)
+  .count({ id: TaskFields.Id })
   .where({ id })
   .then(response => response[0].id)
   .catch(err => err);

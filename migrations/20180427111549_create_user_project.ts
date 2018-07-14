@@ -1,25 +1,25 @@
 import * as Knex from "knex";
 
-import { User, Project, UserProject } from "../shared/enums/-index";
+import { UserFields, ProjectFields, UserProjectFields } from "../shared/enums/-index";
 
 
 export async function up(knex: Knex) {
-  return await knex.schema.createTable(UserProject.Table, table => {
-    table.uuid(UserProject.UserId).notNullable();
-    table.uuid(UserProject.ProjectId).notNullable();
+  return await knex.schema.createTable(UserProjectFields.Table, table => {
+    table.uuid(UserProjectFields.UserId).notNullable();
+    table.uuid(UserProjectFields.ProjectId).notNullable();
     
-    table.foreign(UserProject.UserId)
-    .references(`${User.Table}.${User.Id}`)
+    table.foreign(UserProjectFields.UserId)
+    .references(`${UserFields.Table}.${UserFields.Id}`)
     .onUpdate("CASCADE")
     .onDelete("CASCADE");
     
-    table.foreign(UserProject.ProjectId)
-    .references(`${Project.Table}.${Project.Id}`)
+    table.foreign(UserProjectFields.ProjectId)
+    .references(`${ProjectFields.Table}.${ProjectFields.Id}`)
     .onUpdate("CASCADE")
     .onDelete("CASCADE");
   });
 }
 
 export async function down(knex: Knex) {
-  return await knex.schema.dropTable(UserProject.Table);
+  return await knex.schema.dropTable(UserProjectFields.Table);
 }

@@ -3,7 +3,7 @@ import * as bcrypt from "bcrypt";
 
 import * as dbConnection from "../../config/db";
 
-import { User as UserEnum } from "../../shared/enums/-index";
+import { UserFields } from "../../shared/enums/-index";
 import { User } from "../../shared/interfaces/-index";
 
 const camelCase = require("camelcase-keys");
@@ -20,7 +20,7 @@ const db = dbConnection.default;
  * @returns {Promise<void>}
  */
 export async function addNewUserQuery(body: User, res: Response): Promise<void> {
-  await db(UserEnum.Table)
+  await db(UserFields.Table)
   .insert(body)
   .catch(err => err);
   
@@ -37,7 +37,7 @@ export async function addNewUserQuery(body: User, res: Response): Promise<void> 
  * @returns {Promise<void>}
  */
 export async function updateUserQuery(id: string, body: User, res: Response): Promise<void> {
-  await db(UserEnum.Table)
+  await db(UserFields.Table)
   .where({ id })
   .update(body)
   .catch(err => err);
@@ -54,7 +54,7 @@ export async function updateUserQuery(id: string, body: User, res: Response): Pr
  * @returns {Promise<void>}
  */
 export async function getAllUserQuery(res: Response): Promise<void> {
-  const fetchUser = await db(UserEnum.Table).select();
+  const fetchUser = await db(UserFields.Table).select();
   const result = camelCase(fetchUser);
   
   res.json(<User[]>result);
@@ -70,7 +70,7 @@ export async function getAllUserQuery(res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function getUserQuery(id: string, res: Response): Promise<void> {
-  const fetchUser = await db(UserEnum.Table).where({ id });
+  const fetchUser = await db(UserFields.Table).where({ id });
   const result = camelCase(fetchUser);
   
   res.json(<User>result);
@@ -86,7 +86,7 @@ export async function getUserQuery(id: string, res: Response): Promise<void> {
  * @returns {Promise<void>}
  */
 export async function deleteUserQuery(id: string, res: Response): Promise<void> {
-  await db(UserEnum.Table)
+  await db(UserFields.Table)
   .where({ id })
   .del()
   .catch(err => err);
@@ -103,7 +103,7 @@ export async function deleteUserQuery(id: string, res: Response): Promise<void> 
  * @returns {Promise<string>}
  */
 export async function getUserHashedPassword(id: string, password: string, res: Response): Promise<any> {
-  const userDbPassword = await db(UserEnum.Table).select("password").where({ id });
+  const userDbPassword = await db(UserFields.Table).select("password").where({ id });
   const hashedPassword = userDbPassword[0].password;
   const isPasswordIdenticalToServer = bcrypt.compareSync(password, hashedPassword);
   
@@ -114,7 +114,7 @@ export async function getUserHashedPassword(id: string, password: string, res: R
 export async function changeUserPassword(body: User, res: Response): Promise<any> {
   body.password = await bcrypt.hashSync(body.password, bcrypt.genSaltSync(8));
   
-  await db(UserEnum.Table)
+  await db(UserFields.Table)
   .where({ id: body.id })
   .update(body)
   .catch(err => err);

@@ -1,22 +1,22 @@
 import * as Knex from "knex";
 
-import { User, UserSession } from "../shared/enums/-index";
+import { UserFields, UserSessionFields } from "../shared/enums/-index";
 
 
 export async function up(knex: Knex) {
-  return await knex.schema.createTable(UserSession.Table, table => {
-    table.increments(UserSession.Id);
-    table.specificType(UserSession.SessionId, "char(40)").notNullable();
-    table.uuid(UserSession.UserId).notNullable();
-    table.boolean(UserSession.isLoggedOut).defaultTo(false);
+  return await knex.schema.createTable(UserSessionFields.Table, table => {
+    table.increments(UserSessionFields.Id);
+    table.specificType(UserSessionFields.SessionId, "char(40)").notNullable();
+    table.uuid(UserSessionFields.UserId).notNullable();
+    table.boolean(UserSessionFields.isLoggedOut).defaultTo(false);
     
-    table.foreign(UserSession.UserId)
-    .references(`${User.Table}.${User.Id}`)
+    table.foreign(UserSessionFields.UserId)
+    .references(`${UserFields.Table}.${UserFields.Id}`)
     .onUpdate("CASCADE")
     .onDelete("CASCADE");
   });
 }
 
 export async function down(knex: Knex) {
-  return await knex.schema.dropTable(UserSession.Table);
+  return await knex.schema.dropTable(UserSessionFields.Table);
 }

@@ -3,7 +3,7 @@
 import { Request, Response } from "express";
 import * as uuid from "uuid/v4";
 
-import { Project as ProjectEnum } from "../../shared/enums/-index";
+import { ProjectFields } from "../../shared/enums/-index";
 import { Project } from "../../shared/interfaces/-index";
 import { projectQuery, projectValidation, projectErrorHandler } from "./-index";
 import { getSessionUserId } from "../session";
@@ -108,7 +108,7 @@ export async function getProjectById(req: any, res: Response): Promise<void> {
   const userId = await getSessionUserId(req.sessionID);
   const id     = req.params.id;
   
-  const condition = await projectValidation.getBodyValidation(userId, ProjectEnum.Id, id);
+  const condition = await projectValidation.getBodyValidation(userId, ProjectFields.Id, id);
   
   await projectErrorHandler.getAndDeleteErrorHandler(condition, res);
   
@@ -133,7 +133,7 @@ export async function deleteProject(req: any, res: Response): Promise<void> {
   const userId = await getSessionUserId(req.sessionID);
   const id     = req.params.id;
   
-  const condition = await projectValidation.getBodyValidation(userId, ProjectEnum.Id, id);
+  const condition = await projectValidation.getBodyValidation(userId, ProjectFields.Id, id);
   
   await projectErrorHandler.getAndDeleteErrorHandler(condition, res);
   

@@ -1,5 +1,5 @@
 import * as dbConnection from "../config/db";
-import { UserSession } from "../shared/enums/-index";
+import { UserSessionFields } from "../shared/enums/-index";
 
 const db = dbConnection.default;
 const snakeCase = require("snakecase-keys");
@@ -16,15 +16,15 @@ const snakeCase = require("snakecase-keys");
 export async function saveSession(session: any): Promise<void> {
   const body = snakeCase(session);
   
-  await db(UserSession.Table)
+  await db(UserSessionFields.Table)
   .insert(body)
   .catch(err => err);
 }
 
 export async function getLastActiveSession(): Promise<string> {
-  const lastUserActiveSession = await db(UserSession.Table)
-  .max({ [UserSession.Id]: UserSession.Id })
-  .where({ [UserSession.isLoggedOut]: false })
+  const lastUserActiveSession = await db(UserSessionFields.Table)
+  .max({ [UserSessionFields.Id]: UserSessionFields.Id })
+  .where({ [UserSessionFields.isLoggedOut]: false })
   .catch(err => err);
   
   const existingUserId = lastUserActiveSession[0].id;
@@ -40,8 +40,8 @@ export async function getLastActiveSession(): Promise<string> {
 export async function getSessionUserId(id: string): Promise<string> {
   const existingUserId = await getLastActiveSession();
 
-  const user = await db(UserSession.Table)
-  .where({ [UserSession.Id]: existingUserId })
+  const user = await db(UserSessionFields.Table)
+  .where({ [UserSessionFields.Id]: existingUserId })
   .catch(err => err);
 
   const userId = user[0].user_id;
@@ -56,8 +56,8 @@ export async function getSessionUserId(id: string): Promise<string> {
  * @returns {Promise<void>}
  */
 export async function removeUserSession(id: string): Promise<void> {
-  await db(UserSession.Table)
-  .where({ [UserSession.Id]: id })
-  .update({ [UserSession.isLoggedOut]: 1 })
+  await db(UserSessionFields.Table)
+  .where({ [UserSessionFields.Id]: id })
+  .update({ [UserSessionFields.isLoggedOut]: 1 })
   .catch(err => err);
 }

@@ -2,7 +2,7 @@
 
 import * as dbConnection from "../../config/db";
 
-import { User as UserEnum } from "../../shared/enums/-index";
+import { UserFields } from "../../shared/enums/-index";
 import { User } from "../../shared/interfaces/-index";
 
 const snakeCase = require("snakecase-keys");
@@ -20,21 +20,21 @@ const db = dbConnection.default;
 export async function getPostValidation(user: User): Promise<any> {
   const { id, username, email_address } = snakeCase(user);
   
-  const isIdExists = await db(UserEnum.Table)
-  .count({ id: UserEnum.Id })
+  const isIdExists = await db(UserFields.Table)
+  .count({ id: UserFields.Id })
   .where({ id })
   .then(response => response[0].id)
   .catch(err => err);
   
-  const isUsernameExists = await db(UserEnum.Table)
-  .count({ username: UserEnum.Username })
+  const isUsernameExists = await db(UserFields.Table)
+  .count({ username: UserFields.Username })
   .where({ username })
   .then(response => response[0].username)
   .catch(err => err);
   
   
-  const isEmailAddressExists = await db(UserEnum.Table)
-  .count({ email_address: UserEnum.EmailAddress })
+  const isEmailAddressExists = await db(UserFields.Table)
+  .count({ email_address: UserFields.EmailAddress })
   .where({ email_address })
   .then(response => response[0].email_address)
   .catch(err => err);
@@ -57,8 +57,8 @@ export async function getPutValidation(user: User, id: string): Promise<any> {
   let errors = {};
   
   if (username != undefined) {
-    const isUsernameExists = await db(UserEnum.Table)
-    .count({ username: UserEnum.Username })
+    const isUsernameExists = await db(UserFields.Table)
+    .count({ username: UserFields.Username })
     .whereNot({ id })
     .andWhere({ username })
     .then(response => response[0].username)
@@ -68,8 +68,8 @@ export async function getPutValidation(user: User, id: string): Promise<any> {
   }
   
   if (email_address != undefined) {
-    const isEmailAddressExists = await db(UserEnum.Table)
-    .count({ email_address: UserEnum.EmailAddress })
+    const isEmailAddressExists = await db(UserFields.Table)
+    .count({ email_address: UserFields.EmailAddress })
     .whereNot({ id })
     .andWhere({ email_address })
     .then(response => response[0].email_address)
@@ -91,8 +91,8 @@ export async function getPutValidation(user: User, id: string): Promise<any> {
  * @returns {Promise<number>}
  */
 export async function checkIfUserExists(id: string): Promise<any> {
-  const isRecordExists = await db(UserEnum.Table)
-  .count({ id: UserEnum.Id })
+  const isRecordExists = await db(UserFields.Table)
+  .count({ id: UserFields.Id })
   .where({ id })
   .then(response => response[0].id)
   .catch(err => err);

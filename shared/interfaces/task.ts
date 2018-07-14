@@ -6,3 +6,13 @@ export interface Task {
   scheduleDate: Date;
   ordinal: number;
 }
+
+export interface TaskStatus {
+  id: number;
+  name: string;
+}
+
+export interface UserTask {
+  userId: string;
+  taskId: string;
+}

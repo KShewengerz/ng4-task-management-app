@@ -1,4 +1,4 @@
-export enum Task {
+export enum TaskFields {
   Table         = "task",
 
   Id            = "id",
@@ -7,6 +7,20 @@ export enum Task {
   Description   = "description",
   ScheduleDate  = "schedule_date",
   Ordinal       = "ordinal"
+}
+
+export enum TaskStatusFields {
+  Table = "task_status",
+
+  Id    = "id",
+  Name  = "name"
+}
+
+export enum UserTaskFields {
+  Table  = "user_task",
+
+  UserId = "user_id",
+  TaskId = "task_id"
 }
 
 export enum TaskSchedule {

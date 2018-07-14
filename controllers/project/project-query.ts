@@ -3,7 +3,7 @@ import { Response } from "express";
 import * as dbConnection from "../../config/db";
 
 import { projectValidation } from "./-index";
-import { UserProject, Project as ProjectEnum } from "../../shared/enums/-index";
+import { UserProjectFields, ProjectFields } from "../../shared/enums/-index";
 import { Project } from "../../shared/interfaces/-index";
 
 const db = dbConnection.default;
@@ -24,22 +24,22 @@ export async function addProjectQuery(userId: string, body: Project, res: Respon
   const {id, color} = body;
   body.ordinal = await projectValidation.getNextUserProjectOrdinal(userId);
   
-  const insertUserProjectData = {
-    [UserProject.UserId]: userId,
-    [UserProject.ProjectId]: body.id
+  const insertUserProjectFieldsData = {
+    [UserProjectFields.UserId]: userId,
+    [UserProjectFields.ProjectId]: body.id
   };
   
-  const insertProjectInfo = db(ProjectEnum.Table)
+  const insertProjectInfo = db(ProjectFields.Table)
   .insert(body)
   .catch(err => err);
   
-  const insertUserProject = db(UserProject.Table)
-  .insert(insertUserProjectData)
+  const insertUserProjectFields = db(UserProjectFields.Table)
+  .insert(insertUserProjectFieldsData)
   .catch(err => err);
   
   await Promise.all([
     insertProjectInfo,
-    insertUserProject
+    insertUserProjectFields
   ])
   .catch(err => err);
   
@@ -58,8 +58,8 @@ export async function addProjectQuery(userId: string, body: Project, res: Respon
 export async function updateProjectsOrdinal(projects: Project[], res: Response): Promise<void> {
   await db.transaction(async trx => {
     await projects.forEach(async project => {
-      await db(ProjectEnum.Table)
-      .where(ProjectEnum.Id, project.id)
+      await db(ProjectFields.Table)
+      .where(ProjectFields.Id, project.id)
       .update(project)
       .transacting(trx)
       .catch(err => err);
@@ -81,7 +81,7 @@ export async function updateProjectsOrdinal(projects: Project[], res: Response):
  * @returns {Promise<void>}
  */
 export async function updateProject(id: string, body: Project, res: Response): Promise<void> {
-  await db(ProjectEnum.Table)
+  await db(ProjectFields.Table)
   .where({id})
   .update(body)
   .catch(err => err);
@@ -96,15 +96,15 @@ export async function updateProject(id: string, body: Project, res: Response): P
  * @returns {Promise<Project[]>}
  */
 export async function getProjects(userId: string): Promise<Project[]> {
-  const projectTableId = `${ProjectEnum.Table}.${ProjectEnum.Id}`;
-  const userProjectTableProjectId = `${UserProject.Table}.${UserProject.ProjectId}`;
-  const userProjectTableUserId = `${UserProject.Table}.${UserProject.UserId}`;
+  const projectTableId = `${ProjectFields.Table}.${ProjectFields.Id}`;
+  const UserProjectFieldsTableProjectId = `${UserProjectFields.Table}.${UserProjectFields.ProjectId}`;
+  const UserProjectFieldsTableUserId = `${UserProjectFields.Table}.${UserProjectFields.UserId}`;
   
-  const fetchProjects = await db(ProjectEnum.Table)
-  .select(ProjectEnum.Id, ProjectEnum.Name, ProjectEnum.Color, ProjectEnum.Ordinal)
-  .leftJoin(UserProject.Table, projectTableId, userProjectTableProjectId)
-  .whereNull(userProjectTableUserId)
-  .orWhere(userProjectTableUserId, userId)
+  const fetchProjects = await db(ProjectFields.Table)
+  .select(ProjectFields.Id, ProjectFields.Name, ProjectFields.Color, ProjectFields.Ordinal)
+  .leftJoin(UserProjectFields.Table, projectTableId, UserProjectFieldsTableProjectId)
+  .whereNull(UserProjectFieldsTableUserId)
+  .orWhere(UserProjectFieldsTableUserId, userId)
   .catch(err => err);
   
   const result = camelCase(fetchProjects);
@@ -121,7 +121,7 @@ export async function getProjects(userId: string): Promise<Project[]> {
  * @returns {Promise<Project>}
  */
 export async function getProjectById(id: string): Promise<Project> {
-  const fetchProject = await db(ProjectEnum.Table)
+  const fetchProject = await db(ProjectFields.Table)
   .where({id})
   .catch(err => err);
   
@@ -140,7 +140,7 @@ export async function getProjectById(id: string): Promise<Project> {
  * @returns {Promise<void>}
  */
 export async function deleteProject(id: string, res: Response): Promise<void> {
-  const deleteProject = await db(ProjectEnum.Table)
+  const deleteProject = await db(ProjectFields.Table)
   .where({id})
   .del()
   .catch(err => err);
