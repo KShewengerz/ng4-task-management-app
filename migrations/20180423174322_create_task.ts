@@ -11,6 +11,7 @@ export async function up(knex: Knex) {
     table.string(TaskFields.Description, 255).notNullable();
     table.string(TaskFields.ScheduleDate).nullable();
     table.integer(TaskFields.Ordinal).notNullable();
+    table.string(TaskFields.CompletedOn, 255).nullable();
     
     table.foreign(TaskFields.ProjectId).references(`${ProjectFields.Table}.${ProjectFields.Id}`);
     table.foreign(TaskFields.StatusId).references(`${TaskStatusFields.Table}.${TaskStatusFields.Id}`);

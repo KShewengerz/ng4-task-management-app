@@ -8,7 +8,8 @@ import { Task } from "../../shared/interfaces/-index";
 
 const camelCase = require("camelcase-keys");
 
-const db = dbConnection.default;
+const db         = dbConnection.default;
+const dateFormat = "MM/DD/YYYY";
 
 
 /**
@@ -69,38 +70,51 @@ export async function updateTaskQuery(id, body, res): Promise<void> {
  */
 export async function getUserTasks(userId: string, projectId: any, statusId: number): Promise<Task[]> {
   const taskTableId         = `${TaskFields.Table}.${TaskFields.Id}`;
-  const UserTaskFieldsTableTaskId = `${UserTaskFields.Table}.${UserTaskFields.TaskId}`;
-  const dateFormat          = "MM/DD/YYYY";
+  const userTaskTableTaskId = `${UserTaskFields.Table}.${UserTaskFields.TaskId}`;
+  const now                 = moment().format(dateFormat);
   const startOfNextWeek     = moment().add(1, 'weeks').startOf("isoWeek").subtract(1, "days").format(dateFormat);
   const endOfNextWeek       = moment().add(1, 'weeks').endOf("isoWeek").subtract(1, "days").format(dateFormat);
 
   let fetchTasks: any;
 
-  if (statusId === 2) {
+  if (projectId < 3 && statusId === 1) {
+    fetchTasks = await db(TaskFields.Table)
+    .select(`${TaskFields.Table}.*`)
+    .innerJoin(UserTaskFields.Table, taskTableId, userTaskTableTaskId)
+    .where({
+      [UserTaskFields.UserId]      : userId,
+      [TaskFields.StatusId]    : 1,
+      [TaskFields.CompletedOn] : now
+    })
+    .catch(err => err);
+  }
+  else if (statusId == 2) {
     const id = projectId == 0 ? null : projectId;
 
     fetchTasks = await db(TaskFields.Table)
     .select(`${TaskFields.Table}.*`)
-    .innerJoin(UserTaskFields.Table, taskTableId, UserTaskFieldsTableTaskId)
-    .where(UserTaskFields.UserId, userId)
-    .andWhere(TaskFields.ProjectId, id)
-    .andWhere(TaskFields.StatusId, 0)
+    .innerJoin(UserTaskFields.Table, taskTableId, userTaskTableTaskId)
+    .where({
+      [UserTaskFields.UserId]    : userId,
+      [TaskFields.ProjectId] : id,
+      [TaskFields.StatusId]  : 0
+    })
     .catch(err => err);
   }
   else if (projectId === TaskSchedule.NextWeek) {
     fetchTasks = await db(TaskFields.Table)
     .select(`${TaskFields.Table}.*`)
-    .innerJoin(UserTaskFields.Table, taskTableId, UserTaskFieldsTableTaskId)
+    .innerJoin(UserTaskFields.Table, taskTableId, userTaskTableTaskId)
     .where(UserTaskFields.UserId, userId)
     .andWhereBetween(TaskFields.ScheduleDate, [startOfNextWeek, endOfNextWeek])
     .catch(err => err);
   } 
   else {
-    const secondaryCondition  = getUserTaskSecondaryCondition(projectId, dateFormat);
+    const secondaryCondition  = getUserTaskSecondaryCondition(projectId);
 
     fetchTasks = await db(TaskFields.Table)
     .select(`${TaskFields.Table}.*`)
-    .innerJoin(UserTaskFields.Table, taskTableId, UserTaskFieldsTableTaskId)
+    .innerJoin(UserTaskFields.Table, taskTableId, userTaskTableTaskId)
     .where(UserTaskFields.UserId, userId)
     .andWhere(secondaryCondition)
     .catch(err => err);
@@ -120,7 +134,7 @@ export async function getUserTasks(userId: string, projectId: any, statusId: num
  * 
  * @returns {Any}
  */
-function getUserTaskSecondaryCondition (projectId: any, dateFormat: string): any {
+function getUserTaskSecondaryCondition (projectId: any): any {
   const now      = moment().format(dateFormat);
   const tomorrow = moment().add("days", 1).format(dateFormat);
 
@@ -145,9 +159,14 @@ function getUserTaskSecondaryCondition (projectId: any, dateFormat: string): any
  * @returns {Promise<void>}
  */
 export async function completeTaskQuery(id: string, res: Response): Promise<void> {
+  const now = moment().format(dateFormat);
+
   await db(TaskFields.Table)
   .where({ id })
-  .update({ [TaskFields.StatusId]: 1 })
+  .update({ 
+    [TaskFields.StatusId]: 1,
+    [TaskFields.CompletedOn]: now
+  })
   .catch(err => err);
   
   res.sendStatus(200);

@@ -6,7 +6,8 @@ export enum TaskFields {
   StatusId      = "status_id",
   Description   = "description",
   ScheduleDate  = "schedule_date",
-  Ordinal       = "ordinal"
+  Ordinal       = "ordinal",
+  CompletedOn   = "completed_on"
 }
 
 export enum TaskStatusFields {
