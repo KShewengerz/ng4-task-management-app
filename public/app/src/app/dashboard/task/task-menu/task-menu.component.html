@@ -15,15 +15,18 @@
 
       <ul class="schedule-menu">
         <li>
-          <mdl-icon>insert_invitation</mdl-icon>
+          <mdl-icon [mdl-tooltip]="today">insert_invitation</mdl-icon>
+          <mdl-tooltip #today="mdlTooltip">Today</mdl-tooltip>
         </li>
 
         <li>
-          <mdl-icon>update</mdl-icon>
+          <mdl-icon [mdl-tooltip]="tomorrow">update</mdl-icon>
+          <mdl-tooltip #tomorrow="mdlTooltip">Tomorrow</mdl-tooltip>
         </li>
 
         <li>
-          <mdl-icon>event_note</mdl-icon>
+          <mdl-icon [mdl-tooltip]="nextWeek">event_note</mdl-icon>
+          <mdl-tooltip #nextWeek="mdlTooltip">Next Week</mdl-tooltip>
         </li>
       </ul>
 
