@@ -1,58 +1,61 @@
 <div class="actions inline-block right cursor-pointer">
-    <button mdl-button
-            #actionBtn="mdlButton"
-            (click)="menu.toggle($event, actionBtn)"
-            mdl-button-type="icon"
-            mdl-ripple>
-      <mdl-icon class="text-gray">more_horiz</mdl-icon>
-    </button>
 
-    <mdl-menu #menu="mdlMenu"
-              mdl-menu-position="bottom-right"
-              (click)="$event.stopPropagation()">
+  <button mdl-button
+          #actionBtn="mdlButton"
+          (click)="menu.toggle($event, actionBtn)"
+          mdl-button-type="icon"
+          mdl-ripple>
+    <mdl-icon class="text-gray">more_horiz</mdl-icon>
+  </button>
 
-      <span class="title">Schedule</span>
+  <!-- CALENDAR SCHEDULE MENU -->
+  <mdl-menu #menu="mdlMenu"
+            mdl-menu-position="bottom-right"
+            (click)="$event.stopPropagation()">
 
-      <ul class="schedule-menu">
-        <li>
-          <mdl-icon [mdl-tooltip]="today">insert_invitation</mdl-icon>
-          <mdl-tooltip #today="mdlTooltip">Today</mdl-tooltip>
-        </li>
+    <span class="title">Schedule</span>
 
-        <li>
-          <mdl-icon [mdl-tooltip]="tomorrow">update</mdl-icon>
-          <mdl-tooltip #tomorrow="mdlTooltip">Tomorrow</mdl-tooltip>
-        </li>
+    <ul class="schedule-menu">
+      <li>
+        <mdl-icon [mdl-tooltip]="today">insert_invitation</mdl-icon>
+        <mdl-tooltip #today="mdlTooltip">Today</mdl-tooltip>
+      </li>
 
-        <li>
-          <mdl-icon [mdl-tooltip]="nextWeek">event_note</mdl-icon>
-          <mdl-tooltip #nextWeek="mdlTooltip">Next Week</mdl-tooltip>
-        </li>
-      </ul>
+      <li>
+        <mdl-icon [mdl-tooltip]="tomorrow">update</mdl-icon>
+        <mdl-tooltip #tomorrow="mdlTooltip">Tomorrow</mdl-tooltip>
+      </li>
 
-      <span class="title">Projects</span>
+      <li>
+        <mdl-icon [mdl-tooltip]="nextWeek">event_note</mdl-icon>
+        <mdl-tooltip #nextWeek="mdlTooltip">Next Week</mdl-tooltip>
+      </li>
+    </ul>
 
-      <ul class="project-menu">
-        <li class="search">
-          <input type="text" placeholder="Search"/>
-        </li>
+    <!-- PROJECT SELECTION LIST -->
+    <span class="title">Projects</span>
 
-        <li class="cursor-pointer">
-          <mdl-icon class="red">fiber_manual_record</mdl-icon>
-          <span>Personal</span>
-        </li>
+    <ul class="project-menu">
+      <li class="search">
+        <input type="text" placeholder="Search"/>
+      </li>
 
-        <li class="cursor-pointer">
-          <mdl-icon class="green">fiber_manual_record</mdl-icon>
-          <span>Work</span>
-        </li>
+      <li class="cursor-pointer">
+        <mdl-icon class="red">fiber_manual_record</mdl-icon>
+        <span>Personal</span>
+      </li>
 
-        <p class="text-gray">
-          <mdl-icon class="align-middle">add</mdl-icon>
-          <span>See More</span>
-        </p>
+      <li class="cursor-pointer">
+        <mdl-icon class="green">fiber_manual_record</mdl-icon>
+        <span>Work</span>
+      </li>
 
-      </ul>
+      <p class="text-gray">
+        <mdl-icon class="align-middle">add</mdl-icon>
+        <span>See More</span>
+      </p>
+    </ul>
 
-    </mdl-menu>
-  </div>
+  </mdl-menu>
+
+</div><!-- END .actions -->

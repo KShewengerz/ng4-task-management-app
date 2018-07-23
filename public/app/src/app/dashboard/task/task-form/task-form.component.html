@@ -1,4 +1,5 @@
 <div id="input-wrapper">
+
 	<mdl-textfield  type="text"
 									label="What's your next task?"
 									id="form-textfield"
@@ -7,6 +8,7 @@
 
 	<span class="text-red">{{ errorMessage }}</span>
 
+  <!-- FORM BUTTONS -->
 	<div id="buttons">
 		<button mdl-button
 						class="cursor-pointer"
@@ -15,7 +17,7 @@
 		</button>
 
 		<span class="cursor-pointer"
-				(click)="cancel.emit()">CANCEL</span>
-	</div>
-</div>
-  
+				  (click)="cancel.emit()">CANCEL</span>
+	</div><!-- END #buttons -->
+
+</div><!-- END #input-wrapper -->

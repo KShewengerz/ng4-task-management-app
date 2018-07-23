@@ -2,15 +2,15 @@
   <div class="container mdl-cell--6-col-tablet">
     <div class="mdl-grid clear-padding">
 
+      <!-- APP FEATURES -->
       <div class="mdl-cell mdl-cell--5-col mdl-cell--12-col-tablet clear-margin">
         <tms-feature></tms-feature>
       </div><!-- END .mdl-cell -->
 
-
       <div id="form"
            class="mdl-cell mdl-cell--7-col mdl-cell--12-col-tablet">
 
-        <!-- Login and Sign Up Tabs -->
+        <!-- LOGIN AND SIGNUP TABS -->
         <div id="breadcrumbs"
              class="text-dark-blue">
           <span [routerLink]="['/login']"
@@ -22,6 +22,7 @@
                 [routerLinkActive]="'active'">Sign Up</span>
         </div><!--  END #breadcrumbs -->
 
+        <!-- CONTENT -->
         <div class="container">
           <router-outlet></router-outlet>
         </div><!-- END .container -->

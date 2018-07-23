@@ -1,6 +1,8 @@
 <div id="login">
 
   <form [formGroup]="form">
+
+    <!-- EMAIL ADDRESS -->
     <p>
       <mdl-textfield type="text"
                      label="Email Address"
@@ -9,6 +11,7 @@
       </mdl-textfield>
     </p>
 
+    <!-- PASSWORD -->
     <p>
       <mdl-textfield 	type="password"
                       label="Password"
@@ -17,10 +20,12 @@
       </mdl-textfield>
     </p>
 
+    <!-- ERROR MESSAGE -->
     <p *ngIf="errorMessage"
        class="mdl-typography--text-center text-red"
        id="error-message">{{ errorMessage }}</p>
 
+    <!-- LOGIN BUTTON -->
     <div class="mdl-typography--text-center">
       <br/>
       <button class="text-light-red"
@@ -29,6 +34,7 @@
               (click)="login(form.value)">LOGIN</button>
     </div><!-- END .mdl-typography--text-center -->
 
+    <!-- FORGOT PASSWORD -->
     <div id="forgot-password">
       <p class="text-gray">
         <span>Forgot your password?</span> <span class="text-light-red"><strong>Click Here</strong></span>

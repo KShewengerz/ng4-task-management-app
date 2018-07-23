@@ -1,3 +1,4 @@
+<!-- DASHBOARD CONTENT BACK DRAFT -->
 <tms-content-header></tms-content-header>
 
 <div class="dashboard-content-container mdl-cell mdl-cell--8-col mdl-cell--2-offset">
@@ -9,6 +10,8 @@
   <div class="mdl-typography--text-center">
     <h3><mdl-icon>account_circle</mdl-icon> Edit Profile</h3>
 
+
+    <!-- PROFILE MAIN TABS -->
     <ul>
       <li [ngClass]="{'active': isBasic}"
           (click)="isBasic = true">Basic Info</li>
@@ -16,10 +19,13 @@
           (click)="isBasic = false">Change Password</li>
     </ul>
 
+    <!-- EDIT PROFILE TAB CONTENT -->
     <tms-basic-info *ngIf="isBasic"
                     [users]="users"></tms-basic-info>
 
+    <!-- CHANGE PASSWORD TAB CONTENT -->
     <tms-change-password *ngIf="!isBasic"
                         [user]="user"></tms-change-password>
-  </div>
-</div>
+  </div><!-- END .mdl-typography--text-center -->
+
+</div><!-- END .dashboard-content-container -->

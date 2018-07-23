@@ -1,6 +1,7 @@
 <div id="signup">
   <form [formGroup]="form">
 
+    <!-- FIRST NAME -->
     <p>
       <mdl-textfield  type="text"
                       label="First Name"
@@ -13,6 +14,7 @@
       </mdl-textfield>
     </p>
 
+    <!-- LAST NAME -->
     <p>
       <mdl-textfield  type="text"
                       label="Last Name"
@@ -25,6 +27,7 @@
       </mdl-textfield>
     </p>
 
+    <!-- EMAIL ADDRESS -->
     <p>
       <mdl-textfield  type="text"
                       label="Email Address"
@@ -39,6 +42,7 @@
       </mdl-textfield>
     </p>
 
+    <!-- GENDER -->
     <p>
       <mdl-select label="Gender"
                   formControlName="gender">
@@ -47,6 +51,7 @@
       </mdl-select>
     </p>
 
+    <!-- USERNAME -->
     <p>
       <mdl-textfield  type="text"
                       label="Username"
@@ -61,6 +66,7 @@
       </mdl-textfield>
     </p>
 
+    <!-- PASSWORD -->
     <p>
       <mdl-textfield 	type="password"
                       label="Password"
@@ -73,7 +79,7 @@
       </mdl-textfield>
     </p><br/>
 
-
+    <!-- REGISTER BUTTON -->
     <div class="mdl-typography--text-center">
       <button class="text-light-red"
               mdl-button
@@ -82,6 +88,7 @@
               (click)="register(form.value)">REGISTER</button>
     </div><br/><!--END .mdl-typography--text-center -->
 
+    <!-- SUCCESS MESSAGE -->
     <p  *ngIf="isSuccessful"
         class="mdl-typography--text-center"
        id="success-message">

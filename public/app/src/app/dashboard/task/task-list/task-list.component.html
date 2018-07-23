@@ -1,8 +1,9 @@
 <ul [dragula]='"bag-tasks"'
     [dragulaModel]='tasks'>
+
   <li *ngFor="let task of tasks"
       class="task">
-    <div *ngIf="!isEditMode[task.id]">  
+    <div *ngIf="!isEditMode[task.id]">
 
       <span id="drag-handle"
             *ngIf="status != 'completed'">
@@ -16,11 +17,13 @@
 
       <span class="align-middle"
             [ngClass]="{'task-completed': status === 'completed'}"
-            (click)="edit(task.id)">{{ task.description }}</span>              
+            (click)="edit(task.id)">{{ task.description }}</span>
 
+      <!-- TASK MENU -->
       <tms-task-menu *ngIf="status != 'completed'"></tms-task-menu>
-    </div>
+    </div><!-- END ngIf="!isEditMode[task.id]" -->
 
+    <!-- EDIT TASK FORM -->
     <tms-task-form  *ngIf="isEditMode[task.id]"
                     [task]="task.description"
                     [errorMessage]="errorMessage"
@@ -28,20 +31,23 @@
                     (cancel)="isEditMode[task.id] = false"></tms-task-form>
   </li>
 
+  <!-- ADD TASK FORM -->
   <li *ngIf="isNewTask">
     <tms-task-form  [errorMessage]="errorMessage"
                     (save)="addTask($event.description)"
                     (cancel)="isNewTask = false"></tms-task-form>
   </li>
 
-  <li *ngIf="!isNewTask && status === 'open'">  
+  <!-- ADD NEW TASK -->
+  <li *ngIf="!isNewTask && status === 'open'">
     <div id="add-task"
       class="text-red-pink cursor-pointer">
-      <span (click)="isNewTask = true && isEditMode = {}">
+      <span (click)="newTask()">
         <mdl-icon class="align-middle">add</mdl-icon>
         <span class="align-middle">Add Task</span>
       </span>
-    </div>
+    </div><!-- END #add-task -->
   </li>
+
 </ul>
 

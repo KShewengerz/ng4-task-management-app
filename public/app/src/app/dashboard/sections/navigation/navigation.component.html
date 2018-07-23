@@ -1,13 +1,13 @@
-
 <nav class="mdl-navigation">
   <p class="text-dark-blue">
     <small>TASKS</small>
   </p>
 
+  <!-- TASK CALENDAR LIST -->
   <ul id="tasks">
     <li class="cursor-pointer"
         [routerLink]="['/dashboard/task/open', taskSchedule.Today]"
-        routerLinkActive="active" 
+        routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }">
       <a class="mdl-navigation__link">
         <mdl-icon>insert_invitation</mdl-icon> Today
@@ -16,7 +16,7 @@
 
     <li class="cursor-pointer"
         [routerLink]="['/dashboard/task/open', taskSchedule.Tomorrow]"
-        routerLinkActive="active" 
+        routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }">
       <a class="mdl-navigation__link">
         <mdl-icon>update</mdl-icon> Tomorrow
@@ -25,7 +25,7 @@
 
     <li class="cursor-pointer"
         [routerLink]="['/dashboard/task/open', taskSchedule.NextWeek]"
-        routerLinkActive="active" 
+        routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }">
       <a class="mdl-navigation__link">
         <mdl-icon>event_note</mdl-icon> Next Week
@@ -33,5 +33,6 @@
     </li>
   </ul>
 
+  <!-- PROJECT LIST -->
   <tms-project></tms-project>
 </nav>

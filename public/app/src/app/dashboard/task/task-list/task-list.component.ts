@@ -24,7 +24,7 @@ export class TaskListComponent implements OnInit {
   status: string;
 
   isNewTask: boolean  = false;
-  isEditMode: any     = {}; 
+  isEditMode: any     = {};
   
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -34,7 +34,7 @@ export class TaskListComponent implements OnInit {
   ngOnInit(): void {
     const snapshot = this.route.snapshot;
     const tasks    = snapshot.data.tasks;
-    this.projectId = snapshot.params.id; 
+    this.projectId = snapshot.params.id;
     this.status    = snapshot.params.status;
 
     this.onUpdateListDrop();
@@ -75,6 +75,12 @@ export class TaskListComponent implements OnInit {
       return task;
     });
   }
+  
+  newTask(): void {
+    this.errorMessage = "";
+    this.isNewTask    = true;
+    this.isEditMode   = {};
+  }
 
   addTask(description: string): void {
     const projectId = this.projectId;
@@ -89,7 +95,7 @@ export class TaskListComponent implements OnInit {
           this.errorMessage = "";
         },
         err => this.extractErrorMessage(err)
-      )
+      );
   }
 
   edit(id: string): void {
@@ -119,7 +125,7 @@ export class TaskListComponent implements OnInit {
         .subscribe(response => {
           const taskIndex: number = this.tasks.findIndex(task => task.id === id);
           this.tasks.splice(taskIndex, 1);
-        })
+        });
     }, 400);
   }
 
