@@ -43,5 +43,12 @@ export class UserService {
       .catch(err => Observable.throw(err));
   }
   
+  fetchCurrentUserSession(): User {
+    const session    = sessionStorage.getItem("user");
+    const user: User = JSON.parse(session);
+    
+    return user;
+  }
+  
 }
 

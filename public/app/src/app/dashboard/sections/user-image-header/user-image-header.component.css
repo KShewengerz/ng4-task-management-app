@@ -26,6 +26,8 @@ button:hover, div > button:last-child {
   color: white;
 }
 
+h6 { padding: 0 4px; }
+
 h6, .material-icons {
   font-size: 17px;
 }
