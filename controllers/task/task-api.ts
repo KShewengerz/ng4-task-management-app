@@ -38,17 +38,25 @@ export async function addTask(req: any, res: Response): Promise<void> {
   if (res.statusCode !== 400) taskQuery.addTaskQuery(userId, body, res);
 }
 
-function setTaskScheduleDate(projectId: string): string {
-  const dateFormat      = "MM/DD/YYYY"
+
+/**
+ * @description Sets Project Task Schedule Date based on its scheduleId
+ *
+ * @param {string} projectId
+ *
+ * @returns {string}
+ */
+function setTaskScheduleDate(scheduleId: string): string {
+  const dateFormat      = "MM/DD/YYYY";
   const today           = moment().format(dateFormat);  
-  const tomorrow        = moment().add("days", 1).format(dateFormat); 
-  const nextWeek        = moment().add(1, 'weeks').startOf("isoWeek").subtract(1, "days").format(dateFormat);
+  const tomorrow        = moment().add(1, "days").format(dateFormat);
+  const nextWeek        = moment().add(1, "weeks").startOf("isoWeek").subtract(1, "days").format(dateFormat);
 
   let scheduleDate: string;
 
-  if (projectId === TaskSchedule.Today) scheduleDate = today;
-  else if (projectId === TaskSchedule.Tomorrow) scheduleDate = tomorrow;
-  else if (projectId === TaskSchedule.NextWeek) scheduleDate = nextWeek;
+  if (scheduleId === TaskSchedule.Today) scheduleDate = today;
+  else if (scheduleId === TaskSchedule.Tomorrow) scheduleDate = tomorrow;
+  else if (scheduleId === TaskSchedule.NextWeek) scheduleDate = nextWeek;
   else scheduleDate = null;
 
   return scheduleDate;

@@ -72,8 +72,8 @@ export async function getUserTasks(userId: string, projectId: any, statusId: num
   const taskTableId         = `${TaskFields.Table}.${TaskFields.Id}`;
   const userTaskTableTaskId = `${UserTaskFields.Table}.${UserTaskFields.TaskId}`;
   const now                 = moment().format(dateFormat);
-  const startOfNextWeek     = moment().add(1, 'weeks').startOf("isoWeek").subtract(1, "days").format(dateFormat);
-  const endOfNextWeek       = moment().add(1, 'weeks').endOf("isoWeek").subtract(1, "days").format(dateFormat);
+  const startOfNextWeek     = moment().add(1, "weeks").startOf("isoWeek").subtract(1, "days").format(dateFormat);
+  const endOfNextWeek       = moment().add(1, "weeks").endOf("isoWeek").subtract(1, "days").format(dateFormat);
 
   let fetchTasks: any;
 
@@ -82,7 +82,7 @@ export async function getUserTasks(userId: string, projectId: any, statusId: num
     .select(`${TaskFields.Table}.*`)
     .innerJoin(UserTaskFields.Table, taskTableId, userTaskTableTaskId)
     .where({
-      [UserTaskFields.UserId]      : userId,
+      [UserTaskFields.UserId]  : userId,
       [TaskFields.StatusId]    : 1,
       [TaskFields.CompletedOn] : now
     })
@@ -95,10 +95,11 @@ export async function getUserTasks(userId: string, projectId: any, statusId: num
     .select(`${TaskFields.Table}.*`)
     .innerJoin(UserTaskFields.Table, taskTableId, userTaskTableTaskId)
     .where({
-      [UserTaskFields.UserId]    : userId,
-      [TaskFields.ProjectId] : id,
-      [TaskFields.StatusId]  : 0
+      [UserTaskFields.UserId] : userId,
+      [TaskFields.ProjectId]  : id,
+      [TaskFields.StatusId]   : 0
     })
+    .whereNot(TaskFields.ScheduleDate, now)
     .catch(err => err);
   }
   else if (projectId === TaskSchedule.NextWeek) {
