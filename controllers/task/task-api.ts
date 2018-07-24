@@ -30,10 +30,6 @@ export async function addTask(req: any, res: Response): Promise<void> {
   body.project_id    = body.project_id.length == 1 ?  null : body.project_id;
   body.status_id     = 0;  //By default Open Task.
   body.ordinal       = await taskValidation.getNextUserTaskOrdinal(userId, body.project_id);
-
-  const condition = await taskValidation.getDescriptionValidation(userId, body.description);
-  
-  await taskErrorHandler.postErrorHandler(condition, res);
   
   if (res.statusCode !== 400) taskQuery.addTaskQuery(userId, body, res);
 }

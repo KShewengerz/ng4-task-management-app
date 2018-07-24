@@ -32,25 +32,6 @@ export async function getNextUserTaskOrdinal(userId: string, projectId: string):
 
 
 /**
- * @description Description Validation - checking if description already exists within user's tasks;
- *
- * @param {String} description
- *
- * @returns {any[]}
- */
-export async function getDescriptionValidation(userId: string, description: string): Promise<any> {
-  const isDescriptionExists = await db(TaskFields.Table)
-  .count({ id: TaskFields.Id })
-  .leftJoin(UserTaskFields.Table, TaskFields.Id, UserTaskFields.TaskId)
-  .whereRaw(`description = '${description}' AND ${UserTaskFields.UserId} = '${userId}'`)
-  .then(response => response[0].id)
-  .catch(err => err);
-  
-  return { isDescriptionExists };
-}
-
-
-/**
  * @description Checking if task record already exists.
  *
  * @param {string} id
@@ -68,15 +49,10 @@ export async function checkIfTaskExists(id: string): Promise<any> {
 }
 
 export async function getPutValidation(id: string, userId: string, description: string): Promise<any> {
-  let condition: any = {};
-  
-  const descriptionCondition = await getDescriptionValidation(userId, description);
   const recordCondition = await checkIfTaskExists(id);
+  const isRecordExists  = recordCondition.isRecordExists;
   
-  condition.isDescriptionExists = descriptionCondition.isDescriptionExists;
-  condition.isRecordExists = recordCondition.isRecordExists;
-  
-  return condition;
+  return { isRecordExists };
 }
 
 
