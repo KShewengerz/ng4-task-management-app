@@ -3,7 +3,7 @@ import * as moment from "moment";
 
 import * as dbConnection from "../../config/db";
 
-import { UserTaskFields, TaskFields, TaskSchedule } from "../../shared/enums/-index";
+import { UserTaskFields, TaskFields, TaskSchedule, ProjectFields } from "../../shared/enums/-index";
 import { Task } from "../../shared/interfaces/-index";
 
 const camelCase = require("camelcase-keys");
@@ -71,6 +71,8 @@ export async function updateTaskQuery(id, body, res): Promise<void> {
 export async function getUserTasks(userId: string, projectId: any, statusId: number): Promise<Task[]> {
   const taskTableId         = `${TaskFields.Table}.${TaskFields.Id}`;
   const userTaskTableTaskId = `${UserTaskFields.Table}.${UserTaskFields.TaskId}`;
+  const projectTableId      = `${ProjectFields.Table}.${ProjectFields.Id}`;
+  const taskProjectId       = `${TaskFields.Table}.${TaskFields.ProjectId}`;
   const now                 = moment().format(dateFormat);
   const startOfNextWeek     = moment().add(1, "weeks").startOf("isoWeek").subtract(1, "days").format(dateFormat);
   const endOfNextWeek       = moment().add(1, "weeks").endOf("isoWeek").subtract(1, "days").format(dateFormat);
@@ -114,7 +116,8 @@ export async function getUserTasks(userId: string, projectId: any, statusId: num
     const secondaryCondition  = getUserTaskSecondaryCondition(projectId);
 
     fetchTasks = await db(TaskFields.Table)
-    .select(`${TaskFields.Table}.*`)
+    .select(`${TaskFields.Table}.*`, `${ProjectFields.Color}`)
+    .innerJoin(ProjectFields.Table, projectTableId, taskProjectId)
     .innerJoin(UserTaskFields.Table, taskTableId, userTaskTableTaskId)
     .where(UserTaskFields.UserId, userId)
     .andWhere(secondaryCondition)
