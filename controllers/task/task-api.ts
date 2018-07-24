@@ -139,3 +139,19 @@ export async function completeTask(req: Request, res: Response): Promise<void> {
   if (res.statusCode !== 404) await taskQuery.completeTaskQuery(id, res);
 }
 
+
+/**
+ * @api {put} /:id/
+ * @description Reschedules a task
+ *
+ * @param {e.Request} req
+ * @param {e.Response} res
+ *
+ * @returns {Promise<void>}
+ */
+export async function rescheduleTask(req: Request, res: Response): Promise<void> {
+  const body = req.body;
+  
+  await taskQuery.rescheduleTask(body, res);
+}
+

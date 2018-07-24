@@ -117,8 +117,8 @@ export async function getUserTasks(userId: string, projectId: any, statusId: num
 
     fetchTasks = await db(TaskFields.Table)
     .select(`${TaskFields.Table}.*`, `${ProjectFields.Color}`)
-    .innerJoin(ProjectFields.Table, projectTableId, taskProjectId)
     .innerJoin(UserTaskFields.Table, taskTableId, userTaskTableTaskId)
+    .leftJoin(ProjectFields.Table, projectTableId, taskProjectId)
     .where(UserTaskFields.UserId, userId)
     .andWhere(secondaryCondition)
     .catch(err => err);
@@ -140,7 +140,7 @@ export async function getUserTasks(userId: string, projectId: any, statusId: num
  */
 function getUserTaskSecondaryCondition (projectId: any): any {
   const now      = moment().format(dateFormat);
-  const tomorrow = moment().add("days", 1).format(dateFormat);
+  const tomorrow = moment().add(1, "days").format(dateFormat);
 
   let secondaryCondition: any = {};
 
@@ -195,6 +195,23 @@ export async function updateTasksOrdinal(tasks: Task[], res: Response): Promise<
       .catch(err => err);
     });
   })
+  .catch(err => err);
+  
+  res.sendStatus(200);
+}
+
+
+export async function rescheduleTask({ id, schedule }, res: Response): Promise<void> {
+  const now              = moment().format(dateFormat);
+  const tomorrow         = moment().add(1, "days").format(dateFormat);
+  const startOfNextWeek  = moment().add(1, "weeks").startOf("isoWeek").subtract(1, "days").format(dateFormat);
+  
+  const newScheduledDate = schedule == TaskSchedule.Today ? now :
+                           schedule == TaskSchedule.Tomorrow ? tomorrow : startOfNextWeek;
+  
+  await db(TaskFields.Table)
+  .where({ id })
+  .update(TaskFields.ScheduleDate, newScheduledDate)
   .catch(err => err);
   
   res.sendStatus(200);
