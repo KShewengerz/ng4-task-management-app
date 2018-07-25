@@ -220,5 +220,5 @@ export async function rescheduleTask({ id, schedule }, res: Response): Promise<v
   .update(TaskFields.ScheduleDate, newScheduledDate)
   .catch(err => err);
   
-  res.sendStatus(200);
+  res.status(200).send(newScheduledDate);
 }

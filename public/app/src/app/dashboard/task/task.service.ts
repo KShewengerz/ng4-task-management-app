@@ -48,5 +48,12 @@ export class TaskService {
       .map(response => response)
       .catch(err => Observable.throw(err));
   }
+  
+  rescheduleTask(body: any): Observable<any> {
+    return this.http
+      .put(`${this.url}/reschedule`, body)
+      .map(response => response)
+      .catch(err => Observable.throw(err));
+  }
 
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from "@angular/router";
+import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
+
+import * as moment from "moment";
 
 import { DragulaService } from "ng2-dragula/ng2-dragula";
 
@@ -37,8 +39,6 @@ export class TaskListComponent implements OnInit {
     this.projectId = snapshot.params.id;
     this.status    = snapshot.params.status;
     
-    console.log(tasks);
-
     this.onUpdateListDrop();
     this.sortTaskByOrdinal(tasks);
     this.loadTasksFromRouterChange();
@@ -69,6 +69,10 @@ export class TaskListComponent implements OnInit {
       const tasks = await this.sortTasks();
       this.taskService.updateTasksOrdinal(tasks).subscribe(response => {});
     });
+  }
+  
+  onNewTaskList(data: Task[]): void {
+    this.tasks = data;
   }
 
   async sortTasks(): Promise<Task[]> {

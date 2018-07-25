@@ -1,9 +1,11 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 
 import * as moment from "moment";
 
 import { TaskSchedule } from "../../../../../../../shared/enums/-index";
 import { Task } from "../../../../../../../shared/interfaces/-index";
+
+import { TaskService } from "../task.service";
 
 
 @Component({
@@ -13,35 +15,51 @@ import { Task } from "../../../../../../../shared/interfaces/-index";
   styleUrls   : ["task-menu.component.css"]
 })
 export class TaskMenuComponent implements OnInit {
-
+  
+  @Input() tasks: Task[] = [];
   @Input() task: Task;
+  @Output() newTaskList: EventEmitter<Task[]> = new EventEmitter<Task[]>();
   
   schedule: string;
   scheduleType: typeof TaskSchedule = TaskSchedule;
   
+  dateFormat      = "MM/DD/YYYY";
+  now             = moment().format(this.dateFormat);
+  tomorrow        = moment().add(1, "days").format(this.dateFormat);
   
-  
-  constructor() {}
+  constructor(private taskService: TaskService) {}
   
   ngOnInit(): void {
     this.validateSchedule();
   }
   
   validateSchedule(): void {
-    const dateFormat      = "MM/DD/YYYY";
-    const now             = moment().format(dateFormat);
-    const tomorrow        = moment().add(1, "days").format(dateFormat);
-    const startOfNextWeek = moment().add(1, "weeks").startOf("isoWeek").subtract(1, "days").format(dateFormat);
-    const endOfNextWeek   = moment().add(1, "weeks").endOf("isoWeek").subtract(1, "days").format(dateFormat);
-  
     if (this.task.scheduleDate == null) this.schedule = null;
-    else if (this.task.scheduleDate === now)  this.schedule = this.scheduleType.Today;
-    else if (this.task.scheduleDate === tomorrow) this.schedule = this.scheduleType.Tomorrow;
+    else if (this.task.scheduleDate === this.now)  this.schedule = this.scheduleType.Today;
+    else if (this.task.scheduleDate === this.tomorrow) this.schedule = this.scheduleType.Tomorrow;
     else this.schedule = this.scheduleType.NextWeek;
   }
   
   rescheduleTask(schedule: number): void {
-    console.log(schedule);
+    const id = this.task.id;
+    
+    this.taskService
+      .rescheduleTask({id, schedule})
+      .subscribe(response => {
+  
+        this.task.scheduleDate = response._body;
+        
+        this.tasks = this.tasks.filter(task => task.id === this.task.id ? this.task : task );
+        
+        if (this.schedule === this.scheduleType.Today) this.filterTaskList(this.now);
+        else if (this.schedule === this.scheduleType.Tomorrow) this.filterTaskList(this.tomorrow);
+        
+        this.newTaskList.emit(this.tasks);
+      });
+  }
+  
+  filterTaskList(scheduleDate: string): void {
+    this.tasks = this.tasks.filter(task => task.scheduleDate === scheduleDate);
   }
 
 }
