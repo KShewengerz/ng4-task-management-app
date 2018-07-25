@@ -36,6 +36,8 @@ export class TaskListComponent implements OnInit {
     const tasks    = snapshot.data.tasks;
     this.projectId = snapshot.params.id;
     this.status    = snapshot.params.status;
+    
+    console.log(tasks);
 
     this.onUpdateListDrop();
     this.sortTaskByOrdinal(tasks);

@@ -16,18 +16,21 @@
     <span class="title">Schedule</span>
 
     <ul class="schedule-menu">
-      <li>
-        <mdl-icon [mdl-tooltip]="today">insert_invitation</mdl-icon>
+      <li [class.active]="schedule === scheduleType.Today">
+        <mdl-icon [mdl-tooltip]="today"
+                  (click)="rescheduleTask(0)">insert_invitation</mdl-icon>
         <mdl-tooltip #today="mdlTooltip">Today</mdl-tooltip>
       </li>
 
-      <li>
-        <mdl-icon [mdl-tooltip]="tomorrow">update</mdl-icon>
+      <li [class.active]="schedule === scheduleType.Tomorrow">
+        <mdl-icon [mdl-tooltip]="tomorrow"
+                  (click)="rescheduleTask(1)">update</mdl-icon>
         <mdl-tooltip #tomorrow="mdlTooltip">Tomorrow</mdl-tooltip>
       </li>
 
-      <li>
-        <mdl-icon [mdl-tooltip]="nextWeek">event_note</mdl-icon>
+      <li [class.active]="schedule === scheduleType.NextWeek">
+        <mdl-icon [mdl-tooltip]="nextWeek"
+                  (click)="rescheduleTask(2)">event_note</mdl-icon>
         <mdl-tooltip #nextWeek="mdlTooltip">Next Week</mdl-tooltip>
       </li>
     </ul>

@@ -20,7 +20,8 @@
             (click)="edit(task.id)">{{ task.description }}</span>
 
       <!-- TASK MENU -->
-      <tms-task-menu *ngIf="status != 'completed'"></tms-task-menu>
+      <tms-task-menu *ngIf="status != 'completed'"
+                     [task]="task"></tms-task-menu>
     </div><!-- END ngIf="!isEditMode[task.id]" -->
 
     <!-- EDIT TASK FORM -->

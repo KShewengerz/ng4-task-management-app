@@ -4,54 +4,53 @@
     position: relative;
     top: 1px;
   }
-  
-  .actions > span {
-    font-size: 10px;
-    font-weight: bold;
-    color: gray;
-    position: relative;
-    top: -2px;
-    right: 10px;
-  }
-  
-  .actions button { margin-top: -5px; }
-  
-  button.mdl-button:hover > .material-icons { color: white; }
-  
-  
-  /* Schedule Menu */
-  .schedule-menu li {
-    display: inline-block;
-    padding: 3px 5px;
-  }
-  
-  .schedule-menu li:first-child { padding-left: 10px; }
-  
-  .schedule-menu li .material-icons {
-    font-size: 20px;
-    color: #444242c2;
-  }
-  
-  .schedule-menu li .material-icons:hover { color: #ff5252; }
-  
-  .schedule-menu { margin-top: 5px; }
-  
-  
-  /* Project Menu */
-  .project-menu li:not(.search):hover { background-color: whitesmoke; }
-  
-  .project-menu li:first-child { padding-bottom: 7px; }
-  
-  .project-menu .material-icons, .project-menu span { font-size: 10px; }
-  
-  .project-menu li, .project-menu p { padding-left: 10px; }
-  
-  .project-menu p > .material-icons { font-size: 12px; }
-  
-  .project-menu input {
-    border-bottom: 1px solid #80808085;
-    padding-bottom: 4px;
-  }
-  
-  .project-menu input:focus { outline: none; }
-  
+
+.actions > span {
+  font-size: 10px;
+  font-weight: bold;
+  color: gray;
+  position: relative;
+  top: -2px;
+  right: 10px;
+}
+
+.actions button { margin-top: -5px; }
+
+button.mdl-button:hover > .material-icons { color: white; }
+
+
+/* Schedule Menu */
+.schedule-menu li {
+  display: inline-block;
+  padding: 3px 5px;
+}
+
+.schedule-menu li:first-child { padding-left: 10px; }
+
+.schedule-menu li .material-icons {
+  font-size: 20px;
+  color: #444242c2;
+}
+
+.schedule-menu li .material-icons:hover, .schedule-menu li.active .material-icons { color: #ff5252; }
+
+.schedule-menu { margin-top: 5px; }
+
+
+/* Project Menu */
+.project-menu li:not(.search):hover { background-color: whitesmoke; }
+
+.project-menu li:first-child { padding-bottom: 7px; }
+
+.project-menu .material-icons, .project-menu span { font-size: 10px; }
+
+.project-menu li, .project-menu p { padding-left: 10px; }
+
+.project-menu p > .material-icons { font-size: 12px; }
+
+.project-menu input {
+  border-bottom: 1px solid #80808085;
+  padding-bottom: 4px;
+}
+
+.project-menu input:focus { outline: none; }

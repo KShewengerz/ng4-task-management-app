@@ -3,7 +3,7 @@ export interface Task {
   projectId: string;
   statusId: number;
   description: string;
-  scheduleDate: Date;
+  scheduleDate: string;
   ordinal: number;
 }
 
