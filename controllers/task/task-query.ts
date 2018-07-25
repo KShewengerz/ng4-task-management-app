@@ -3,7 +3,7 @@ import * as moment from "moment";
 
 import * as dbConnection from "../../config/db";
 
-import { UserTaskFields, TaskFields, TaskSchedule, ProjectFields } from "../../shared/enums/-index";
+import { UserTaskFields, TaskFields, TaskSchedule, ProjectFields, UserProjectFields } from "../../shared/enums/-index";
 import { Task } from "../../shared/interfaces/-index";
 
 const camelCase = require("camelcase-keys");
@@ -71,8 +71,6 @@ export async function updateTaskQuery(id, body, res): Promise<void> {
 export async function getUserTasks(userId: string, projectId: any, statusId: number): Promise<Task[]> {
   const taskTableId         = `${TaskFields.Table}.${TaskFields.Id}`;
   const userTaskTableTaskId = `${UserTaskFields.Table}.${UserTaskFields.TaskId}`;
-  const projectTableId      = `${ProjectFields.Table}.${ProjectFields.Id}`;
-  const taskProjectId       = `${TaskFields.Table}.${TaskFields.ProjectId}`;
   const now                 = moment().format(dateFormat);
   const startOfNextWeek     = moment().add(1, "weeks").startOf("isoWeek").subtract(1, "days").format(dateFormat);
   const endOfNextWeek       = moment().add(1, "weeks").endOf("isoWeek").subtract(1, "days").format(dateFormat);
@@ -112,19 +110,18 @@ export async function getUserTasks(userId: string, projectId: any, statusId: num
     .andWhereBetween(TaskFields.ScheduleDate, [startOfNextWeek, endOfNextWeek])
     .catch(err => err);
   } 
-  else {
+  else  {
     const secondaryCondition  = getUserTaskSecondaryCondition(projectId);
-
+  
     fetchTasks = await db(TaskFields.Table)
-    .select(`${TaskFields.Table}.*`, `${ProjectFields.Color}`)
+    .select(`${TaskFields.Table}.*`)
     .innerJoin(UserTaskFields.Table, taskTableId, userTaskTableTaskId)
-    .leftJoin(ProjectFields.Table, projectTableId, taskProjectId)
     .where(UserTaskFields.UserId, userId)
     .andWhere(secondaryCondition)
     .catch(err => err);
   }
   
-  const result = camelCase(fetchTasks);
+  const result = await camelCase(fetchTasks);
   const tasks  = statusId != 2 ? result.filter(task => task.statusId == statusId) : result;
 
   return tasks;
@@ -201,6 +198,15 @@ export async function updateTasksOrdinal(tasks: Task[], res: Response): Promise<
 }
 
 
+/**
+ * @description Reschedules a task based on its taskId and scheduleType
+ *
+ * @param {String} id
+ * @param {Number} schedule
+ * @param {e.Response} res
+ *
+ * @returns {Promise<void>}
+ */
 export async function rescheduleTask({ id, schedule }, res: Response): Promise<void> {
   const now              = moment().format(dateFormat);
   const tomorrow         = moment().add(1, "days").format(dateFormat);
