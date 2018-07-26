@@ -18,6 +18,7 @@ export class TaskMenuComponent implements OnInit {
   
   @Input() tasks: Task[] = [];
   @Input() task: Task;
+  @Input() projectId: any;
   @Output() newTaskList: EventEmitter<Task[]> = new EventEmitter<Task[]>();
   
   schedule: string;
@@ -49,16 +50,25 @@ export class TaskMenuComponent implements OnInit {
   
         this.task.scheduleDate = response._body;
         
-        this.tasks = this.tasks.filter(task => task.id === this.task.id ? this.task : task );
+        this.tasks = this.tasks.map(task => task.id === this.task.id ? this.task : task );
         
-        if (this.schedule === this.scheduleType.Today) this.filterTaskList(this.now);
-        else if (this.schedule === this.scheduleType.Tomorrow) this.filterTaskList(this.tomorrow);
-        
+        if (this.projectId.length == 1) {
+          if (this.schedule === this.scheduleType.Today) this.filterTaskList(this.now);
+          else if (this.schedule === this.scheduleType.Tomorrow) this.filterTaskList(this.tomorrow);
+          else if (this.schedule != null) {
+            const dates = [];
+    
+          }
+        }
+        else this.validateSchedule();
+  
         this.newTaskList.emit(this.tasks);
       });
   }
   
-  filterTaskList(scheduleDate: string): void {
+  filterTaskList(scheduleDate: string | string[]): void {
+    console.log("filter", scheduleDate);
+    console.log("list", this.tasks);
     this.tasks = this.tasks.filter(task => task.scheduleDate === scheduleDate);
   }
 
