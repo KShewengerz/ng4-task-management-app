@@ -55,21 +55,17 @@ export class TaskMenuComponent implements OnInit {
         if (this.projectId.length == 1) {
           if (this.schedule === this.scheduleType.Today) this.filterTaskList(this.now);
           else if (this.schedule === this.scheduleType.Tomorrow) this.filterTaskList(this.tomorrow);
-          else if (this.schedule != null) {
-            const dates = [];
-    
-          }
+          else this.filterTaskList(null);
         }
         else this.validateSchedule();
-  
+        
         this.newTaskList.emit(this.tasks);
       });
   }
   
   filterTaskList(scheduleDate: string | string[]): void {
-    console.log("filter", scheduleDate);
-    console.log("list", this.tasks);
-    this.tasks = this.tasks.filter(task => task.scheduleDate === scheduleDate);
+    if (scheduleDate) this.tasks = this.tasks.filter(task => task.scheduleDate === scheduleDate);
+    else this.tasks = this.tasks.filter(task => task.scheduleDate != this.now && task.scheduleDate != this.tomorrow);
   }
 
 }
