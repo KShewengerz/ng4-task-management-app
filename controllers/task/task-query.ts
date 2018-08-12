@@ -72,8 +72,8 @@ export async function getUserTasks(userId: string, projectId: any, statusId: num
   const taskTableId         = `${TaskFields.Table}.${TaskFields.Id}`;
   const userTaskTableTaskId = `${UserTaskFields.Table}.${UserTaskFields.TaskId}`;
   const now                 = moment().format(dateFormat);
-  const startOfNextWeek     = moment().add(1, "weeks").startOf("isoWeek").subtract(1, "days").format(dateFormat);
-  const endOfNextWeek       = moment().add(1, "weeks").endOf("isoWeek").subtract(1, "days").format(dateFormat);
+  const startOfNextWeek     = moment().add(2, "weeks").startOf("isoWeek").subtract(1, "days").format(dateFormat);
+  const endOfNextWeek       = moment().add(2, "weeks").endOf("isoWeek").subtract(1, "days").format(dateFormat);
 
   let fetchTasks: any;
 
@@ -103,6 +103,7 @@ export async function getUserTasks(userId: string, projectId: any, statusId: num
     .catch(err => err);
   }
   else if (projectId === TaskSchedule.NextWeek) {
+    console.log("next week", startOfNextWeek, endOfNextWeek);
     fetchTasks = await db(TaskFields.Table)
     .select(`${TaskFields.Table}.*`)
     .innerJoin(UserTaskFields.Table, taskTableId, userTaskTableTaskId)
@@ -210,7 +211,7 @@ export async function updateTasksOrdinal(tasks: Task[], res: Response): Promise<
 export async function rescheduleTask({ id, schedule }, res: Response): Promise<void> {
   const now              = moment().format(dateFormat);
   const tomorrow         = moment().add(1, "days").format(dateFormat);
-  const startOfNextWeek  = moment().add(1, "weeks").startOf("isoWeek").subtract(1, "days").format(dateFormat);
+  const startOfNextWeek  = moment().add(2, "weeks").startOf("isoWeek").subtract(1, "days").format(dateFormat);
   
   const newScheduledDate = schedule == TaskSchedule.Today ? now :
                            schedule == TaskSchedule.Tomorrow ? tomorrow : startOfNextWeek;
