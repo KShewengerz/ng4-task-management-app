@@ -1,15 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 
-import * as moment from "moment";
-
 import { DragulaService } from "ng2-dragula/ng2-dragula";
 
 import "rxjs/add/operator/filter";
 
 import { TaskService } from "../task.service";
 
-import { Task } from "../../../../../../../shared/interfaces/-index";
+import { Task, Project } from "../../../../../../../shared/interfaces/-index";
 
 
 @Component({
@@ -21,6 +19,8 @@ import { Task } from "../../../../../../../shared/interfaces/-index";
 export class TaskListComponent implements OnInit {
 
   tasks: Task[] = [];
+  projects: Project[] = [];
+  
   projectId: string;
   errorMessage: string;
   status: string;
@@ -36,6 +36,8 @@ export class TaskListComponent implements OnInit {
   ngOnInit(): void {
     const snapshot = this.route.snapshot;
     const tasks    = snapshot.data.tasks;
+    
+    this.projects  = snapshot.data.projects;
     this.projectId = snapshot.params.id;
     this.status    = snapshot.params.status;
     

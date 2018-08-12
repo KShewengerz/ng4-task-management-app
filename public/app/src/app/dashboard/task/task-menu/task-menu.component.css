@@ -38,7 +38,7 @@ button.mdl-button:hover > .material-icons { color: white; }
 
 
 /* Project Menu */
-.project-menu li:not(.search):hover { background-color: whitesmoke; }
+.project-menu li:not(.search):hover, li.active { background-color: whitesmoke; }
 
 .project-menu li:first-child { padding-bottom: 7px; }
 

@@ -2,6 +2,7 @@ import { Injectable, Inject } from "@angular/core";
 import { Http } from "@angular/http";
 
 import { Observable } from "rxjs/Observable";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import "rxjs/add/operator/map";
 
 import { Project } from "../../../../../../shared/interfaces/-index";
@@ -9,6 +10,9 @@ import { Project } from "../../../../../../shared/interfaces/-index";
 
 @Injectable()
 export class ProjectService {
+  
+  sendNewProject  = new BehaviorSubject<any>(null);
+  newProject      = this.sendNewProject.asObservable();
   
   url: string;
   

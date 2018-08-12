@@ -43,14 +43,11 @@
         <input type="text" placeholder="Search"/>
       </li>
 
-      <li class="cursor-pointer">
-        <mdl-icon class="red">fiber_manual_record</mdl-icon>
-        <span>Personal</span>
-      </li>
-
-      <li class="cursor-pointer">
-        <mdl-icon class="green">fiber_manual_record</mdl-icon>
-        <span>Work</span>
+      <li *ngFor="let project of projects"
+          class="cursor-pointer"
+          [class.active]="project.id == task.projectId">
+        <mdl-icon [ngStyle]="{ color: project.color }">fiber_manual_record</mdl-icon>
+        <span>{{ project.name }}</span>
       </li>
 
       <p class="text-gray">

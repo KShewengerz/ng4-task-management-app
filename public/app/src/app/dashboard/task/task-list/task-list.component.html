@@ -23,6 +23,7 @@
       <tms-task-menu *ngIf="status != 'completed'"
                      [task]="task"
                      [tasks]="tasks"
+                     [projects]="projects"
                      [projectId]="projectId"
                      (newTaskList)="onNewTaskList($event)"></tms-task-menu>
     </div><!-- END ngIf="!isEditMode[task.id]" -->

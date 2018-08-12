@@ -8,7 +8,7 @@
   padding-bottom: 10px;
 }
 
-.task-completed { 
+.task-completed {
   text-decoration: line-through;
   color: gray;
 }
@@ -21,8 +21,9 @@
   top: 5px;
  }
 
-#drag-handle:hover .material-icons, .task:hover .material-icons { 
-  color: gray !important; 
+#drag-handle:hover .material-icons,
+.task:hover .material-icons {
+  color: gray !important;
   cursor: pointer;
 }
 

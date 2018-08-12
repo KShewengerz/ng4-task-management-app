@@ -3,9 +3,10 @@ import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 import * as moment from "moment";
 
 import { TaskSchedule } from "../../../../../../../shared/enums/-index";
-import { Task } from "../../../../../../../shared/interfaces/-index";
+import { Task, Project } from "../../../../../../../shared/interfaces/-index";
 
 import { TaskService } from "../task.service";
+import { ProjectService } from "../../../shared/project/project.service";
 
 
 @Component({
@@ -17,6 +18,7 @@ import { TaskService } from "../task.service";
 export class TaskMenuComponent implements OnInit {
   
   @Input() tasks: Task[] = [];
+  @Input() projects: Project[] = [];
   @Input() task: Task;
   @Input() projectId: any;
   @Output() newTaskList: EventEmitter<Task[]> = new EventEmitter<Task[]>();
@@ -30,10 +32,24 @@ export class TaskMenuComponent implements OnInit {
   startOfNextWeek = moment().add(2, "weeks").startOf("isoWeek").subtract(1, "days").format(this.dateFormat);
   endOfNextWeek   = moment().add(2, "weeks").endOf("isoWeek").subtract(1, "days").format(this.dateFormat);
   
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService,
+              private projectService: ProjectService) {}
   
   ngOnInit(): void {
+    this.onNewProject();
     this.validateSchedule();
+  }
+  
+  onNewProject(): void {
+    this.projectService
+      .newProject
+      .subscribe(project => project ? this.fetchProjects() : null);
+  }
+  
+  fetchProjects(): void {
+    this.projectService
+      .fetchAllUserProjects()
+      .subscribe(projects => this.projects = projects);
   }
   
   validateSchedule(): void {

@@ -4,18 +4,22 @@ import { TaskComponent } from "./task.component";
 import { TaskListComponent } from "./task-list/task-list.component";
 
 import { TaskListResolver } from "./task-resolver.service";
+import { ProjectListResolver } from "../../shared/project/project-resolver.service";
 
 
 const routes: Routes = [
-  { 
-    path: "", 
+  {
+    path: "",
     component: TaskComponent,
     children: [
       { path: "", pathMatch: "full", redirectTo: "open/0" },
-      { 
-        path: ":status/:id", 
+      {
+        path: ":status/:id",
         component: TaskListComponent,
-        resolve: { tasks: TaskListResolver }
+        resolve: {
+          tasks: TaskListResolver,
+          projects: ProjectListResolver
+        }
       }
     ]
   }
