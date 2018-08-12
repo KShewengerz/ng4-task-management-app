@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, Input, OnInit, OnChanges, Output, EventEmitter, ViewChild } from "@angular/core";
 
 import * as moment from "moment";
 
@@ -15,7 +15,7 @@ import { ProjectService } from "../../../shared/project/project.service";
   templateUrl : "task-menu.component.html",
   styleUrls   : ["task-menu.component.css"]
 })
-export class TaskMenuComponent implements OnInit {
+export class TaskMenuComponent implements OnInit, OnChanges {
   
   @Input() tasks: Task[] = [];
   @Input() projects: Project[] = [];
@@ -36,21 +36,12 @@ export class TaskMenuComponent implements OnInit {
               private projectService: ProjectService) {}
   
   ngOnInit(): void {
-    this.onNewProject();
     this.validateSchedule();
   }
   
-  onNewProject(): void {
-    this.projectService
-      .resetProjectList
-      .subscribe(project => project ? this.fetchProjects() : null);
-  }
-  
-  fetchProjects(): void {
-    this.projectService
-      .fetchAllUserProjects()
-      .subscribe(projects => this.projects = projects);
-  }
+   ngOnChanges(changes): void {
+    this.projects = changes.projects.currentValue;
+   }
   
   validateSchedule(): void {
     if (this.task.scheduleDate === this.now)  this.schedule = this.scheduleType.Today;
@@ -58,6 +49,15 @@ export class TaskMenuComponent implements OnInit {
     else if (this.task.scheduleDate === this.startOfNextWeek &&
              this.task.scheduleDate <= this.endOfNextWeek) this.schedule = this.scheduleType.NextWeek;
     else this.schedule = null;
+  }
+  
+  updateTaskProjectId(id: string, projectId: string, event, actionButton: any, menu: any): void {
+    this.taskService
+      .updateTaskProjectId({id, projectId})
+      .subscribe(response => {
+        menu.toggle(event, actionButton);
+        this.task.projectId = projectId;
+      });
   }
   
   rescheduleTask(schedule: number): void {

@@ -6,6 +6,7 @@ import { DragulaService } from "ng2-dragula/ng2-dragula";
 import "rxjs/add/operator/filter";
 
 import { TaskService } from "../task.service";
+import { ProjectService } from "../../../shared/project/project.service";
 
 import { Task, Project } from "../../../../../../../shared/interfaces/-index";
 
@@ -31,7 +32,8 @@ export class TaskListComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private dragula: DragulaService,
-              private taskService: TaskService) {}
+              private taskService: TaskService,
+              private projectService: ProjectService) {}
 
   ngOnInit(): void {
     const snapshot = this.route.snapshot;
@@ -41,6 +43,7 @@ export class TaskListComponent implements OnInit {
     this.projectId = snapshot.params.id;
     this.status    = snapshot.params.status;
     
+    this.onProjectStatusUpdate();
     this.onUpdateListDrop();
     this.sortTaskByOrdinal(tasks);
     this.loadTasksFromRouterChange();
@@ -71,6 +74,18 @@ export class TaskListComponent implements OnInit {
       const tasks = await this.sortTasks();
       this.taskService.updateTasksOrdinal(tasks).subscribe(response => {});
     });
+  }
+  
+  onProjectStatusUpdate(): void {
+    this.projectService
+    .resetProjectList
+    .subscribe(project => project ? this.fetchProjects() : null);
+  }
+  
+  fetchProjects(): void {
+    this.projectService
+    .fetchAllUserProjects()
+    .subscribe(projects => this.projects = projects);
   }
   
   onNewTaskList(data: Task[]): void {

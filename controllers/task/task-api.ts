@@ -97,6 +97,20 @@ export async function updateTasksOrdinal(req: Request, res: Response): Promise<v
 
 
 /**
+ * @description Update Task's Project Id
+ *
+ * @param {e.Request} req
+ * @param {e.Response} res
+ *
+ * @returns {Promise<void>}
+ */
+export async function updateTaskProjectId(req: Request, res: Response): Promise<void> {
+  const body = req.body;
+  await taskQuery.updateTaskProjectId(body, res);
+}
+
+
+/**
  * @api {get} /:projectId
  * @apiParam {any} projectId
  * 

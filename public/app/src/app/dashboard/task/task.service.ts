@@ -35,6 +35,12 @@ export class TaskService {
       .map(response => response);
   }
   
+  updateTaskProjectId(body: any): Observable<any> {
+    return this.http
+      .put(`${this.url}/projectId`, body)
+      .map(response => response);
+  }
+  
   fetchAllTasksByProjectStatusId(id: string, status: string): Observable<Task[]> {
     return this.http
       .get(`${this.url}/${status}/${id}`)

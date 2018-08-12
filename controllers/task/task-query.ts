@@ -199,6 +199,27 @@ export async function updateTasksOrdinal(tasks: Task[], res: Response): Promise<
 
 
 /**
+ * @description Update Task's Project Id
+ *
+ * @param {String} id
+ * @param {String} projectId
+ * @param {e.Response} res
+ *
+ * @returns {Promise<void>}
+ */
+export async function updateTaskProjectId({ id, projectId }, res: Response): Promise<void> {
+  await db(TaskFields.Table)
+    .where({ id })
+    .update(TaskFields.ProjectId, projectId)
+    .catch(err => err);
+  
+  
+  console.log("enter update", id, projectId);
+  res.sendStatus(200);
+}
+
+
+/**
  * @description Reschedules a task based on its taskId and scheduleType
  *
  * @param {String} id

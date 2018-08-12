@@ -45,7 +45,8 @@
 
       <li *ngFor="let project of projects"
           class="cursor-pointer"
-          [class.active]="project.id == task.projectId">
+          [class.active]="project.id == task.projectId"
+          (click)="updateTaskProjectId(task.id, project.id, $event, actionBtn, menu)">
         <mdl-icon [ngStyle]="{ color: project.color }">fiber_manual_record</mdl-icon>
         <span>{{ project.name }}</span>
       </li>

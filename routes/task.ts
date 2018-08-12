@@ -22,6 +22,13 @@ router.put("/", api.updateTasksOrdinal);
 
 
 /**
+ * @api {put} /projectId
+ * @description Update Task's Project Id
+ */
+router.put("/projectId", api.updateTaskProjectId);
+
+
+/**
  * @api {put} /reschedule
  *
  * @description Reschedules a task
