@@ -62,13 +62,12 @@ export class ProjectComponent implements OnInit {
       .subscribe(
         response => {
           const {id, color} = response;
-          const type = "add";
 
           this.projects.push({ id, name, color });
           this.isNewProject = false;
           this.errorMessage = "";
           
-          this.projectService.sendNewProject.next({id});
+          this.projectService.isResetProjectList.next(true);
         },
         err => this.extractErrorMessage(err)
       );
@@ -97,11 +96,10 @@ export class ProjectComponent implements OnInit {
         this.projectService
         .deleteProject(id)
         .subscribe(response => {
-          const type  = "delete";
           const index = this.projects.findIndex(project => project.id === id);
           this.projects.splice(index, 1);
   
-          this.projectService.sendNewProject.next({ id });
+          this.projectService.isResetProjectList.next(true);
         });
       },
       err => {});

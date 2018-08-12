@@ -42,7 +42,7 @@ export class TaskMenuComponent implements OnInit {
   
   onNewProject(): void {
     this.projectService
-      .newProject
+      .resetProjectList
       .subscribe(project => project ? this.fetchProjects() : null);
   }
   

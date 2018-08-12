@@ -11,8 +11,8 @@ import { Project } from "../../../../../../shared/interfaces/-index";
 @Injectable()
 export class ProjectService {
   
-  sendNewProject  = new BehaviorSubject<any>(null);
-  newProject      = this.sendNewProject.asObservable();
+  isResetProjectList  = new BehaviorSubject<boolean>(false);
+  resetProjectList      = this.isResetProjectList.asObservable();
   
   url: string;
   
