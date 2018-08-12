@@ -103,7 +103,6 @@ export async function getUserTasks(userId: string, projectId: any, statusId: num
     .catch(err => err);
   }
   else if (projectId === TaskSchedule.NextWeek) {
-    console.log("next week", startOfNextWeek, endOfNextWeek);
     fetchTasks = await db(TaskFields.Table)
     .select(`${TaskFields.Table}.*`)
     .innerJoin(UserTaskFields.Table, taskTableId, userTaskTableTaskId)

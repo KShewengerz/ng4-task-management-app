@@ -27,6 +27,8 @@ export class TaskMenuComponent implements OnInit {
   dateFormat      = "MM/DD/YYYY";
   now             = moment().format(this.dateFormat);
   tomorrow        = moment().add(1, "days").format(this.dateFormat);
+  startOfNextWeek = moment().add(2, "weeks").startOf("isoWeek").subtract(1, "days").format(this.dateFormat);
+  endOfNextWeek   = moment().add(2, "weeks").endOf("isoWeek").subtract(1, "days").format(this.dateFormat);
   
   constructor(private taskService: TaskService) {}
   
@@ -35,10 +37,11 @@ export class TaskMenuComponent implements OnInit {
   }
   
   validateSchedule(): void {
-    if (this.task.scheduleDate == null) this.schedule = null;
-    else if (this.task.scheduleDate === this.now)  this.schedule = this.scheduleType.Today;
+    if (this.task.scheduleDate === this.now)  this.schedule = this.scheduleType.Today;
     else if (this.task.scheduleDate === this.tomorrow) this.schedule = this.scheduleType.Tomorrow;
-    else this.schedule = this.scheduleType.NextWeek;
+    else if (this.task.scheduleDate === this.startOfNextWeek &&
+             this.task.scheduleDate <= this.endOfNextWeek) this.schedule = this.scheduleType.NextWeek;
+    else this.schedule = null;
   }
   
   rescheduleTask(schedule: number): void {
