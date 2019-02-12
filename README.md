@@ -1,6 +1,8 @@
 # task-management-system
 An application that helps you manage your tasks.
 
+![task-board](./shared/images/task-board.gif)
+
 
 #### Main dev tools used:
 `Angular 4` `Angular CLI` `NodeJS` `ExpressJS` `KnexJS` `MySQL` `Typescript` `ES6` `Passport-Local`
